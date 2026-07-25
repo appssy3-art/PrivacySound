@@ -1,0 +1,368 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="description" content="SoundCover - 모바일 최적화 PWA 화장실 에티켓 사운드 앱. 100% 소음 차단 및 화면 꺼짐 방지.">
+  <meta name="theme-color" content="#0a0a0f">
+  <title>SoundCover - Mobile Etiquette Sound App</title>
+  
+  <!-- PWA Manifest & Icons -->
+  <link rel="manifest" href="./manifest.json">
+  <link rel="icon" type="image/png" sizes="192x192" href="./public/assets/icon-192.png">
+  <link rel="shortcut icon" href="./public/assets/icon-192.png">
+  <link rel="apple-touch-icon" href="./public/assets/icon-192.png">
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Outfit:wght@400;600;800&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
+  
+  <!-- KakaoTalk In-App Browser Auto Escape to Chrome -->
+  <script>
+    (function escapeInAppBrowser() {
+      var ua = navigator.userAgent.toLowerCase();
+      var isAndroid = /android/i.test(ua);
+      var isKakao = /kakaotalk/i.test(ua);
+      if (isKakao && isAndroid) {
+        var targetUrl = location.href.replace(/^https?:\/\//i, '');
+        location.href = 'intent://' + targetUrl + '#Intent;scheme=https;package=com.android.chrome;end;';
+      }
+    })();
+  </script>
+
+  <!-- Stylesheet -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-container">
+    <!-- Header -->
+    <header class="app-header">
+      <div class="logo">
+        <img src="./public/assets/profile_avatar.png" class="brand-logo-img" alt="SoundCover Logo" />
+        <h1 class="logo-text">SoundCover</h1>
+      </div>
+      <div class="lang-selector-pill">
+        <span class="globe-icon">🌐</span>
+        <select id="langSelect" aria-label="Language Selector">
+          <option value="ko" selected>🇰🇷 한국어</option>
+          <option value="en">🇺🇸 English</option>
+          <option value="ja">🇯🇵 日本語</option>
+          <option value="zh">🇨🇳 中文</option>
+          <option value="es">🇪🇸 Español</option>
+          <option value="pt">🇧🇷 Português</option>
+          <option value="de">🇩🇪 Deutsch</option>
+          <option value="fr">🇫🇷 Français</option>
+          <option value="vi">🇻🇳 Tiếng Việt</option>
+          <option value="id">🇮🇩 Bahasa Indonesia</option>
+          <option value="th">🇹🇭 ไทย</option>
+          <option value="ar">🇸🇦 العربية</option>
+          <option value="ru">🇷🇺 Русский</option>
+          <option value="hi">🇮🇳 हिन्दी</option>
+          <option value="la">🏛️ Latina</option>
+        </select>
+      </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="app-main">
+      <!-- Status Badge Slogan -->
+      <div class="status-indicator">
+        <span id="wakeLockBadge" class="badge badge-inactive">
+          <span class="badge-dot"></span>
+          <span id="wakeLockText" data-i18n="wakeLockInactive">🔒 프라이빗하게 지켜 드리는 화장실 소리 에티켓</span>
+        </span>
+      </div>
+
+      <!-- Pulse Button Section -->
+      <div class="button-container">
+        <div class="ripple-ring r1"></div>
+        <div class="ripple-ring r2"></div>
+        <div class="ripple-ring r3"></div>
+        <button id="playBtn" class="play-button" aria-label="Play Sound">
+          <div class="play-button-inner">
+            <svg id="playIcon" class="icon-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M8 5V19L19 12L8 5Z" fill="currentColor"/>
+            </svg>
+            <svg id="pauseIcon" class="icon-svg hidden" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M6 19H10V5H6V19ZM14 5V19H18V5H14Z" fill="currentColor"/>
+            </svg>
+          </div>
+        </button>
+      </div>
+
+      <!-- Timer & Equalizer Visualizer Capsule -->
+      <div class="timer-display">
+        <div class="timer-capsule">
+          <div class="sound-wave-bars">
+            <span class="bar b1"></span>
+            <span class="bar b2"></span>
+            <span class="bar b3"></span>
+            <span class="bar b4"></span>
+          </div>
+          <span id="timerCountdown" class="timer-countdown">03:00</span>
+          <div class="sound-wave-bars">
+            <span class="bar b4"></span>
+            <span class="bar b3"></span>
+            <span class="bar b2"></span>
+            <span class="bar b1"></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Settings Panel -->
+      <section class="controls-panel">
+        <!-- Sound Choice -->
+        <div class="control-group">
+          <h2 class="control-label" data-i18n="selectSound">음원 선택</h2>
+          <div class="sound-selector">
+            <button class="sound-btn active" data-sound="dryer">
+              <span class="sound-icon">💨</span>
+              <span class="sound-name" data-i18n="soundDryer">드라이기</span>
+            </button>
+            <button class="sound-btn" data-sound="power_shower">
+              <span class="sound-icon">🚿</span>
+              <span class="sound-name" data-i18n="soundPowerShower">강력 샤워기</span>
+            </button>
+            <button class="sound-btn" data-sound="heavy_downpour">
+              <span class="sound-icon">🌧️</span>
+              <span class="sound-name" data-i18n="soundHeavyDownpour">장대비</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Timer Choice -->
+        <div class="control-group">
+          <h2 class="control-label" data-i18n="selectTimer">타이머 설정</h2>
+          <div class="timer-selector">
+            <button class="timer-btn" data-time="120">2M</button>
+            <button class="timer-btn active" data-time="180">3M</button>
+            <button class="timer-btn" data-time="300">5M</button>
+            <button class="timer-btn" data-time="infinite">∞</button>
+          </div>
+        </div>
+
+        <!-- Volume Booster & Control -->
+        <div class="control-group">
+          <div class="control-header-flex">
+            <h2 class="control-label" data-i18n="volumeControl">볼륨 설정 (소리 증폭)</h2>
+            <span id="volumeBadge" class="volume-badge">300% MAX BOOST</span>
+          </div>
+          <div class="volume-slider-box">
+            <span class="vol-icon">🔉</span>
+            <input type="range" id="volumeRange" class="volume-slider" min="50" max="350" value="300" step="5" aria-label="Volume Boost Slider">
+            <span class="vol-icon">🔊</span>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Ad & Support Footer Area -->
+    <footer class="app-footer">
+      <!-- Curated Clean Affiliate/Product Banner (Coupang Partners Compliant) -->
+      <div class="affiliate-banner">
+        <a id="affiliateLink" href="https://link.coupang.com/a/fFeFuNicFg" target="_blank" rel="noopener noreferrer">
+          <div class="banner-badge" data-i18n="bathroomEssential">화장실 추천템</div>
+          <div class="banner-body">
+            <span id="bannerText" class="banner-text">🚽 급할 때 유용한 물에 잘 녹는 비데 물티슈 특가</span>
+            <span class="banner-go">➔</span>
+          </div>
+        </a>
+        <div class="coupang-disclaimer">이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.</div>
+      </div>
+
+      <!-- Bottom Dual Action Buttons (Support & App Install) -->
+      <div class="bottom-dual-actions">
+        <button id="supportBtn" class="btn-action-support">
+          <span data-i18n="buyCoffee">💖 응원하기</span>
+        </button>
+        <button id="btnFooterInstall" class="btn-action-install">
+          <span>📲 앱 설치</span>
+        </button>
+      </div>
+
+      <!-- Google AdSense Placeholder -->
+      <div class="adsense-placeholder">
+        <ins class="adsbygoogle"
+             style="display:block"
+             data-ad-client="ca-pub-XXXXXXXXXXXXXXXX"
+             data-ad-slot="XXXXXXXXXX"
+             data-ad-format="horizontal"
+             data-full-width-responsive="true"></ins>
+        <span class="adsense-label" data-i18n="adsenseLabel">Sponsored Link</span>
+      </div>
+    </footer>
+  </div>
+
+  <!-- Custom Luxury PWA Install Modal (Expert Conversion Design) -->
+  <div id="pwaModal" class="modal-overlay hidden">
+    <div class="modal-content pwa-guide-card">
+      <button id="closePwaModal" class="btn-close-modal">✕</button>
+      
+      <div class="pwa-guide-header">
+        <img src="./public/assets/profile_avatar.png" class="pwa-guide-logo" alt="SoundCover Icon" />
+        <h3 class="pwa-headline">앱스토어 검색해서<br>용량 차지하는 앱 다운받지 마세요! 🙅‍♂️</h3>
+      </div>
+
+      <div class="pwa-benefits-list">
+        <div class="benefit-item">
+          <span class="benefit-icon">⚡</span>
+          <div class="benefit-text">
+            <strong>용량 0MB • 원터치 바로 설치</strong>
+            <span>앱스토어 로그인 필요 없이 바탕화면에 즉시 아이콘 생성</span>
+          </div>
+        </div>
+        <div class="benefit-item">
+          <span class="benefit-icon">🔒</span>
+          <div class="benefit-text">
+            <strong>화면 꺼짐 방지 & 100% 프라이버시</strong>
+            <span>화장실 에티켓 소음을 민망함 없이 완벽 차단</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="pwa-modal-actions">
+        <button id="btnPwaModalCancel" class="btn-modal-cancel">취소</button>
+        <button id="btnDirectAndroidInstall" class="btn-modal-install">
+          <span>🚀 바탕화면에 무료 앱 설치</span>
+        </button>
+      </div>
+
+      <div class="pwa-ios-notice">
+        <span>🍎 아이폰(iOS): 하단 공유(⬆️) ➔ [홈 화면에 추가] 선택</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Support Modal -->
+  <div id="supportModal" class="modal-overlay hidden">
+    <div class="modal-content">
+      <button id="closeModal" class="btn-close-modal">✕</button>
+      
+      <div class="modal-mascot">☕</div>
+      <h3 class="modal-title" data-i18n="donationTitle">❤️ "덕분에 민망함 해결했어요!" 응원하기</h3>
+      <p class="modal-desc" data-i18n="donationDesc">무료 에티켓 서비스를 유용하게 쓰셨다면 개발자에게 따뜻한 응원의 마음을 전해보세요!</p>
+      
+      <!-- Country-Based Payment Method Switcher Tabs -->
+      <div class="payment-tabs">
+        <button id="payTabKr" class="pay-tab active">🇰🇷 한국</button>
+        <button id="payTabGlobal" class="pay-tab">🇺🇸 Global</button>
+        <button id="payTabJa" class="pay-tab">🇯🇵 日本</button>
+        <button id="payTabZh" class="pay-tab">🇨🇳 中国</button>
+        <button id="payTabEs" class="pay-tab">🇪🇸 España</button>
+        <button id="payTabPt" class="pay-tab">🇧🇷 Brasil</button>
+        <button id="payTabLa" class="pay-tab">🏛️ Latina</button>
+      </div>
+      
+      <div class="donation-options">
+        <!-- KR Payment Options (KakaoPay 1,000 KRW) -->
+        <div id="krDonationList" class="kr-donation-list">
+          <a id="kakaoLink" href="http://qr.kakaopay.com/FPdDICR5t" target="_blank" rel="noopener noreferrer" class="donation-item kakao-btn">
+            <span class="donation-icon">💛</span>
+            <span>카카오페이 1,000원 응원하기</span>
+          </a>
+        </div>
+        
+        <!-- Global Payment Options (PayPal & Cards) -->
+        <div id="globalDonationList" class="global-donation-list hidden">
+          <a href="https://ko-fi.com/soundcover" target="_blank" rel="noopener noreferrer" class="donation-item paypal-btn">
+            <span class="donation-icon">💙</span>
+            <span>PayPal (Visa / Mastercard / Amex)</span>
+          </a>
+          <a href="https://ko-fi.com/soundcover" target="_blank" rel="noopener noreferrer" class="donation-item bmac-btn">
+            <span class="donation-icon">☕</span>
+            <span>Ko-fi (Card / Apple Pay)</span>
+          </a>
+        </div>
+
+        <!-- JA Payment Options (PayPal & Cards) -->
+        <div id="jaDonationList" class="ja-donation-list hidden">
+          <a href="https://ko-fi.com/soundcover" target="_blank" rel="noopener noreferrer" class="donation-item paypal-btn">
+            <span class="donation-icon">💙</span>
+            <span>PayPal (クレジットカード / ペイパル)</span>
+          </a>
+          <a href="https://ko-fi.com/soundcover" target="_blank" rel="noopener noreferrer" class="donation-item bmac-btn">
+            <span class="donation-icon">☕</span>
+            <span>Buy Me a Coffee (Apple Pay)</span>
+          </a>
+        </div>
+
+        <!-- ZH Payment Options -->
+        <div id="zhDonationList" class="zh-donation-list hidden">
+          <a href="https://ko-fi.com/soundcover" target="_blank" rel="noopener noreferrer" class="donation-item paypal-btn">
+            <span class="donation-icon">💙</span>
+            <span>PayPal 国际支付 (信用卡 / 贝宝)</span>
+          </a>
+          <a href="https://ko-fi.com/soundcover" target="_blank" rel="noopener noreferrer" class="donation-item bmac-btn">
+            <span class="donation-icon">☕</span>
+            <span>Buy Me a Coffee 赞赏 (Apple Pay)</span>
+          </a>
+        </div>
+
+        <!-- ES Payment Options -->
+        <div id="esDonationList" class="es-donation-list hidden">
+          <a href="https://ko-fi.com/soundcover" target="_blank" rel="noopener noreferrer" class="donation-item paypal-btn">
+            <span class="donation-icon">💙</span>
+            <span>PayPal (Tarjeta de crédito / PayPal)</span>
+          </a>
+          <a href="https://ko-fi.com/soundcover" target="_blank" rel="noopener noreferrer" class="donation-item bmac-btn">
+            <span class="donation-icon">☕</span>
+            <span>Buy Me a Coffee (Apple Pay)</span>
+          </a>
+        </div>
+
+        <!-- PT Payment Options (Brasil) -->
+        <div id="ptDonationList" class="pt-donation-list hidden">
+          <a href="https://ko-fi.com/soundcover" target="_blank" rel="noopener noreferrer" class="donation-item paypal-btn">
+            <span class="donation-icon">💙</span>
+            <span>PayPal (Cartão de Crédito / PayPal)</span>
+          </a>
+          <a href="https://ko-fi.com/soundcover" target="_blank" rel="noopener noreferrer" class="donation-item bmac-btn">
+            <span class="donation-icon">☕</span>
+            <span>Buy Me a Coffee (Apple Pay)</span>
+          </a>
+        </div>
+
+        <!-- LA Payment Options (Latina) -->
+        <div id="laDonationList" class="la-donation-list hidden">
+          <a href="https://ko-fi.com/soundcover" target="_blank" rel="noopener noreferrer" class="donation-item paypal-btn">
+            <span class="donation-icon">💙</span>
+            <span>PayPal (Syngrapha Crediti / PayPal)</span>
+          </a>
+          <a href="https://ko-fi.com/soundcover" target="_blank" rel="noopener noreferrer" class="donation-item bmac-btn">
+            <span class="donation-icon">☕</span>
+            <span>Buy Me a Coffee (Apple Pay)</span>
+          </a>
+        </div>
+      </div>
+
+      <div class="modal-actions">
+        <button id="laterBtn" class="btn-later" data-i18n="laterBtn">나중에 할게요</button>
+      </div>
+      
+      <div class="modal-footer">
+        <p data-i18n="donationThankYou">당신의 따뜻한 마음이 이 서비스를 지켜나가는 힘이 됩니다. 진심으로 감사드려요.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Service Worker Registration -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw.js?v=50')
+          .then(reg => {
+            console.log('Service Worker registered successfully!', reg.scope);
+            reg.update();
+          })
+          .catch(err => console.log('Service Worker registration failed:', err));
+      });
+    }
+  </script>
+  <!-- App JS -->
+  <script src="app.js"></script>
+</body>
+</html>
