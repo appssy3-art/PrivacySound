@@ -353,7 +353,7 @@
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js?v=51')
+        navigator.serviceWorker.register('./sw.js?v=52')
           .then(reg => {
             console.log('Service Worker registered successfully!', reg.scope);
             reg.update();
@@ -363,6 +363,6 @@
     }
   </script>
   <!-- App JS -->
-  <script src="app.js"></script>
+  <script src="app.js?v=86"></script>
 </body>
 </html>
