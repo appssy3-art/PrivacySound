@@ -1,30 +1,26 @@
-const CACHE_NAME = 'soundcover-v87';
+const CACHE_NAME = 'soundcover-v90';
 const ASSETS = [
   './',
   './index.html',
   './styles.css',
-  './app.js?v=86',
+  './app.js?v=90',
   './manifest.json',
-  './public/assets/dryer.wav',
-  './public/assets/power_shower.wav',
-  './public/assets/heavy_downpour.wav',
   './public/assets/profile_avatar.png',
   './public/assets/icon-192.png',
   './public/assets/icon-512.png'
 ];
 
-// Install Event - Immediately activate new cache
+// Install Event - Immediately activate new SW
 self.addEventListener('install', (e) => {
   self.skipWaiting();
   e.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      console.log('[Service Worker] Pre-caching SoundCover v86 assets');
       return cache.addAll(ASSETS);
     })
   );
 });
 
-// Activate Event - Delete all old caches
+// Activate Event - Delete ALL old caches immediately
 self.addEventListener('activate', (e) => {
   e.waitUntil(
     caches.keys().then((keys) => {
@@ -40,11 +36,23 @@ self.addEventListener('activate', (e) => {
   );
 });
 
-// Fetch Event
+// Fetch Event - Network First Strategy for all HTML & JS requests
 self.addEventListener('fetch', (e) => {
-  e.respondWith(
-    fetch(e.request).catch(() => {
-      return caches.match(e.request);
-    })
-  );
+  if (e.request.mode === 'navigate' || e.request.url.includes('.js') || e.request.url.includes('.html')) {
+    e.respondWith(
+      fetch(e.request, { cache: 'no-store' })
+        .then((response) => {
+          const copy = response.clone();
+          caches.open(CACHE_NAME).then((cache) => cache.put(e.request, copy));
+          return response;
+        })
+        .catch(() => caches.match(e.request))
+    );
+  } else {
+    e.respondWith(
+      caches.match(e.request).then((cachedResponse) => {
+        return cachedResponse || fetch(e.request);
+      })
+    );
+  }
 });

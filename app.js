@@ -753,29 +753,6 @@ function setupEventListeners() {
     });
   }
 
-  // PWA Guide Modal Elements
-  const pwaModal = document.getElementById('pwaModal');
-  const closePwaModal = document.getElementById('closePwaModal');
-  const btnPwaModalConfirm = document.getElementById('btnPwaModalConfirm');
-
-  function openPwaModal() {
-    if (pwaModal) pwaModal.classList.remove('hidden');
-  }
-
-  function closePwaModalFunc() {
-    if (pwaModal) pwaModal.classList.add('hidden');
-  }
-
-  const btnPwaModalCancel = document.getElementById('btnPwaModalCancel');
-  if (closePwaModal) closePwaModal.addEventListener('click', closePwaModalFunc);
-  if (btnPwaModalConfirm) btnPwaModalConfirm.addEventListener('click', closePwaModalFunc);
-  if (btnPwaModalCancel) btnPwaModalCancel.addEventListener('click', closePwaModalFunc);
-  if (pwaModal) {
-    pwaModal.addEventListener('click', (e) => {
-      if (e.target === pwaModal) closePwaModalFunc();
-    });
-  }
-
   function showToast(message) {
     let toast = document.getElementById('appToast');
     if (!toast) {
@@ -791,45 +768,30 @@ function setupEventListeners() {
     }, 4000);
   }
 
-  const btnDirectAndroidInstall = document.getElementById('btnDirectAndroidInstall');
-  if (btnDirectAndroidInstall) {
-    btnDirectAndroidInstall.addEventListener('click', () => {
-      if (deferredPrompt) {
-        deferredPrompt.prompt();
-        deferredPrompt.userChoice.then((choiceResult) => {
-          if (choiceResult.outcome === 'accepted') {
-            console.log('User accepted PWA prompt');
-          }
-          deferredPrompt = null;
-          closePwaModalFunc();
-        });
-      } else {
-        closePwaModalFunc();
-      }
-    });
-  }
-
   const btnFooterInstall = document.getElementById('btnFooterInstall');
   if (btnFooterInstall) {
     btnFooterInstall.addEventListener('click', () => {
-      // Android: directly trigger Chrome's native PWA install prompt
+      // 1. Android / Chrome: Direct System Install Prompt
       if (deferredPrompt) {
         deferredPrompt.prompt();
         deferredPrompt.userChoice.then((choiceResult) => {
           if (choiceResult.outcome === 'accepted') {
-            console.log('User accepted PWA install from footer button');
+            console.log('User accepted PWA install');
           }
           deferredPrompt = null;
         });
-      } else if (window.matchMedia('(display-mode: standalone)').matches || navigator.standalone) {
-        // Already installed as PWA
-        showToast(currentLanguage === 'ko' ? '이미 앱이 설치되어 있습니다! 🎉' : 'App is already installed! 🎉');
-      } else if (/iphone|ipad|ipod/i.test(navigator.userAgent)) {
-        // iOS: show guide modal since iOS doesn't support beforeinstallprompt
-        openPwaModal();
-      } else {
-        // Fallback: show guide modal
-        openPwaModal();
+      } 
+      // 2. Already installed and running in Standalone app mode
+      else if (window.matchMedia('(display-mode: standalone)').matches || navigator.standalone) {
+        showToast(currentLanguage === 'ko' ? '이미 앱으로 실행 중입니다! 🎉' : 'App is already running! 🎉');
+      } 
+      // 3. iOS Safari
+      else if (/iphone|ipad|ipod/i.test(navigator.userAgent)) {
+        showToast(currentLanguage === 'ko' ? '🍎 하단 공유(⬆️) 버튼 ➔ [홈 화면에 추가] 선택' : '🍎 Tap Share (⬆️) ➔ Add to Home Screen');
+      } 
+      // 4. Android Browser fallback (Prompt not fired yet or declined previously)
+      else {
+        showToast(currentLanguage === 'ko' ? '📱 브라우저 메뉴(⋮) ➔ [앱 설치] 선택' : '📱 Tap Menu (⋮) ➔ Install App');
       }
     });
   }
