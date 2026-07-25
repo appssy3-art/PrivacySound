@@ -812,7 +812,25 @@ function setupEventListeners() {
   const btnFooterInstall = document.getElementById('btnFooterInstall');
   if (btnFooterInstall) {
     btnFooterInstall.addEventListener('click', () => {
-      openPwaModal();
+      // Android: directly trigger Chrome's native PWA install prompt
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((choiceResult) => {
+          if (choiceResult.outcome === 'accepted') {
+            console.log('User accepted PWA install from footer button');
+          }
+          deferredPrompt = null;
+        });
+      } else if (window.matchMedia('(display-mode: standalone)').matches || navigator.standalone) {
+        // Already installed as PWA
+        showToast(currentLanguage === 'ko' ? '이미 앱이 설치되어 있습니다! 🎉' : 'App is already installed! 🎉');
+      } else if (/iphone|ipad|ipod/i.test(navigator.userAgent)) {
+        // iOS: show guide modal since iOS doesn't support beforeinstallprompt
+        openPwaModal();
+      } else {
+        // Fallback: show guide modal
+        openPwaModal();
+      }
     });
   }
 }

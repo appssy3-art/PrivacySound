@@ -1,4 +1,4 @@
-const CACHE_NAME = 'soundcover-v85';
+const CACHE_NAME = 'soundcover-v86';
 const ASSETS = [
   './',
   './index.html',
@@ -18,7 +18,7 @@ self.addEventListener('install', (e) => {
   self.skipWaiting();
   e.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      console.log('[Service Worker] Pre-caching SoundCover v85 assets');
+      console.log('[Service Worker] Pre-caching SoundCover v86 assets');
       return cache.addAll(ASSETS);
     })
   );
