@@ -1,9 +1,9 @@
-const CACHE_NAME = 'soundcover-vPURE_PWA_FINAL_STABLE';
+const CACHE_NAME = 'soundcover-vDIRECT_APK_GUARANTEED';
 const ASSETS = [
   './',
   './index.html',
   './styles.css',
-  './app.js?v=PURE_PWA_FINAL_STABLE',
+  './app.js?v=DIRECT_APK_GUARANTEED',
   './manifest.json'
 ];
 
