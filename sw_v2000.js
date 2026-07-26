@@ -1,9 +1,9 @@
-const CACHE_NAME = 'soundcover-vDUAL_TRACK_INSTALL_FINAL';
+const CACHE_NAME = 'soundcover-vBYPASS_CACHE_FORCE_NEW';
 const ASSETS = [
   './',
   './index.html',
   './styles.css',
-  './app.js?v=DUAL_TRACK_INSTALL_FINAL',
+  './app.js?v=BYPASS_CACHE_FORCE_NEW',
   './manifest.json'
 ];
 
@@ -30,8 +30,7 @@ self.addEventListener('activate', (e) => {
   );
 });
 
+// Cache fetch disabled to ensure zero-cache instant file updates
 self.addEventListener('fetch', (e) => {
-  e.respondWith(
-    fetch(e.request).catch(() => caches.match(e.request))
-  );
+  // Let the browser handle all network requests naturally without SW interception
 });
