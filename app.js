@@ -808,7 +808,7 @@ function setupEventListeners() {
     }, 4000);
   }
 
-  // PWA Benefit Card Modal Elements & Logic (1:06 exact flow)
+  // PWA Benefit Card Modal Elements & Logic (Global Standard Engine)
   const pwaModal = document.getElementById('pwaModal');
   const closePwaModal = document.getElementById('closePwaModal');
   const btnPwaModalCancel = document.getElementById('btnPwaModalCancel');
@@ -830,10 +830,21 @@ function setupEventListeners() {
     });
   }
 
-  // Action inside the 1:06 White Benefit Modal Card
+  // Action inside the White Benefit Modal Card: 100% Clean PWA Installation (Zero File Download Popup)
   if (btnDirectAndroidInstall) {
     btnDirectAndroidInstall.addEventListener('click', () => {
       closePwaModalFunc();
+      var ua = navigator.userAgent.toLowerCase();
+      var isKakao = /kakaotalk/i.test(ua);
+
+      // KakaoTalk In-App WebView ➔ Auto Escape to Chrome
+      if (isKakao) {
+        showToast(currentLanguage === 'ko' ? '🚀 Chrome 브라우저로 이동하여 앱을 설치합니다!' : '🚀 Opening Chrome App for installation!');
+        location.href = 'intent://soundcover.shop/#Intent;scheme=https;package=com.android.chrome;end;';
+        return;
+      }
+
+      // Native Chrome PWA Prompt Direct Launch
       if (deferredPrompt) {
         deferredPrompt.prompt();
         deferredPrompt.userChoice.then((choiceResult) => {
@@ -842,20 +853,17 @@ function setupEventListeners() {
           }
           deferredPrompt = null;
         });
-      } else {
-        // Guaranteed Instant Direct APK Download (Zero Text-Only Freeze)
-        showToast(currentLanguage === 'ko' ? '🚀 앱 다운로드 시작! 상단 알림창에서 [SoundCover.apk]를 눌러 설치를 완료하세요!' : '🚀 Starting App Download!');
-        try {
-          var a = document.createElement('a');
-          a.href = './public/assets/SoundCover.apk';
-          a.download = 'SoundCover.apk';
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-        } catch (e) {
-          console.log('Instant download exception:', e);
-        }
+        return;
       }
+
+      // iOS Safari Guide Notice
+      if (/iphone|ipad|ipod/i.test(navigator.userAgent)) {
+        showToast(currentLanguage === 'ko' ? '🍎 하단 공유(⬆️) 버튼 ➔ [홈 화면에 추가] 선택' : '🍎 Tap Share (⬆️) ➔ Add to Home Screen');
+        return;
+      }
+
+      // Fallback Guide Notice
+      showToast(currentLanguage === 'ko' ? '📱 브라우저 우측 상단 메뉴(⋮) ➔ [앱 설치] 선택' : '📱 Tap Menu (⋮) ➔ Install App');
     });
   }
 
