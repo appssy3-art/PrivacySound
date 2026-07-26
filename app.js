@@ -482,11 +482,12 @@ function startSynthSound(soundType) {
 }
 
 // DOM Elements
-const playBtn = document.getElementById('playBtn');
+const mainPlayBtn = document.getElementById('mainPlayBtn');
+const playBtn = document.getElementById('playBtn') || mainPlayBtn;
 const playIcon = document.getElementById('playIcon');
 const pauseIcon = document.getElementById('pauseIcon');
-const buttonContainer = document.querySelector('.button-container');
-const timerCountdown = document.getElementById('timerCountdown');
+const buttonContainer = mainPlayBtn || document.querySelector('.button-container');
+const timerCountdown = document.getElementById('timerText') || document.getElementById('timerCountdown');
 const wakeLockBadge = document.getElementById('wakeLockBadge');
 const wakeLockText = document.getElementById('wakeLockText');
 const langSelect = document.getElementById('langSelect');
@@ -676,7 +677,13 @@ function setupEventListeners() {
   }
 
   // Play / Pause Toggle
-  if (playBtn) {
+  if (mainPlayBtn) {
+    mainPlayBtn.addEventListener('click', () => {
+      unlockAudioContext();
+      togglePlayback();
+    });
+  }
+  if (playBtn && playBtn !== mainPlayBtn) {
     playBtn.addEventListener('click', () => {
       unlockAudioContext();
       togglePlayback();
@@ -910,7 +917,12 @@ async function startSound() {
   }
 
   isPlaying = true;
-  if (buttonContainer) buttonContainer.classList.add('playing');
+  const targetBtn = mainPlayBtn || playBtn;
+  if (targetBtn) {
+    targetBtn.classList.add('playing');
+    const shape = targetBtn.querySelector('.play-icon-shape');
+    if (shape) shape.textContent = '❚❚';
+  }
   if (playIcon) playIcon.classList.add('hidden');
   if (pauseIcon) pauseIcon.classList.remove('hidden');
 
@@ -922,7 +934,12 @@ function stopSound() {
   stopSoundOnly();
 
   isPlaying = false;
-  if (buttonContainer) buttonContainer.classList.remove('playing');
+  const targetBtn = mainPlayBtn || playBtn;
+  if (targetBtn) {
+    targetBtn.classList.remove('playing');
+    const shape = targetBtn.querySelector('.play-icon-shape');
+    if (shape) shape.textContent = '▶';
+  }
   if (playIcon) playIcon.classList.remove('hidden');
   if (pauseIcon) pauseIcon.classList.add('hidden');
 

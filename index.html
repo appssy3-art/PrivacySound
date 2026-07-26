@@ -221,7 +221,7 @@
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', function() {
-        navigator.serviceWorker.register('./sw_v2000.js?v=NETLIFY_MATCH')
+        navigator.serviceWorker.register('./sw_v2000.js?v=AUDIO_FIXED')
           .then(function(reg) {
             console.log('Fresh Service Worker registered!', reg.scope);
           })
@@ -232,6 +232,6 @@
     }
   </script>
   <!-- App JS -->
-  <script src="app.js?v=NETLIFY_MATCH"></script>
+  <script src="app.js?v=AUDIO_FIXED"></script>
 </body>
 </html>

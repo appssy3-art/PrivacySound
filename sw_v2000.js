@@ -1,9 +1,9 @@
-const CACHE_NAME = 'soundcover-vNETLIFY_MATCH';
+const CACHE_NAME = 'soundcover-vAUDIO_FIXED';
 const ASSETS = [
   './',
   './index.html',
   './styles.css',
-  './app.js?v=NETLIFY_MATCH',
+  './app.js?v=AUDIO_FIXED',
   './manifest.json'
 ];
 
