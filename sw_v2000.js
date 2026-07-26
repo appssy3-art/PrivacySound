@@ -1,9 +1,9 @@
-const CACHE_NAME = 'soundcover-vFINAL_SAME_ORIGIN_SYNC_STABLE';
+const CACHE_NAME = 'soundcover-vABSOLUTE_ISOLATION_FINAL';
 const ASSETS = [
   './',
   './index.html',
   './styles.css',
-  './app.js?v=FINAL_SAME_ORIGIN_SYNC_STABLE',
+  './app.js?v=ABSOLUTE_ISOLATION_FINAL',
   './manifest.json'
 ];
 
