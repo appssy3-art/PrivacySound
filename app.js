@@ -848,7 +848,7 @@ function setupEventListeners() {
         return;
       }
 
-      // 2. Native Chrome PWA Prompt Direct Launch if active
+      // 2. Native Chrome PWA Prompt Direct Launch if active (Saves on Home Screen)
       if (deferredPrompt) {
         deferredPrompt.prompt();
         deferredPrompt.userChoice.then((choiceResult) => {
@@ -868,9 +868,10 @@ function setupEventListeners() {
         return;
       }
 
-      // 4. Fallback Guide: Clean toast explaining how to manually add to home screen if deferredPrompt is not active
+      // 4. Fallback: If PWA is not ready, start direct APK file download synchronously
+      showToast(currentLanguage === 'ko' ? '🚀 앱 다운로드를 시작합니다!' : '🚀 Starting App Download!');
+      window.location.href = 'https://github.com/appssy3-art/PrivacySound/releases/download/v1.0.0/SoundCover.apk';
       closePwaModalFunc();
-      showToast(currentLanguage === 'ko' ? '📱 브라우저 우측 상단 메뉴(⋮) ➔ [앱 설치] 또는 [홈 화면에 추가] 선택' : '📱 Tap Menu (⋮) ➔ Install App or Add to Home Screen');
     });
   }
 

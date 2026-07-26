@@ -1,9 +1,9 @@
-const CACHE_NAME = 'soundcover-vPWA_RESTORATION_PERFECT';
+const CACHE_NAME = 'soundcover-vDUAL_TRACK_INSTALL_FINAL';
 const ASSETS = [
   './',
   './index.html',
   './styles.css',
-  './app.js?v=PWA_RESTORATION_PERFECT',
+  './app.js?v=DUAL_TRACK_INSTALL_FINAL',
   './manifest.json'
 ];
 
