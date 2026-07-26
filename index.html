@@ -24,34 +24,6 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Outfit:wght@400;600;800&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
   
-  <!-- In-App Browser Auto Escape to Chrome for Android PWA Support -->
-  <script>
-    (function escapeInAppBrowser() {
-      var ua = navigator.userAgent.toLowerCase();
-      var isAndroid = /android/i.test(ua);
-      var isInApp = /kakaotalk|naver|line|inapp|kakaostory|band|daum|instagram|fb_iab|fbav/i.test(ua);
-      if (isAndroid && isInApp) {
-        var currentUrl = location.href;
-        var cleanUrl = currentUrl.replace(/^https?:\/\//i, '');
-        var intentUrl = 'intent://' + cleanUrl + '#Intent;scheme=https;package=com.android.chrome;end;';
-        
-        // Try Intent escape immediately
-        try {
-          location.href = intentUrl;
-        } catch (e) {}
-
-        // Show prominent escape banner after DOM loads if still in in-app browser
-        document.addEventListener('DOMContentLoaded', function() {
-          var banner = document.createElement('div');
-          banner.id = 'inAppNoticeBanner';
-          banner.style.cssText = 'position:fixed;top:0;left:0;width:100%;background:#7c3aed;color:#fff;padding:12px 16px;z-index:999999;text-align:center;font-weight:bold;font-size:14px;box-shadow:0 4px 12px rgba(0,0,0,0.5);display:flex;align-items:center;justify-content:space-between;';
-          banner.innerHTML = '<span>🚀 1초 만에 앱 설치하려면 Chrome으로 열어주세요!</span><a href="' + intentUrl + '" style="background:#fff;color:#7c3aed;padding:6px 12px;border-radius:20px;text-decoration:none;font-size:13px;font-weight:bold;white-space:nowrap;">Chrome으로 이동</a>';
-          document.body.insertBefore(banner, document.body.firstChild);
-        });
-      }
-    })();
-  </script>
-
   <!-- Stylesheet -->
   <link rel="stylesheet" href="styles.css">
 </head>
@@ -61,79 +33,58 @@
     <header class="app-header">
       <div class="logo">
         <img src="./public/assets/profile_avatar.png" class="brand-logo-img" alt="SoundCover Logo" />
-        <h1 class="logo-text">SoundCover</h1>
+        <span class="logo-text">SoundCover</span>
       </div>
-      <div class="lang-selector-pill">
-        <span class="globe-icon">🌐</span>
-        <select id="langSelect" aria-label="Language Selector">
-          <option value="ko" selected>🇰🇷 한국어</option>
-          <option value="en">🇺🇸 English</option>
-          <option value="ja">🇯🇵 日本語</option>
-          <option value="zh">🇨🇳 中文</option>
-          <option value="es">🇪🇸 Español</option>
-          <option value="pt">🇧🇷 Português</option>
-          <option value="de">🇩🇪 Deutsch</option>
-          <option value="fr">🇫🇷 Français</option>
-          <option value="vi">🇻🇳 Tiếng Việt</option>
-          <option value="id">🇮🇩 Bahasa Indonesia</option>
-          <option value="th">🇹🇭 ไทย</option>
-          <option value="ar">🇸🇦 العربية</option>
-          <option value="ru">🇷🇺 Русский</option>
-          <option value="hi">🇮🇳 हिन्दी</option>
-          <option value="la">🏛️ Latina</option>
-        </select>
+      <div class="header-right">
+        <!-- Language Switcher Selector Dropdown -->
+        <div class="lang-selector-box">
+          <span class="globe-icon">🌐</span>
+          <select id="langSelect" class="lang-select" aria-label="Select Language">
+            <option value="ko">KR 한국어</option>
+            <option value="en">US English</option>
+            <option value="ja">JP 日本語</option>
+            <option value="zh">CN 中文</option>
+            <option value="es">ES Español</option>
+            <option value="pt">BR Português</option>
+            <option value="de">DE Deutsch</option>
+            <option value="fr">FR Français</option>
+            <option value="vi">VN Tiếng Việt</option>
+            <option value="id">ID Bahasa Indonesia</option>
+            <option value="th">TH ภาษาไทย</option>
+            <option value="ar">SA العربية</option>
+            <option value="ru">RU Русский</option>
+            <option value="hi">IN हिन्दी</option>
+            <option value="la">🏛️ Latina</option>
+          </select>
+        </div>
       </div>
     </header>
 
-    <!-- Main Content -->
-    <main class="app-main">
-      <!-- Status Badge Slogan -->
-      <div class="status-indicator">
-        <span id="wakeLockBadge" class="badge badge-inactive">
-          <span class="badge-dot"></span>
-          <span id="wakeLockText" data-i18n="wakeLockInactive">🔒 프라이빗하게 지켜 드리는 화장실 소리 에티켓</span>
-        </span>
+    <!-- Main Etiquette Player Card -->
+    <main class="main-content">
+      <!-- Tagline Badge -->
+      <div class="hero-badge">
+        <span class="badge-dot">🔒</span>
+        <span data-i18n="appSubtitle">프라이빗하게 지켜 드리는 화장실 소리 에티켓</span>
       </div>
 
-      <!-- Pulse Button Section -->
-      <div class="button-container">
-        <div class="ripple-ring r1"></div>
-        <div class="ripple-ring r2"></div>
-        <div class="ripple-ring r3"></div>
-        <button id="playBtn" class="play-button" aria-label="Play Sound">
-          <div class="play-button-inner">
-            <svg id="playIcon" class="icon-svg" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M8 5V19L19 12L8 5Z" fill="currentColor"/>
-            </svg>
-            <svg id="pauseIcon" class="icon-svg hidden" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-              <path d="M6 19H10V5H6V19ZM14 5V19H18V5H14Z" fill="currentColor"/>
-            </svg>
-          </div>
+      <!-- Center Master Play / Pause Trigger -->
+      <div class="play-trigger-wrapper">
+        <button id="mainPlayBtn" class="main-play-btn" aria-label="Toggle Sound Playback">
+          <div class="play-icon-shape">▶</div>
         </button>
       </div>
 
-      <!-- Timer & Equalizer Visualizer Capsule -->
-      <div class="timer-display">
-        <div class="timer-capsule">
-          <div class="sound-wave-bars">
-            <span class="bar b1"></span>
-            <span class="bar b2"></span>
-            <span class="bar b3"></span>
-            <span class="bar b4"></span>
-          </div>
-          <span id="timerCountdown" class="timer-countdown">03:00</span>
-          <div class="sound-wave-bars">
-            <span class="bar b4"></span>
-            <span class="bar b3"></span>
-            <span class="bar b2"></span>
-            <span class="bar b1"></span>
-          </div>
-        </div>
+      <!-- Realtime Timer Display & Status Badge -->
+      <div class="timer-display-card">
+        <span class="timer-pulse">••••</span>
+        <span id="timerText" class="timer-digits">03 : 00</span>
+        <span class="timer-pulse">••••</span>
       </div>
 
-      <!-- Settings Panel -->
-      <section class="controls-panel">
-        <!-- Sound Choice -->
+      <!-- Player Controls Grid Card -->
+      <section class="controls-card">
+        <!-- Sound Track Selector -->
         <div class="control-group">
           <h2 class="control-label" data-i18n="selectSound">음원 선택</h2>
           <div class="sound-selector">
@@ -141,20 +92,20 @@
               <span class="sound-icon">💨</span>
               <span class="sound-name" data-i18n="soundDryer">드라이기</span>
             </button>
-            <button class="sound-btn" data-sound="power_shower">
+            <button class="sound-btn" data-sound="shower">
               <span class="sound-icon">🚿</span>
-              <span class="sound-name" data-i18n="soundPowerShower">강력 샤워기</span>
+              <span class="sound-name" data-i18n="soundShower">강력 샤워기</span>
             </button>
-            <button class="sound-btn" data-sound="heavy_downpour">
+            <button class="sound-btn" data-sound="rain">
               <span class="sound-icon">🌧️</span>
-              <span class="sound-name" data-i18n="soundHeavyDownpour">장대비</span>
+              <span class="sound-name" data-i18n="soundRain">장대비</span>
             </button>
           </div>
         </div>
 
-        <!-- Timer Choice -->
+        <!-- Timer Duration Presets -->
         <div class="control-group">
-          <h2 class="control-label" data-i18n="selectTimer">타이머 설정</h2>
+          <h2 class="control-label" data-i18n="setTimer">타이머 설정</h2>
           <div class="timer-selector">
             <button class="timer-btn" data-time="120">2M</button>
             <button class="timer-btn active" data-time="180">3M</button>
@@ -167,7 +118,7 @@
         <div class="control-group">
           <div class="control-header-flex">
             <h2 class="control-label" data-i18n="volumeControl">볼륨 설정 (소리 증폭)</h2>
-            <span id="volumeBadge" class="volume-badge">300% MAX BOOST</span>
+            <span id="volumeBadge" class="volume-badge">300% BOOST</span>
           </div>
           <div class="volume-slider-box">
             <span class="vol-icon">🔉</span>
@@ -212,58 +163,7 @@
              data-full-width-responsive="true"></ins>
         <span class="adsense-label" data-i18n="adsenseLabel">Sponsored Link</span>
       </div>
-  <!-- Chrome Menu Visual Arrow Pointer Overlay -->
-  <div id="chromeMenuGuide" class="modal-overlay hidden" style="z-index: 9999999; background: rgba(0,0,0,0.85); flex-direction: column; justify-content: flex-start; align-items: flex-end; padding: 20px;">
-    <div style="color: #fff; text-align: right; margin-bottom: 10px; font-size: 32px; animation: bounce 1s infinite;">↗️ 👆</div>
-    <div style="background: #7c3aed; color: #fff; padding: 20px; border-radius: 16px; width: 90%; max-width: 320px; text-align: center; box-shadow: 0 10px 30px rgba(0,0,0,0.5);">
-      <h3 style="font-size: 18px; margin-bottom: 10px; font-weight: 800;">📱 Chrome 브라우저 설치 방법</h3>
-      <p style="font-size: 14px; line-height: 1.5; opacity: 0.95; margin-bottom: 16px;">
-        우측 상단 <strong>메뉴(⋮)</strong> 아이콘을 누르신 후<br>
-        <strong>[앱 설치]</strong> 또는 <strong>[홈 화면에 추가]</strong>를 누르시면 즉시 바탕화면에 설치됩니다!
-      </p>
-      <button id="closeChromeGuide" style="background: #fff; color: #7c3aed; border: none; padding: 10px 20px; border-radius: 20px; font-weight: bold; width: 100%; cursor: pointer;">확인했습니다</button>
-    </div>
-  </div>
-  </div>
-
-  <!-- Custom Luxury PWA Install Modal (Expert Conversion Design) -->
-  <div id="pwaModal" class="modal-overlay hidden">
-    <div class="modal-content pwa-guide-card">
-      <button id="closePwaModal" class="btn-close-modal">✕</button>
-      
-      <div class="pwa-guide-header">
-        <img src="./public/assets/profile_avatar.png" class="pwa-guide-logo" alt="SoundCover Icon" />
-        <h3 class="pwa-headline">앱스토어 검색해서<br>용량 차지하는 앱 다운받지 마세요! 🙅‍♂️</h3>
-      </div>
-
-      <div class="pwa-benefits-list">
-        <div class="benefit-item">
-          <span class="benefit-icon">⚡</span>
-          <div class="benefit-text">
-            <strong>용량 0MB • 원터치 바로 설치</strong>
-            <span>앱스토어 로그인 필요 없이 바탕화면에 즉시 아이콘 생성</span>
-          </div>
-        </div>
-        <div class="benefit-item">
-          <span class="benefit-icon">🔒</span>
-          <div class="benefit-text">
-            <strong>화면 꺼짐 방지 & 100% 프라이버시</strong>
-            <span>화장실 에티켓 소음을 민망함 없이 완벽 차단</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="pwa-modal-actions">
-        <button id="btnPwaModalCancel" class="btn-modal-cancel">취소</button>
-        <button id="btnDirectAndroidInstall" class="btn-modal-install">
-          <span>🚀 바탕화면에 무료 앱 설치</span>
-        </button>
-      </div>
-
-      <div class="pwa-ios-notice">
-        <span>🍎 아이폰(iOS): 하단 공유(⬆️) ➔ [홈 화면에 추가] 선택</span>
-      </div>
-    </div>
+    </footer>
   </div>
 
   <!-- Support Modal -->
@@ -306,66 +206,6 @@
             <span>Ko-fi (Card / Apple Pay)</span>
           </a>
         </div>
-
-        <!-- JA Payment Options (PayPal & Cards) -->
-        <div id="jaDonationList" class="ja-donation-list hidden">
-          <a href="https://ko-fi.com/soundcover" target="_blank" rel="noopener noreferrer" class="donation-item paypal-btn">
-            <span class="donation-icon">💙</span>
-            <span>PayPal (クレジットカード / ペイパル)</span>
-          </a>
-          <a href="https://ko-fi.com/soundcover" target="_blank" rel="noopener noreferrer" class="donation-item bmac-btn">
-            <span class="donation-icon">☕</span>
-            <span>Buy Me a Coffee (Apple Pay)</span>
-          </a>
-        </div>
-
-        <!-- ZH Payment Options -->
-        <div id="zhDonationList" class="zh-donation-list hidden">
-          <a href="https://ko-fi.com/soundcover" target="_blank" rel="noopener noreferrer" class="donation-item paypal-btn">
-            <span class="donation-icon">💙</span>
-            <span>PayPal 国际支付 (信用卡 / 贝宝)</span>
-          </a>
-          <a href="https://ko-fi.com/soundcover" target="_blank" rel="noopener noreferrer" class="donation-item bmac-btn">
-            <span class="donation-icon">☕</span>
-            <span>Buy Me a Coffee 赞赏 (Apple Pay)</span>
-          </a>
-        </div>
-
-        <!-- ES Payment Options -->
-        <div id="esDonationList" class="es-donation-list hidden">
-          <a href="https://ko-fi.com/soundcover" target="_blank" rel="noopener noreferrer" class="donation-item paypal-btn">
-            <span class="donation-icon">💙</span>
-            <span>PayPal (Tarjeta de crédito / PayPal)</span>
-          </a>
-          <a href="https://ko-fi.com/soundcover" target="_blank" rel="noopener noreferrer" class="donation-item bmac-btn">
-            <span class="donation-icon">☕</span>
-            <span>Buy Me a Coffee (Apple Pay)</span>
-          </a>
-        </div>
-
-        <!-- PT Payment Options (Brasil) -->
-        <div id="ptDonationList" class="pt-donation-list hidden">
-          <a href="https://ko-fi.com/soundcover" target="_blank" rel="noopener noreferrer" class="donation-item paypal-btn">
-            <span class="donation-icon">💙</span>
-            <span>PayPal (Cartão de Crédito / PayPal)</span>
-          </a>
-          <a href="https://ko-fi.com/soundcover" target="_blank" rel="noopener noreferrer" class="donation-item bmac-btn">
-            <span class="donation-icon">☕</span>
-            <span>Buy Me a Coffee (Apple Pay)</span>
-          </a>
-        </div>
-
-        <!-- LA Payment Options (Latina) -->
-        <div id="laDonationList" class="la-donation-list hidden">
-          <a href="https://ko-fi.com/soundcover" target="_blank" rel="noopener noreferrer" class="donation-item paypal-btn">
-            <span class="donation-icon">💙</span>
-            <span>PayPal (Syngrapha Crediti / PayPal)</span>
-          </a>
-          <a href="https://ko-fi.com/soundcover" target="_blank" rel="noopener noreferrer" class="donation-item bmac-btn">
-            <span class="donation-icon">☕</span>
-            <span>Buy Me a Coffee (Apple Pay)</span>
-          </a>
-        </div>
       </div>
 
       <div class="modal-actions">
@@ -378,20 +218,11 @@
     </div>
   </div>
 
-  <!-- Fresh Service Worker Registration & Stale Cleanup -->
+  <!-- Service Worker Registration for PWA Installation -->
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', function() {
-        // Clean up old sw.js if present
-        navigator.serviceWorker.getRegistrations().then(function(regs) {
-          for (var reg of regs) {
-            if (reg.active && reg.active.scriptURL.includes('sw.js')) {
-              reg.unregister();
-            }
-          }
-        });
-        // Register new fresh sw_v2000.js
-        navigator.serviceWorker.register('./sw_v2000.js?v=BRIGHT')
+        navigator.serviceWorker.register('./sw_v2000.js?v=PERFECT')
           .then(function(reg) {
             console.log('Fresh Service Worker registered!', reg.scope);
           })
@@ -402,6 +233,6 @@
     }
   </script>
   <!-- App JS -->
-  <script src="app.js?v=BRIGHT"></script>
+  <script src="app.js?v=PERFECT"></script>
 </body>
 </html>
