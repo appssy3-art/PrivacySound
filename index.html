@@ -117,11 +117,11 @@
         <div class="control-group">
           <div class="control-header-flex">
             <h2 class="control-label" data-i18n="volumeControl">볼륨 설정 (소리 증폭)</h2>
-            <span id="volumeBadge" class="volume-badge">300% BOOST</span>
+            <span id="volumeBadge" class="volume-badge">100%</span>
           </div>
           <div class="volume-slider-box">
             <span class="vol-icon">🔉</span>
-            <input type="range" id="volumeRange" class="volume-slider" min="50" max="350" value="300" step="5" aria-label="Volume Boost Slider">
+            <input type="range" id="volumeRange" class="volume-slider" min="50" max="350" value="100" step="5" aria-label="Volume Boost Slider">
             <span class="vol-icon">🔊</span>
           </div>
         </div>
@@ -221,7 +221,7 @@
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', function() {
-        navigator.serviceWorker.register('./sw_v2000.js?v=AUDIO_FIXED')
+        navigator.serviceWorker.register('./sw_v2000.js?v=STOP_FIXED')
           .then(function(reg) {
             console.log('Fresh Service Worker registered!', reg.scope);
           })
@@ -232,6 +232,6 @@
     }
   </script>
   <!-- App JS -->
-  <script src="app.js?v=AUDIO_FIXED"></script>
+  <script src="app.js?v=STOP_FIXED"></script>
 </body>
 </html>

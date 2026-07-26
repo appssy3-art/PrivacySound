@@ -336,7 +336,7 @@ let isPlaying = false;
 let timer = null;
 let timeLeft = 180;
 let chosenTimer = 180;
-let currentVolumeBoost = 300;
+let currentVolumeBoost = 100;
 let wakeLock = null;
 // deferredPrompt declared at top of file
 
@@ -893,16 +893,32 @@ function stopSoundOnly() {
   stopSynthSound();
   if (currentBufferSource) {
     try {
-      currentBufferSource.stop();
+      currentBufferSource.stop(0);
       currentBufferSource.disconnect();
     } catch (e) {}
     currentBufferSource = null;
+  }
+  if (masterGainNode && audioCtx) {
+    try {
+      masterGainNode.gain.setValueAtTime(0, audioCtx.currentTime);
+    } catch (e) {}
+  }
+  if (audioCtx && audioCtx.state === 'running') {
+    try {
+      audioCtx.suspend();
+    } catch (e) {}
   }
 }
 
 async function startSound() {
   unlockAudioContext();
   stopSoundOnly();
+  
+  if (masterGainNode && audioCtx) {
+    try {
+      masterGainNode.gain.setValueAtTime(currentVolumeBoost / 100, audioCtx.currentTime);
+    } catch (e) {}
+  }
   
   const buffer = audioBuffers[currentSoundName];
   
