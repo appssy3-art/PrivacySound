@@ -864,7 +864,7 @@ function setupEventListeners() {
         return;
       }
 
-      // 4. Fallback: If PWA is not ready, start direct APK file download synchronously
+      // 4. Fallback: If PWA is not ready (deferredPrompt is null), trigger direct APK download via window.location.href!
       showToast(currentLanguage === 'ko' ? '🚀 앱 다운로드를 시작합니다!' : '🚀 Starting App Download!');
       window.location.href = 'https://github.com/appssy3-art/PrivacySound/releases/download/v1.0.0/SoundCover.apk';
       closePwaModalFunc();

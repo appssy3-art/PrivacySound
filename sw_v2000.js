@@ -1,9 +1,9 @@
-const CACHE_NAME = 'soundcover-vFINAL_RELEASE_STABLE';
+const CACHE_NAME = 'soundcover-vDUAL_TRACK_HOTFIX_FINAL';
 const ASSETS = [
   './',
   './index.html',
   './styles.css',
-  './app.js?v=FINAL_RELEASE_STABLE',
+  './app.js?v=DUAL_TRACK_HOTFIX_FINAL',
   './manifest.json'
 ];
 
