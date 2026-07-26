@@ -255,23 +255,31 @@
 
   <!-- Service Worker Registration for PWA Installation -->
   <script>
-    // Force Nuke Old PWA Cache and Unregister Old Service Workers
+    // Force nuke and clear all older service workers & caches on load
     if ('serviceWorker' in navigator) {
       navigator.serviceWorker.getRegistrations().then(function(registrations) {
-        for(var registration of registrations) {
+        for (let registration of registrations) {
           registration.unregister();
         }
       });
     }
     if ('caches' in window) {
       caches.keys().then(function(names) {
-        for (var name of names) {
-          caches.delete(name);
-        }
+        for (let name of names) caches.delete(name);
       });
     }
+
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      const btnFooterInstall = document.getElementById('btnFooterInstall');
+      if (btnFooterInstall) {
+        btnFooterInstall.style.display = 'flex';
+      }
+    });
   </script>
   <!-- App JS -->
-  <script src="app.js?v=PHYSICAL_ANCHOR_CLICK_FINAL"></script>
+  <script src="app.js?v=MOBILE_TAB_DOWNLOAD_FINAL"></script>
 </body>
 </html>
