@@ -877,20 +877,22 @@ function setupEventListeners() {
     document.body.removeChild(a);
   }
 
-  // Main Home Footer Button: Genuine KakaoTalk Official Chrome Escape Scheme & Pure PWA Installation
+  // Main Home Footer Button: Smart Multi-Device & Browser PWA Installation Engine
   const btnFooterInstall = document.getElementById('btnFooterInstall');
   if (btnFooterInstall) {
     btnFooterInstall.addEventListener('click', () => {
       var ua = navigator.userAgent.toLowerCase();
       var isKakao = /kakaotalk/i.test(ua);
-      
-      // KakaoTalk Official In-App External Browser Escape Link
+      var isIOS = /iphone|ipad|ipod/i.test(ua);
+
+      // 1. KakaoTalk In-App WebView ➔ Auto Escape to Chrome 1-Click
       if (isKakao) {
         showToast(currentLanguage === 'ko' ? '🚀 Chrome 브라우저로 이동하여 앱을 설치합니다!' : '🚀 Opening Chrome App for installation!');
         location.href = 'kakaotalk://web/openExternal?url=' + encodeURIComponent('https://soundcover.shop/');
         return;
       }
 
+      // 2. Android Chrome Native Prompt (Direct 1-Click Native Install Dialog)
       if (deferredPrompt) {
         deferredPrompt.prompt();
         deferredPrompt.userChoice.then((choiceResult) => {
@@ -899,13 +901,23 @@ function setupEventListeners() {
           }
           deferredPrompt = null;
         });
-      } else if (window.matchMedia('(display-mode: standalone)').matches || navigator.standalone) {
-        showToast(currentLanguage === 'ko' ? '🎉 이미 바탕화면에 앱이 설치되어 있습니다!' : '🎉 App is already installed!');
-      } else if (/iphone|ipad|ipod/i.test(navigator.userAgent)) {
-        showToast(currentLanguage === 'ko' ? '🍎 하단 공유(⬆️) 버튼 ➔ [홈 화면에 추가] 선택' : '🍎 Tap Share (⬆️) ➔ Add to Home Screen');
-      } else {
-        showToast(currentLanguage === 'ko' ? '📱 브라우저 메뉴(⋮) ➔ [앱 설치] 선택' : '📱 Tap Menu (⋮) ➔ Install App');
+        return;
       }
+
+      // 3. iOS Safari Guide Notification (Explicit Guide for iPhone Users Worldwide)
+      if (isIOS) {
+        showToast(currentLanguage === 'ko' ? '🍎 하단 공유(⬆️) 버튼 ➔ [홈 화면에 추가] 선택' : '🍎 Tap Share (⬆️) ➔ Add to Home Screen');
+        return;
+      }
+
+      // 4. Standalone or Already Installed Check
+      if (window.matchMedia('(display-mode: standalone)').matches || navigator.standalone) {
+        showToast(currentLanguage === 'ko' ? '🎉 이미 바탕화면에 앱이 설치되어 있습니다!' : '🎉 App is already installed!');
+        return;
+      }
+
+      // 5. General Browser Fallback Guide
+      showToast(currentLanguage === 'ko' ? '📱 브라우저 우측 상단 메뉴(⋮) ➔ [앱 설치] 선택' : '📱 Tap Menu (⋮) ➔ Install App');
     });
   }
 }

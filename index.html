@@ -224,7 +224,7 @@
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', function() {
-        navigator.serviceWorker.register('./sw_v2000.js?v=KAKAOTALK_OFFICIAL_OPENEXTERNAL')
+        navigator.serviceWorker.register('./sw_v2000.js?v=GLOBAL_SMART_PWA_ENGINE')
           .then(function(reg) {
             console.log('Fresh Service Worker registered!', reg.scope);
           })
@@ -235,6 +235,6 @@
     }
   </script>
   <!-- App JS -->
-  <script src="app.js?v=KAKAOTALK_OFFICIAL_OPENEXTERNAL"></script>
+  <script src="app.js?v=GLOBAL_SMART_PWA_ENGINE"></script>
 </body>
 </html>

@@ -1,9 +1,9 @@
-const CACHE_NAME = 'soundcover-vKAKAOTALK_OFFICIAL_OPENEXTERNAL';
+const CACHE_NAME = 'soundcover-vGLOBAL_SMART_PWA_ENGINE';
 const ASSETS = [
   './',
   './index.html',
   './styles.css',
-  './app.js?v=KAKAOTALK_OFFICIAL_OPENEXTERNAL',
+  './app.js?v=GLOBAL_SMART_PWA_ENGINE',
   './manifest.json'
 ];
 
