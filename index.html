@@ -7,6 +7,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <meta name="mobile-web-app-capable" content="yes">
   <meta name="description" content="SoundCover - 모바일 최적화 PWA 화장실 에티켓 사운드 앱. 100% 소음 차단 및 화면 꺼짐 방지.">
+  <meta name="theme-color" content="#f3f0ff">
   <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
   <meta http-equiv="Pragma" content="no-cache">
   <meta http-equiv="Expires" content="0">
@@ -390,7 +391,7 @@
           }
         });
         // Register new fresh sw_v2000.js
-        navigator.serviceWorker.register('./sw_v2000.js?v=MAX')
+        navigator.serviceWorker.register('./sw_v2000.js?v=BRIGHT')
           .then(function(reg) {
             console.log('Fresh Service Worker registered!', reg.scope);
           })
@@ -401,6 +402,6 @@
     }
   </script>
   <!-- App JS -->
-  <script src="app.js?v=MAX"></script>
+  <script src="app.js?v=BRIGHT"></script>
 </body>
 </html>
