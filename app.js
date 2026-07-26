@@ -877,22 +877,11 @@ function setupEventListeners() {
     document.body.removeChild(a);
   }
 
-  // Main Home Footer Button: Direct 1-Click Native PWA Installation (Bypassing All Intermediate Modals)
+  // Main Home Footer Button: Pure Clean 2-Step Native PWA Install Logic (Zero Scheme, Zero Intermediate Modals)
   const btnFooterInstall = document.getElementById('btnFooterInstall');
   if (btnFooterInstall) {
     btnFooterInstall.addEventListener('click', () => {
-      var ua = navigator.userAgent.toLowerCase();
-      var isKakao = /kakaotalk/i.test(ua);
-      var isIOS = /iphone|ipad|ipod/i.test(ua);
-
-      // 1. KakaoTalk In-App WebView ➔ Direct Android Chrome Intent Escape
-      if (isKakao) {
-        showToast(currentLanguage === 'ko' ? '🚀 Chrome 브라우저로 이동하여 앱을 설치합니다!' : '🚀 Opening Chrome App for installation!');
-        location.href = 'intent://soundcover.shop/#Intent;scheme=https;package=com.android.chrome;end;';
-        return;
-      }
-
-      // 2. Direct 1-Click Android Chrome Native Install Dialog
+      // Direct Native Chrome Install Dialog (1-Click Launch)
       if (deferredPrompt) {
         deferredPrompt.prompt();
         deferredPrompt.userChoice.then((choiceResult) => {
@@ -904,34 +893,20 @@ function setupEventListeners() {
         return;
       }
 
-      // 3. iOS Safari Direct Toast Notice
-      if (isIOS) {
-        showToast(currentLanguage === 'ko' ? '🍎 하단 공유(⬆️) 버튼 ➔ [홈 화면에 추가] 선택' : '🍎 Tap Share (⬆️) ➔ Add to Home Screen');
-        return;
-      }
-
-      // 4. Standalone or Already Installed Check
+      // Standalone or Already Installed Check
       if (window.matchMedia('(display-mode: standalone)').matches || navigator.standalone) {
         showToast(currentLanguage === 'ko' ? '🎉 이미 바탕화면에 앱이 설치되어 있습니다!' : '🎉 App is already installed!');
         return;
       }
 
-      // 5. Fallback Notice
-      showToast(currentLanguage === 'ko' ? '📱 브라우저 메뉴(⋮) ➔ [앱 설치] 선택' : '📱 Tap Menu (⋮) ➔ Install App');
-    });
-  }
-
-  // PWA Modal Internal Install Button
-  const btnPwaModalInstall = document.getElementById('btnPwaModalInstall');
-  if (btnPwaModalInstall) {
-    btnPwaModalInstall.addEventListener('click', () => {
-      closeModal('pwaInstallModal');
-      if (deferredPrompt) {
-        deferredPrompt.prompt();
-        deferredPrompt.userChoice.then((choiceResult) => {
-          deferredPrompt = null;
-        });
+      // iOS Safari Notice
+      if (/iphone|ipad|ipod/i.test(navigator.userAgent)) {
+        showToast(currentLanguage === 'ko' ? '🍎 하단 공유(⬆️) 버튼 ➔ [홈 화면에 추가] 선택' : '🍎 Tap Share (⬆️) ➔ Add to Home Screen');
+        return;
       }
+
+      // General Browser Fallback Guide
+      showToast(currentLanguage === 'ko' ? '📱 브라우저 우측 상단 메뉴(⋮) ➔ [앱 설치] 선택' : '📱 Tap Menu (⋮) ➔ Install App');
     });
   }
 }

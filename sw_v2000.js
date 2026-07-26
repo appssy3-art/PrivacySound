@@ -1,9 +1,9 @@
-const CACHE_NAME = 'soundcover-vBYPASS_PWA_MODAL_DIRECT_1CLICK';
+const CACHE_NAME = 'soundcover-vCLEAN_PURE_2STEP_FINAL_MASTER';
 const ASSETS = [
   './',
   './index.html',
   './styles.css',
-  './app.js?v=BYPASS_PWA_MODAL_DIRECT_1CLICK',
+  './app.js?v=CLEAN_PURE_2STEP_FINAL_MASTER',
   './manifest.json'
 ];
 
