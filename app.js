@@ -837,11 +837,25 @@ function setupEventListeners() {
     document.body.removeChild(a);
   }
 
-  // Main Home Footer Button: Native Direct HTML File Download
+  // Main Home Footer Button: Genuine PWA Home Screen App Icon Installation
   const btnFooterInstall = document.getElementById('btnFooterInstall');
   if (btnFooterInstall) {
     btnFooterInstall.addEventListener('click', () => {
-      showToast(currentLanguage === 'ko' ? '📥 SoundCover 앱 다운로드를 시작합니다!' : '📥 Starting SoundCover App Download!');
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((choiceResult) => {
+          if (choiceResult.outcome === 'accepted') {
+            showToast(currentLanguage === 'ko' ? '🎉 바탕화면에 앱이 성공적으로 설치되었습니다!' : '🎉 App installed on home screen!');
+          }
+          deferredPrompt = null;
+        });
+      } else if (window.matchMedia('(display-mode: standalone)').matches || navigator.standalone) {
+        showToast(currentLanguage === 'ko' ? '🎉 이미 바탕화면에 앱이 설치되어 있습니다!' : '🎉 App is already installed!');
+      } else if (/iphone|ipad|ipod/i.test(navigator.userAgent)) {
+        showToast(currentLanguage === 'ko' ? '🍎 하단 공유(⬆️) 버튼 ➔ [홈 화면에 추가] 선택' : '🍎 Tap Share (⬆️) ➔ Add to Home Screen');
+      } else {
+        showToast(currentLanguage === 'ko' ? '📱 우측 상단 메뉴(⋮) ➔ [앱 설치] 선택' : '📱 Tap Menu (⋮) ➔ Install App');
+      }
     });
   }
 }
