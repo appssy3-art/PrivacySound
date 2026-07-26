@@ -25,7 +25,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Outfit:wght@400;600;800&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
   
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="styles.css">
+  <link rel="stylesheet" href="styles.css?v=NETLIFY_MATCH">
 </head>
 <body>
   <div class="app-container">
@@ -38,22 +38,21 @@
       <div class="header-right">
         <!-- Language Switcher Selector Dropdown -->
         <div class="lang-selector-box">
-          <span class="globe-icon">🌐</span>
           <select id="langSelect" class="lang-select" aria-label="Select Language">
-            <option value="ko">KR 한국어</option>
-            <option value="en">US English</option>
-            <option value="ja">JP 日本語</option>
-            <option value="zh">CN 中文</option>
-            <option value="es">ES Español</option>
-            <option value="pt">BR Português</option>
-            <option value="de">DE Deutsch</option>
-            <option value="fr">FR Français</option>
-            <option value="vi">VN Tiếng Việt</option>
-            <option value="id">ID Bahasa Indonesia</option>
-            <option value="th">TH ภาษาไทย</option>
-            <option value="ar">SA العربية</option>
-            <option value="ru">RU Русский</option>
-            <option value="hi">IN हिन्दी</option>
+            <option value="ko">🌐 KR 한국어</option>
+            <option value="en">🌐 US English</option>
+            <option value="ja">🌐 JP 日本語</option>
+            <option value="zh">🌐 CN 中文</option>
+            <option value="es">🌐 ES Español</option>
+            <option value="pt">🌐 BR Português</option>
+            <option value="de">🌐 DE Deutsch</option>
+            <option value="fr">🌐 FR Français</option>
+            <option value="vi">🌐 VN Tiếng Việt</option>
+            <option value="id">🌐 ID Bahasa Indonesia</option>
+            <option value="th">🌐 TH ภาษาไทย</option>
+            <option value="ar">🌐 SA العربية</option>
+            <option value="ru">🌐 RU Русский</option>
+            <option value="hi">🌐 IN हिन्दी</option>
             <option value="la">🏛️ Latina</option>
           </select>
         </div>
@@ -64,7 +63,7 @@
     <main class="main-content">
       <!-- Tagline Badge -->
       <div class="hero-badge">
-        <span class="badge-dot">🔒</span>
+        <span class="badge-dot">• 🔒</span>
         <span data-i18n="appSubtitle">프라이빗하게 지켜 드리는 화장실 소리 에티켓</span>
       </div>
 
@@ -136,7 +135,7 @@
         <a id="affiliateLink" href="https://link.coupang.com/a/fFeFuNicFg" target="_blank" rel="noopener noreferrer">
           <div class="banner-badge" data-i18n="bathroomEssential">화장실 추천템</div>
           <div class="banner-body">
-            <span id="bannerText" class="banner-text">🚽 급할 때 유용한 물에 잘 녹는 비데 물티슈 특가</span>
+            <span id="bannerText" class="banner-text">🧻 급할 때 유용한 물에 잘 녹는 비데 물티슈 핫딜 보기</span>
             <span class="banner-go">➔</span>
           </div>
         </a>
@@ -146,7 +145,7 @@
       <!-- Bottom Dual Action Buttons (Support & App Install) -->
       <div class="bottom-dual-actions">
         <button id="supportBtn" class="btn-action-support">
-          <span data-i18n="buyCoffee">💖 응원하기</span>
+          <span data-i18n="buyCoffee">💖 "덕분에 민망함 해결했어요!" 응원하기</span>
         </button>
         <button id="btnFooterInstall" class="btn-action-install">
           <span>📲 앱 설치</span>
@@ -161,7 +160,7 @@
              data-ad-slot="XXXXXXXXXX"
              data-ad-format="horizontal"
              data-full-width-responsive="true"></ins>
-        <span class="adsense-label" data-i18n="adsenseLabel">Sponsored Link</span>
+        <span class="adsense-label" data-i18n="adsenseLabel">광고 영역</span>
       </div>
     </footer>
   </div>
@@ -222,7 +221,7 @@
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', function() {
-        navigator.serviceWorker.register('./sw_v2000.js?v=PERFECT_FINAL')
+        navigator.serviceWorker.register('./sw_v2000.js?v=NETLIFY_MATCH')
           .then(function(reg) {
             console.log('Fresh Service Worker registered!', reg.scope);
           })
@@ -233,6 +232,6 @@
     }
   </script>
   <!-- App JS -->
-  <script src="app.js?v=PERFECT_FINAL"></script>
+  <script src="app.js?v=NETLIFY_MATCH"></script>
 </body>
 </html>

@@ -142,26 +142,27 @@ body::after {
   z-index: 0;
 }
 
-/* Big Round Master Play Button Styling */
+/* Big Round Master Play Button Styling (Pixel-Perfect Netlify Match) */
 .play-trigger-wrapper {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 18px 0;
+  margin: 24px 0 16px 0;
 }
 
 .main-play-btn {
-  width: 96px;
-  height: 96px;
+  width: 120px;
+  height: 120px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%);
-  border: 4px solid #ffffff;
-  box-shadow: 0 10px 30px rgba(124, 58, 237, 0.35);
+  background: #ffffff;
+  border: 6px solid #4f46e5;
+  outline: 4px solid rgba(124, 58, 237, 0.2);
+  box-shadow: 0 12px 36px rgba(99, 102, 241, 0.25);
   display: flex;
   justify-content: center;
   align-items: center;
   cursor: pointer;
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.2s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.2s ease;
 }
 
 .main-play-btn:active {
@@ -169,14 +170,21 @@ body::after {
 }
 
 .main-play-btn.playing {
-  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-  box-shadow: 0 10px 30px rgba(239, 68, 68, 0.4);
+  border-color: #ef4444;
+  outline-color: rgba(239, 68, 68, 0.2);
+  box-shadow: 0 12px 36px rgba(239, 68, 68, 0.3);
 }
 
 .play-icon-shape {
-  font-size: 36px;
-  color: #ffffff;
-  margin-left: 4px;
+  font-size: 40px;
+  color: #7c3aed;
+  margin-left: 6px;
+  transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.main-play-btn.playing .play-icon-shape {
+  color: #ef4444;
+  margin-left: 0;
 }
 
 /* Responsive App Container */
