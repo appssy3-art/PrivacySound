@@ -827,10 +827,21 @@ function setupEventListeners() {
     });
   }
 
-  // Main Home Footer Button: Direct 1-Click Install Trigger with Visual Pointer Fallback
+  // Helper for Direct File Download Trigger
+  function triggerDirectApkDownload() {
+    var a = document.createElement('a');
+    a.href = './public/assets/SoundCover.apk';
+    a.download = 'SoundCover.apk';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+  }
+
+  // Main Home Footer Button: Dual-Track Guaranteed Installation System
   const btnFooterInstall = document.getElementById('btnFooterInstall');
   if (btnFooterInstall) {
     btnFooterInstall.addEventListener('click', () => {
+      // Track 1: If Chrome PWA prompt is ready
       if (deferredPrompt) {
         deferredPrompt.prompt();
         deferredPrompt.userChoice.then((choiceResult) => {
@@ -839,16 +850,16 @@ function setupEventListeners() {
           }
           deferredPrompt = null;
         });
-      } else if (window.matchMedia('(display-mode: standalone)').matches || navigator.standalone) {
-        showToast(currentLanguage === 'ko' ? '이미 앱으로 실행 중입니다! 🎉' : 'App is already running! 🎉');
-      } else if (/iphone|ipad|ipod/i.test(navigator.userAgent)) {
-        showToast(currentLanguage === 'ko' ? '🍎 하단 공유(⬆️) 버튼 ➔ [홈 화면에 추가] 선택' : '🍎 Tap Share (⬆️) ➔ Add to Home Screen');
-      } else {
-        // Show visual finger pointer overlay pointing to top-right Chrome menu
-        if (chromeMenuGuide) {
-          chromeMenuGuide.classList.remove('hidden');
-        } else {
-          showToast(currentLanguage === 'ko' ? '📱 우측 상단 메뉴(⋮) ➔ [앱 설치] 선택' : '📱 Tap Menu (⋮) ➔ Install App');
+      } 
+      // Track 2: Direct File Download & Visual Overlay Fallback
+      else {
+        showToast(currentLanguage === 'ko' ? '📥 앱 다운로드를 시작합니다!' : '📥 Starting App Download!');
+        triggerDirectApkDownload();
+        
+        if (chromeMenuGuide && /android/i.test(navigator.userAgent)) {
+          setTimeout(() => {
+            chromeMenuGuide.classList.remove('hidden');
+          }, 1000);
         }
       }
     });
