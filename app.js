@@ -877,7 +877,7 @@ function setupEventListeners() {
     document.body.removeChild(a);
   }
 
-  // Main Home Footer Button: Clean Pure 1-Click PWA App Icon Installation & Direct APK Download Fallback
+  // Main Home Footer Button: Pure PWA 1-Click Home Screen Installation & Device OS Guide
   const btnFooterInstall = document.getElementById('btnFooterInstall');
   if (btnFooterInstall) {
     btnFooterInstall.addEventListener('click', () => {
@@ -889,18 +889,12 @@ function setupEventListeners() {
           }
           deferredPrompt = null;
         });
+      } else if (window.matchMedia('(display-mode: standalone)').matches || navigator.standalone) {
+        showToast(currentLanguage === 'ko' ? '🎉 이미 바탕화면에 앱이 설치되어 있습니다!' : '🎉 App is already installed!');
+      } else if (/iphone|ipad|ipod/i.test(navigator.userAgent)) {
+        showToast(currentLanguage === 'ko' ? '🍎 하단 공유(⬆️) 버튼 ➔ [홈 화면에 추가] 선택' : '🍎 Tap Share (⬆️) ➔ Add to Home Screen');
       } else {
-        showToast(currentLanguage === 'ko' ? '🚀 앱 다운로드 완료! 상단 알림창(또는 다운로드 폴더)에서 [SoundCover.apk]를 눌러 설치를 완료하세요!' : '🚀 App downloaded! Tap [SoundCover.apk] in notification bar to install!');
-        try {
-          var a = document.createElement('a');
-          a.href = './public/assets/SoundCover.apk';
-          a.download = 'SoundCover.apk';
-          document.body.appendChild(a);
-          a.click();
-          document.body.removeChild(a);
-        } catch (e) {
-          console.log('Download trigger exception:', e);
-        }
+        showToast(currentLanguage === 'ko' ? '📱 우측 상단 메뉴(⋮) ➔ [앱 설치] 선택' : '📱 Tap Menu (⋮) ➔ Install App');
       }
     });
   }
