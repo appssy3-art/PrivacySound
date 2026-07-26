@@ -349,20 +349,26 @@
     </div>
   </div>
 
-  <!-- Service Worker Registration -->
+  <!-- Automatic Device Cache & Service Worker Purger -->
   <script>
-    if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js?v=99')
-          .then(reg => {
-            console.log('Service Worker registered successfully!', reg.scope);
-            reg.update();
-          })
-          .catch(err => console.log('Service Worker registration failed:', err));
-      });
-    }
+    (function purgeStaleDeviceCache() {
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(function(registrations) {
+          for (var reg of registrations) {
+            reg.unregister();
+          }
+        });
+      }
+      if ('caches' in window) {
+        caches.keys().then(function(keys) {
+          for (var key of keys) {
+            caches.delete(key);
+          }
+        });
+      }
+    })();
   </script>
   <!-- App JS -->
-  <script src="app.js?v=99"></script>
+  <script src="app.js?v=999"></script>
 </body>
 </html>
