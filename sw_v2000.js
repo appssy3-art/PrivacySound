@@ -1,9 +1,9 @@
-const CACHE_NAME = 'soundcover-vCLEAN_PWA_STRICT_NO_APK_FINAL';
+const CACHE_NAME = 'soundcover-vPROMPT_FOCUS_ORDER_FIXED_FINAL';
 const ASSETS = [
   './',
   './index.html',
   './styles.css',
-  './app.js?v=CLEAN_PWA_STRICT_NO_APK_FINAL',
+  './app.js?v=PROMPT_FOCUS_ORDER_FIXED_FINAL',
   './manifest.json'
 ];
 

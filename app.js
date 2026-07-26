@@ -833,11 +833,10 @@ function setupEventListeners() {
   // Action inside the White Benefit Modal Card: 100% Clean PWA Installation (Zero File Download Popup)
   if (btnDirectAndroidInstall) {
     btnDirectAndroidInstall.addEventListener('click', () => {
-      closePwaModalFunc();
       var ua = navigator.userAgent.toLowerCase();
       var isKakao = /kakaotalk/i.test(ua);
 
-      // KakaoTalk In-App WebView ➔ Auto Escape to Chrome/Safari standard scheme
+      // 1. KakaoTalk In-App WebView ➔ Auto Escape to Chrome/Safari standard scheme
       if (isKakao) {
         showToast(currentLanguage === 'ko' ? '🚀 외부 브라우저로 이동하여 설치를 진행합니다...' : '🚀 Opening external browser for installation...');
         if (/iphone|ipad|ipod/i.test(navigator.userAgent)) {
@@ -845,10 +844,11 @@ function setupEventListeners() {
         } else {
           location.href = 'intent://' + window.location.host + window.location.pathname + '#Intent;scheme=https;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;package=com.android.chrome;end;';
         }
+        closePwaModalFunc();
         return;
       }
 
-      // Native Chrome PWA Prompt Direct Launch if active
+      // 2. Native Chrome PWA Prompt Direct Launch if active
       if (deferredPrompt) {
         deferredPrompt.prompt();
         deferredPrompt.userChoice.then((choiceResult) => {
@@ -857,17 +857,20 @@ function setupEventListeners() {
           }
           deferredPrompt = null;
         });
+        closePwaModalFunc();
         return;
       }
 
-      // iOS Safari Guide Notice
+      // 3. iOS Safari Guide Notice
       if (/iphone|ipad|ipod/i.test(navigator.userAgent)) {
+        closePwaModalFunc();
         showToast(currentLanguage === 'ko' ? '🍎 하단 공유(⬆️) 버튼 ➔ [홈 화면에 추가] 선택' : '🍎 Tap Share (⬆️) ➔ Add to Home Screen');
         return;
       }
 
-      // If PWA prompt is not ready (already installed or pending), guide user via native browser feature to avoid direct file download warning
-      showToast(currentLanguage === 'ko' ? '📱 브라우저 우측 상단 메뉴(⋮) ➔ [앱 설치] 또는 [홈 화면에 추가] 선택' : '📱 Tap Menu (⋮) ➔ Install App or Add to Home Screen');
+      // 4. Fallback Guide Notice
+      closePwaModalFunc();
+      showToast(currentLanguage === 'ko' ? '📱 브라우저 우측 상단 메뉴(⋮) ➔ [앱 설치] 선택' : '📱 Tap Menu (⋮) ➔ Install App');
     });
   }
 
