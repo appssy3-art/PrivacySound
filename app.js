@@ -890,7 +890,7 @@ function setupEventListeners() {
           deferredPrompt = null;
         });
       } else {
-        showToast(currentLanguage === 'ko' ? '🚀 SoundCover 앱 다운로드를 시작합니다!' : '🚀 Starting SoundCover App Download!');
+        showToast(currentLanguage === 'ko' ? '🚀 앱 다운로드 완료! 상단 알림창(또는 다운로드 폴더)에서 [SoundCover.apk]를 눌러 설치를 완료하세요!' : '🚀 App downloaded! Tap [SoundCover.apk] in notification bar to install!');
         try {
           var a = document.createElement('a');
           a.href = './public/assets/SoundCover.apk';

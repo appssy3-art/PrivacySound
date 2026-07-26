@@ -1,9 +1,9 @@
-const CACHE_NAME = 'soundcover-vSYSTEM_CLEAN_PERFECT_AUDIT';
+const CACHE_NAME = 'soundcover-vAPK_NOTIFICATION_GUIDE';
 const ASSETS = [
   './',
   './index.html',
   './styles.css',
-  './app.js?v=SYSTEM_CLEAN_PERFECT_AUDIT',
+  './app.js?v=APK_NOTIFICATION_GUIDE',
   './manifest.json'
 ];
 
