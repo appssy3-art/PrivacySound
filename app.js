@@ -868,12 +868,10 @@ function setupEventListeners() {
         return;
       }
 
-      // 4. Fallback: Clean Direct Location APK Download (Bypasses gesture blocks)
-      closePwaModalFunc();
+      // 4. Fallback: Clean Direct Location APK Download (Bypasses gesture blocks synchronously)
       showToast(currentLanguage === 'ko' ? '🚀 앱 다운로드를 시작합니다!' : '🚀 Starting App Download!');
-      setTimeout(() => {
-        window.location.href = './public/assets/SoundCover.apk';
-      }, 300);
+      window.location.href = './public/assets/SoundCover.apk';
+      closePwaModalFunc();
     });
   }
 
