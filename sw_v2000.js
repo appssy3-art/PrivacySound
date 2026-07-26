@@ -1,9 +1,9 @@
-const CACHE_NAME = 'soundcover-vRELEASE_ASSET_MIME_FINAL';
+const CACHE_NAME = 'soundcover-vPWA_NATIVE_GUIDE_FINAL';
 const ASSETS = [
   './',
   './index.html',
   './styles.css',
-  './app.js?v=RELEASE_ASSET_MIME_FINAL',
+  './app.js?v=PWA_NATIVE_GUIDE_FINAL',
   './manifest.json'
 ];
 

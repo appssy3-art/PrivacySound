@@ -832,13 +832,12 @@ function setupEventListeners() {
 
   // Action inside the White Benefit Modal Card: 100% Clean PWA Installation (Zero File Download Popup)
   if (btnDirectAndroidInstall) {
-    btnDirectAndroidInstall.addEventListener('click', (e) => {
+    btnDirectAndroidInstall.addEventListener('click', () => {
       var ua = navigator.userAgent.toLowerCase();
       var isKakao = /kakaotalk/i.test(ua);
 
       // 1. KakaoTalk In-App WebView ➔ Auto Escape to Chrome/Safari standard scheme
       if (isKakao) {
-        e.preventDefault();
         showToast(currentLanguage === 'ko' ? '🚀 외부 브라우저로 이동하여 설치를 진행합니다...' : '🚀 Opening external browser for installation...');
         if (/iphone|ipad|ipod/i.test(navigator.userAgent)) {
           location.href = 'kakaotalk://web/openExternal?url=' + encodeURIComponent(window.location.href);
@@ -851,7 +850,6 @@ function setupEventListeners() {
 
       // 2. Native Chrome PWA Prompt Direct Launch if active
       if (deferredPrompt) {
-        e.preventDefault();
         deferredPrompt.prompt();
         deferredPrompt.userChoice.then((choiceResult) => {
           if (choiceResult.outcome === 'accepted') {
@@ -865,17 +863,14 @@ function setupEventListeners() {
 
       // 3. iOS Safari Guide Notice
       if (/iphone|ipad|ipod/i.test(navigator.userAgent)) {
-        e.preventDefault();
         closePwaModalFunc();
         showToast(currentLanguage === 'ko' ? '🍎 하단 공유(⬆️) 버튼 ➔ [홈 화면에 추가] 선택' : '🍎 Tap Share (⬆️) ➔ Add to Home Screen');
         return;
       }
 
-      // 4. Fallback: Let the A tag's native href execute by NOT calling preventDefault or window.open
-      showToast(currentLanguage === 'ko' ? '🚀 앱 다운로드를 시작합니다!' : '🚀 Starting App Download!');
-      setTimeout(() => {
-        closePwaModalFunc();
-      }, 800);
+      // 4. Fallback Guide: Clean toast explaining how to manually add to home screen if deferredPrompt is not active
+      closePwaModalFunc();
+      showToast(currentLanguage === 'ko' ? '📱 브라우저 우측 상단 메뉴(⋮) ➔ [앱 설치] 또는 [홈 화면에 추가] 선택' : '📱 Tap Menu (⋮) ➔ Install App or Add to Home Screen');
     });
   }
 
