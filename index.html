@@ -255,21 +255,25 @@
 
   <!-- Service Worker Registration for PWA Installation -->
   <script>
-    // Force nuke and clear all older service workers & caches on load
+    let deferredPrompt;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      const btnFooterInstall = document.getElementById('btnFooterInstall');
+      if (btnFooterInstall) {
+        btnFooterInstall.style.display = 'flex';
+      }
+    });
+
     if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.getRegistrations().then(function(registrations) {
-        for (let registration of registrations) {
-          registration.unregister();
-        }
-      });
-    }
-    if ('caches' in window) {
-      caches.keys().then(function(names) {
-        for (let name of names) caches.delete(name);
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('./sw_v2000.js?v=PWA_NATIVE_GUIDE_FINAL')
+          .then(reg => console.log('SW Registered', reg))
+          .catch(err => console.log('SW Reg Failed', err));
       });
     }
   </script>
   <!-- App JS -->
-  <script src="app.js?v=PWA_NATIVE_GUIDE_FINAL"></script>
+  <script src="app.js?v=PWA_RESTORATION_PERFECT"></script>
 </body>
 </html>
