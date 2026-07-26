@@ -99,30 +99,6 @@ const I18N = {
     laterBtn: "稍后再说",
     bathroomEssential: "洗手间推荐",
     affiliateText: "🧻 可冲水湿厕纸特惠 →"
-  },ou: "あなたの温かい気持ちがサービスを続ける力になります。心より感謝いたします。",
-    laterBtn: "あとで",
-    bathroomEssential: "トイレおすすめアイテム",
-    affiliateText: "🧻 水に流せるトイレ用ウエットティッシュ"
-  },
-  zh: {
-    pwaPrompt: "📱 添加到主屏幕，体验原生应用！",
-    install: "安装",
-    wakeLockActive: "✨ 100% 噪音遮盖中",
-    wakeLockInactive: "🔒 隐私守护礼仪",
-    selectSound: "选择音效",
-    soundDryer: "吹风机",
-    soundPowerShower: "强力花洒",
-    soundHeavyDownpour: "倾盆大雨",
-    selectTimer: "定时设置",
-    volumeControl: "音量增强设置",
-    buyCoffee: "💖 “多亏了这个，帮大忙了！” 给予支持",
-    adsenseLabel: "赞助广告",
-    donationTitle: "❤️ “多亏了这个，帮大忙了！” 给予支持",
-    donationDesc: "如果这个免费礼仪音效帮到了您，欢迎支持开发者一杯咖啡！",
-    donationThankYou: "您的温暖支持是维持本服务运营的力量。衷心感谢您！",
-    laterBtn: "稍后再说",
-    bathroomEssential: "洗手间推荐",
-    affiliateText: "🧻 可冲水湿厕纸特惠 →"
   },
   es: {
     appSubtitle: "🔒 Protocolo de etiqueta privada para baños",
@@ -622,6 +598,12 @@ function applyLocalization() {
       el.textContent = translation;
     }
   });
+
+  // Explicitly guarantee bottom install button & disclaimer translation
+  const installBtnText = document.getElementById('installBtnText');
+  if (installBtnText) {
+    installBtnText.textContent = dict['installApp'] || (I18N['en'] && I18N['en']['installApp']) || '📲 Install App';
+  }
 
   if (currentLanguage === 'ko') {
     switchPaymentTab('kr');

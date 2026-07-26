@@ -1,9 +1,9 @@
-const CACHE_NAME = 'soundcover-vMASTER_SYSTEM_15LANG_AUDITED';
+const CACHE_NAME = 'soundcover-vSYSTEM_CLEAN_PERFECT_AUDIT';
 const ASSETS = [
   './',
   './index.html',
   './styles.css',
-  './app.js?v=MASTER_SYSTEM_15LANG_AUDITED',
+  './app.js?v=SYSTEM_CLEAN_PERFECT_AUDIT',
   './manifest.json'
 ];
 

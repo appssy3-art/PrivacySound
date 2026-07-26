@@ -142,7 +142,7 @@
             <span class="banner-go">➔</span>
           </div>
         </a>
-        <div class="coupang-disclaimer">이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.</div>
+        <div class="coupang-disclaimer" data-i18n="coupangDisclaimer">이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다.</div>
       </div>
 
       <!-- Bottom Dual Action Buttons (Support & App Install) -->
@@ -151,7 +151,7 @@
           <span data-i18n="buyCoffee">💖 "덕분에 민망함 해결했어요!" 응원하기</span>
         </button>
         <button id="btnFooterInstall" class="btn-action-install">
-          <span data-i18n="installApp">📲 앱 설치</span>
+          <span id="installBtnText" data-i18n="installApp">📲 앱 설치</span>
         </button>
       </div>
 
@@ -224,7 +224,7 @@
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', function() {
-        navigator.serviceWorker.register('./sw_v2000.js?v=MASTER_SYSTEM_15LANG_AUDITED')
+        navigator.serviceWorker.register('./sw_v2000.js?v=SYSTEM_CLEAN_PERFECT_AUDIT')
           .then(function(reg) {
             console.log('Fresh Service Worker registered!', reg.scope);
           })
@@ -235,6 +235,6 @@
     }
   </script>
   <!-- App JS -->
-  <script src="app.js?v=MASTER_SYSTEM_15LANG_AUDITED"></script>
+  <script src="app.js?v=SYSTEM_CLEAN_PERFECT_AUDIT"></script>
 </body>
 </html>
