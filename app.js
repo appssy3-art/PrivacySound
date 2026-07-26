@@ -840,22 +840,10 @@ function setupEventListeners() {
     document.body.removeChild(a);
   }
 
-  // Main Home Footer Button: Genuine PWA Home Screen App Icon Installation & Safe KakaoTalk Auto-Escape
+  // Main Home Footer Button: Clean Pure 1-Click PWA App Icon Installation (Zero Redirection)
   const btnFooterInstall = document.getElementById('btnFooterInstall');
   if (btnFooterInstall) {
     btnFooterInstall.addEventListener('click', () => {
-      var ua = navigator.userAgent.toLowerCase();
-      var isAndroid = /android/i.test(ua);
-      var isInApp = /kakaotalk|naver|line|inapp|kakaostory|band|daum|instagram|fb_iab|fbav/i.test(ua);
-      
-      // KakaoTalk In-App Browser Safe Auto-Escape to Chrome
-      if (isAndroid && isInApp) {
-        showToast(currentLanguage === 'ko' ? '🚀 Chrome 브라우저로 이동하여 앱을 설치합니다!' : '🚀 Opening Chrome App for installation!');
-        var cleanUrl = 'soundcover.shop/';
-        window.location.href = 'intent://' + cleanUrl + '#Intent;scheme=https;package=com.android.chrome;end;';
-        return;
-      }
-
       if (deferredPrompt) {
         deferredPrompt.prompt();
         deferredPrompt.userChoice.then((choiceResult) => {
@@ -869,7 +857,7 @@ function setupEventListeners() {
       } else if (/iphone|ipad|ipod/i.test(navigator.userAgent)) {
         showToast(currentLanguage === 'ko' ? '🍎 하단 공유(⬆️) 버튼 ➔ [홈 화면에 추가] 선택' : '🍎 Tap Share (⬆️) ➔ Add to Home Screen');
       } else {
-        showToast(currentLanguage === 'ko' ? '📱 우측 상단 메뉴(⋮) ➔ [앱 설치] 선택' : '📱 Tap Menu (⋮) ➔ Install App');
+        showToast(currentLanguage === 'ko' ? '📱 브라우저 메뉴(⋮) ➔ [앱 설치] 선택' : '📱 Tap Menu (⋮) ➔ Install App');
       }
     });
   }

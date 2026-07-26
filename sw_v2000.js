@@ -1,9 +1,9 @@
-const CACHE_NAME = 'soundcover-vFINAL_5PHOTOS_RESOLVED';
+const CACHE_NAME = 'soundcover-vABSOLUTE_FINAL_ONE_SCREEN';
 const ASSETS = [
   './',
   './index.html',
   './styles.css',
-  './app.js?v=FINAL_5PHOTOS_RESOLVED',
+  './app.js?v=ABSOLUTE_FINAL_ONE_SCREEN',
   './manifest.json'
 ];
 
