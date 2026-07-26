@@ -349,17 +349,25 @@
     </div>
   </div>
 
-  <!-- Service Worker Registration for PWA Installation -->
+  <!-- Fresh Service Worker Registration & Stale Cleanup -->
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', function() {
-        navigator.serviceWorker.register('./sw.js?v=2000')
+        // Clean up old sw.js if present
+        navigator.serviceWorker.getRegistrations().then(function(regs) {
+          for (var reg of regs) {
+            if (reg.active && reg.active.scriptURL.includes('sw.js')) {
+              reg.unregister();
+            }
+          }
+        });
+        // Register new fresh sw_v2000.js
+        navigator.serviceWorker.register('./sw_v2000.js')
           .then(function(reg) {
-            console.log('Service Worker active!', reg.scope);
-            reg.update();
+            console.log('Fresh Service Worker registered!', reg.scope);
           })
           .catch(function(err) {
-            console.log('Service Worker failed:', err);
+            console.log('Service Worker registration failed:', err);
           });
       });
     }
