@@ -1,9 +1,9 @@
-const CACHE_NAME = 'soundcover-vSYNC_DIRECT_APK_FINAL';
+const CACHE_NAME = 'soundcover-vPHYSICAL_ANCHOR_CLICK_FINAL';
 const ASSETS = [
   './',
   './index.html',
   './styles.css',
-  './app.js?v=SYNC_DIRECT_APK_FINAL',
+  './app.js?v=PHYSICAL_ANCHOR_CLICK_FINAL',
   './manifest.json'
 ];
 

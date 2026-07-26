@@ -832,12 +832,13 @@ function setupEventListeners() {
 
   // Action inside the White Benefit Modal Card: 100% Clean PWA Installation (Zero File Download Popup)
   if (btnDirectAndroidInstall) {
-    btnDirectAndroidInstall.addEventListener('click', () => {
+    btnDirectAndroidInstall.addEventListener('click', (e) => {
       var ua = navigator.userAgent.toLowerCase();
       var isKakao = /kakaotalk/i.test(ua);
 
       // 1. KakaoTalk In-App WebView ➔ Auto Escape to Chrome/Safari standard scheme
       if (isKakao) {
+        e.preventDefault();
         showToast(currentLanguage === 'ko' ? '🚀 외부 브라우저로 이동하여 설치를 진행합니다...' : '🚀 Opening external browser for installation...');
         if (/iphone|ipad|ipod/i.test(navigator.userAgent)) {
           location.href = 'kakaotalk://web/openExternal?url=' + encodeURIComponent(window.location.href);
@@ -850,6 +851,7 @@ function setupEventListeners() {
 
       // 2. Native Chrome PWA Prompt Direct Launch if active
       if (deferredPrompt) {
+        e.preventDefault();
         deferredPrompt.prompt();
         deferredPrompt.userChoice.then((choiceResult) => {
           if (choiceResult.outcome === 'accepted') {
@@ -863,14 +865,14 @@ function setupEventListeners() {
 
       // 3. iOS Safari Guide Notice
       if (/iphone|ipad|ipod/i.test(navigator.userAgent)) {
+        e.preventDefault();
         closePwaModalFunc();
         showToast(currentLanguage === 'ko' ? '🍎 하단 공유(⬆️) 버튼 ➔ [홈 화면에 추가] 선택' : '🍎 Tap Share (⬆️) ➔ Add to Home Screen');
         return;
       }
 
-      // 4. Fallback: Clean Direct Location APK Download (Bypasses gesture blocks synchronously)
+      // 4. Fallback: Direct Anchor Download will execute automatically without script block
       showToast(currentLanguage === 'ko' ? '🚀 앱 다운로드를 시작합니다!' : '🚀 Starting App Download!');
-      window.location.href = './public/assets/SoundCover.apk';
       closePwaModalFunc();
     });
   }
