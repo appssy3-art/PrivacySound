@@ -837,12 +837,11 @@ function setupEventListeners() {
     document.body.removeChild(a);
   }
 
-  // Main Home Footer Button: Pure 1-Click Direct File Download (No Black System Dialog Ever)
+  // Main Home Footer Button: Native Direct HTML File Download
   const btnFooterInstall = document.getElementById('btnFooterInstall');
   if (btnFooterInstall) {
     btnFooterInstall.addEventListener('click', () => {
       showToast(currentLanguage === 'ko' ? '📥 SoundCover 앱 다운로드를 시작합니다!' : '📥 Starting SoundCover App Download!');
-      triggerDirectApkDownload();
     });
   }
 }
