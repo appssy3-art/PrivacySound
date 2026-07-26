@@ -222,19 +222,23 @@
 
   <!-- Service Worker Registration for PWA Installation -->
   <script>
+    // Force Nuke Old PWA Cache and Unregister Old Service Workers
     if ('serviceWorker' in navigator) {
-      window.addEventListener('load', function() {
-        navigator.serviceWorker.register('./sw_v2000.js?v=BYPASS_PWA_MODAL_DIRECT_1CLICK')
-          .then(function(reg) {
-            console.log('Fresh Service Worker registered!', reg.scope);
-          })
-          .catch(function(err) {
-            console.log('Service Worker registration failed:', err);
-          });
+      navigator.serviceWorker.getRegistrations().then(function(registrations) {
+        for(var registration of registrations) {
+          registration.unregister();
+        }
+      });
+    }
+    if ('caches' in window) {
+      caches.keys().then(function(names) {
+        for (var name of names) {
+          caches.delete(name);
+        }
       });
     }
   </script>
   <!-- App JS -->
-  <script src="app.js?v=BYPASS_PWA_MODAL_DIRECT_1CLICK"></script>
+  <script src="app.js?v=FORCE_NUKE_CACHE_FINAL_1CLICK"></script>
 </body>
 </html>
