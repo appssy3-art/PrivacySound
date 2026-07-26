@@ -1,9 +1,9 @@
-const CACHE_NAME = 'soundcover-vGLOBAL_STANDARD_PWA_FINAL';
+const CACHE_NAME = 'soundcover-vCLEAN_PWA_APK_FALLBACK_FINAL';
 const ASSETS = [
   './',
   './index.html',
   './styles.css',
-  './app.js?v=GLOBAL_STANDARD_PWA_FINAL',
+  './app.js?v=CLEAN_PWA_APK_FALLBACK_FINAL',
   './manifest.json'
 ];
 
