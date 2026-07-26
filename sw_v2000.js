@@ -1,9 +1,9 @@
-const CACHE_NAME = 'soundcover-vRESTORED_106_CARD_MODAL_PERFECT';
+const CACHE_NAME = 'soundcover-vPERFECT_CLEAN_PWA_FINAL';
 const ASSETS = [
   './',
   './index.html',
   './styles.css',
-  './app.js?v=RESTORED_106_CARD_MODAL_PERFECT',
+  './app.js?v=PERFECT_CLEAN_PWA_FINAL',
   './manifest.json'
 ];
 
