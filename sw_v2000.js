@@ -1,9 +1,9 @@
-const CACHE_NAME = 'soundcover-vZERO_MODAL_TRUE_2STEP_FINAL';
+const CACHE_NAME = 'soundcover-vRESTORED_106_CARD_MODAL_PERFECT';
 const ASSETS = [
   './',
   './index.html',
   './styles.css',
-  './app.js?v=ZERO_MODAL_TRUE_2STEP_FINAL',
+  './app.js?v=RESTORED_106_CARD_MODAL_PERFECT',
   './manifest.json'
 ];
 

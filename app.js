@@ -808,11 +808,32 @@ function setupEventListeners() {
     }, 4000);
   }
 
-  // Main Home Footer Button: Pure Clean 2-Step Native PWA Install Logic (Zero Scheme, Zero Intermediate Modals)
-  const btnFooterInstall = document.getElementById('btnFooterInstall');
-  if (btnFooterInstall) {
-    btnFooterInstall.addEventListener('click', () => {
-      // Direct Native Chrome Install Dialog (1-Click Launch)
+  // PWA Benefit Card Modal Elements & Logic (1:06 exact flow)
+  const pwaModal = document.getElementById('pwaModal');
+  const closePwaModal = document.getElementById('closePwaModal');
+  const btnPwaModalCancel = document.getElementById('btnPwaModalCancel');
+  const btnDirectAndroidInstall = document.getElementById('btnDirectAndroidInstall');
+
+  function openPwaModal() {
+    if (pwaModal) pwaModal.classList.remove('hidden');
+  }
+
+  function closePwaModalFunc() {
+    if (pwaModal) pwaModal.classList.add('hidden');
+  }
+
+  if (closePwaModal) closePwaModal.addEventListener('click', closePwaModalFunc);
+  if (btnPwaModalCancel) btnPwaModalCancel.addEventListener('click', closePwaModalFunc);
+  if (pwaModal) {
+    pwaModal.addEventListener('click', (e) => {
+      if (e.target === pwaModal) closePwaModalFunc();
+    });
+  }
+
+  // Action inside the 1:06 White Benefit Modal Card
+  if (btnDirectAndroidInstall) {
+    btnDirectAndroidInstall.addEventListener('click', () => {
+      closePwaModalFunc();
       if (deferredPrompt) {
         deferredPrompt.prompt();
         deferredPrompt.userChoice.then((choiceResult) => {
@@ -821,23 +842,25 @@ function setupEventListeners() {
           }
           deferredPrompt = null;
         });
-        return;
+      } else {
+        // Direct Fallback Download
+        try {
+          var a = document.createElement('a');
+          a.href = './public/assets/SoundCover.apk';
+          a.download = 'SoundCover.apk';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+        } catch (e) {}
       }
+    });
+  }
 
-      // Standalone or Already Installed Check
-      if (window.matchMedia('(display-mode: standalone)').matches || navigator.standalone) {
-        showToast(currentLanguage === 'ko' ? '🎉 이미 바탕화면에 앱이 설치되어 있습니다!' : '🎉 App is already installed!');
-        return;
-      }
-
-      // iOS Safari Notice
-      if (/iphone|ipad|ipod/i.test(navigator.userAgent)) {
-        showToast(currentLanguage === 'ko' ? '🍎 하단 공유(⬆️) 버튼 ➔ [홈 화면에 추가] 선택' : '🍎 Tap Share (⬆️) ➔ Add to Home Screen');
-        return;
-      }
-
-      // General Browser Fallback Guide
-      showToast(currentLanguage === 'ko' ? '📱 브라우저 우측 상단 메뉴(⋮) ➔ [앱 설치] 선택' : '📱 Tap Menu (⋮) ➔ Install App');
+  // Main Home Footer Button: Open 1:06 Benefit Modal Instantly
+  const btnFooterInstall = document.getElementById('btnFooterInstall');
+  if (btnFooterInstall) {
+    btnFooterInstall.addEventListener('click', () => {
+      openPwaModal();
     });
   }
 }
