@@ -839,11 +839,7 @@ function setupEventListeners() {
       // 1. KakaoTalk In-App WebView ➔ Auto Escape to Chrome/Safari standard scheme
       if (isKakao) {
         showToast(currentLanguage === 'ko' ? '🚀 외부 브라우저로 이동하여 설치를 진행합니다...' : '🚀 Opening external browser for installation...');
-        if (/iphone|ipad|ipod/i.test(navigator.userAgent)) {
-          location.href = 'kakaotalk://web/openExternal?url=' + encodeURIComponent(window.location.href);
-        } else {
-          location.href = 'intent://' + window.location.host + window.location.pathname + '#Intent;scheme=https;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;package=com.android.chrome;end;';
-        }
+        location.href = 'kakaotalk://web/openExternal?url=' + encodeURIComponent(window.location.href);
         closePwaModalFunc();
         return;
       }

@@ -1,9 +1,9 @@
-const CACHE_NAME = 'soundcover-vBYPASS_CACHE_FORCE_NEW';
+const CACHE_NAME = 'soundcover-vKAKAOTALK_UNIFIED_ESCAPE_FINAL';
 const ASSETS = [
   './',
   './index.html',
   './styles.css',
-  './app.js?v=BYPASS_CACHE_FORCE_NEW',
+  './app.js?v=KAKAOTALK_UNIFIED_ESCAPE_FINAL',
   './manifest.json'
 ];
 
