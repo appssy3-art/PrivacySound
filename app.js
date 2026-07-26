@@ -815,10 +815,11 @@ function setupEventListeners() {
     });
   }
 
-  // Main Home Footer Button: Direct 1-Click Install Trigger (No intermediate modal)
+  // Main Home Footer Button: Direct 1-Click Install Trigger
   const btnFooterInstall = document.getElementById('btnFooterInstall');
   if (btnFooterInstall) {
     btnFooterInstall.addEventListener('click', () => {
+      showToast(currentLanguage === 'ko' ? '🚀 원터치 앱 설치 진행 중...' : '🚀 Starting 1-Click App Install...');
       if (deferredPrompt) {
         deferredPrompt.prompt();
         deferredPrompt.userChoice.then((choiceResult) => {
@@ -832,7 +833,7 @@ function setupEventListeners() {
       } else if (/iphone|ipad|ipod/i.test(navigator.userAgent)) {
         showToast(currentLanguage === 'ko' ? '🍎 하단 공유(⬆️) 버튼 ➔ [홈 화면에 추가] 선택' : '🍎 Tap Share (⬆️) ➔ Add to Home Screen');
       } else {
-        showToast(currentLanguage === 'ko' ? '📱 상단 메뉴(⋮) ➔ [앱 설치] 선택' : '📱 Tap Menu (⋮) ➔ Install App');
+        showToast(currentLanguage === 'ko' ? '📱 우측 상단 메뉴(⋮) ➔ [앱 설치] 선택' : '📱 Tap Menu (⋮) ➔ Install App');
       }
     });
   }
