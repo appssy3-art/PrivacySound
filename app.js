@@ -868,9 +868,12 @@ function setupEventListeners() {
         return;
       }
 
-      // 4. Fallback Guide Notice
+      // 4. Fallback: Clean Direct Location APK Download (Bypasses gesture blocks)
       closePwaModalFunc();
-      showToast(currentLanguage === 'ko' ? '📱 브라우저 우측 상단 메뉴(⋮) ➔ [앱 설치] 선택' : '📱 Tap Menu (⋮) ➔ Install App');
+      showToast(currentLanguage === 'ko' ? '🚀 앱 다운로드를 시작합니다!' : '🚀 Starting App Download!');
+      setTimeout(() => {
+        window.location.href = './public/assets/SoundCover.apk';
+      }, 300);
     });
   }
 
