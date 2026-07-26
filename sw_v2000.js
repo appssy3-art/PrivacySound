@@ -1,9 +1,9 @@
-const CACHE_NAME = 'soundcover-vCLEAN_NO_CONFLICTS_FINAL';
+const CACHE_NAME = 'soundcover-vNATIVE_A_TAG_DIRECT_FINAL';
 const ASSETS = [
   './',
   './index.html',
   './styles.css',
-  './app.js?v=CLEAN_NO_CONFLICTS_FINAL',
+  './app.js?v=NATIVE_A_TAG_DIRECT_FINAL',
   './manifest.json'
 ];
 

@@ -871,13 +871,11 @@ function setupEventListeners() {
         return;
       }
 
-      // 4. Fallback: Direct Anchor Download with window.open to bypass mobile focus lock
-      e.preventDefault();
+      // 4. Fallback: Let the A tag's native href execute by NOT calling preventDefault or window.open
       showToast(currentLanguage === 'ko' ? '🚀 앱 다운로드를 시작합니다!' : '🚀 Starting App Download!');
-      window.open('https://soundcover.shop/public/assets/SoundCover.apk', '_blank');
       setTimeout(() => {
         closePwaModalFunc();
-      }, 500);
+      }, 800);
     });
   }
 
