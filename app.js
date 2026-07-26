@@ -768,31 +768,58 @@ function setupEventListeners() {
     }, 4000);
   }
 
-  const btnFooterInstall = document.getElementById('btnFooterInstall');
-  if (btnFooterInstall) {
-    btnFooterInstall.addEventListener('click', () => {
-      // 1. Android / Chrome: Direct System Install Prompt
+  // PWA Modal Elements & Logic
+  const pwaModal = document.getElementById('pwaModal');
+  const closePwaModal = document.getElementById('closePwaModal');
+  const btnPwaModalCancel = document.getElementById('btnPwaModalCancel');
+  const btnDirectAndroidInstall = document.getElementById('btnDirectAndroidInstall');
+
+  function openPwaModal() {
+    if (pwaModal) pwaModal.classList.remove('hidden');
+  }
+
+  function closePwaModalFunc() {
+    if (pwaModal) pwaModal.classList.add('hidden');
+  }
+
+  if (closePwaModal) closePwaModal.addEventListener('click', closePwaModalFunc);
+  if (btnPwaModalCancel) btnPwaModalCancel.addEventListener('click', closePwaModalFunc);
+  if (pwaModal) {
+    pwaModal.addEventListener('click', (e) => {
+      if (e.target === pwaModal) closePwaModalFunc();
+    });
+  }
+
+  // Action inside the White Benefit Modal Card
+  if (btnDirectAndroidInstall) {
+    btnDirectAndroidInstall.addEventListener('click', () => {
       if (deferredPrompt) {
         deferredPrompt.prompt();
         deferredPrompt.userChoice.then((choiceResult) => {
           if (choiceResult.outcome === 'accepted') {
-            console.log('User accepted PWA install');
+            console.log('User accepted PWA prompt from modal');
           }
           deferredPrompt = null;
+          closePwaModalFunc();
         });
-      } 
-      // 2. Already installed and running in Standalone app mode
-      else if (window.matchMedia('(display-mode: standalone)').matches || navigator.standalone) {
+      } else if (window.matchMedia('(display-mode: standalone)').matches || navigator.standalone) {
         showToast(currentLanguage === 'ko' ? '이미 앱으로 실행 중입니다! 🎉' : 'App is already running! 🎉');
-      } 
-      // 3. iOS Safari
-      else if (/iphone|ipad|ipod/i.test(navigator.userAgent)) {
+        closePwaModalFunc();
+      } else if (/iphone|ipad|ipod/i.test(navigator.userAgent)) {
         showToast(currentLanguage === 'ko' ? '🍎 하단 공유(⬆️) 버튼 ➔ [홈 화면에 추가] 선택' : '🍎 Tap Share (⬆️) ➔ Add to Home Screen');
-      } 
-      // 4. Android Browser fallback (Prompt not fired yet or declined previously)
-      else {
+        closePwaModalFunc();
+      } else {
         showToast(currentLanguage === 'ko' ? '📱 브라우저 메뉴(⋮) ➔ [앱 설치] 선택' : '📱 Tap Menu (⋮) ➔ Install App');
+        closePwaModalFunc();
       }
+    });
+  }
+
+  // Main Home Footer Button: Open the White Benefit Modal Card
+  const btnFooterInstall = document.getElementById('btnFooterInstall');
+  if (btnFooterInstall) {
+    btnFooterInstall.addEventListener('click', () => {
+      openPwaModal();
     });
   }
 }

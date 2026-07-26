@@ -197,7 +197,45 @@
     </footer>
   </div>
 
+  <!-- Custom Luxury PWA Install Modal (Expert Conversion Design) -->
+  <div id="pwaModal" class="modal-overlay hidden">
+    <div class="modal-content pwa-guide-card">
+      <button id="closePwaModal" class="btn-close-modal">✕</button>
+      
+      <div class="pwa-guide-header">
+        <img src="./public/assets/profile_avatar.png" class="pwa-guide-logo" alt="SoundCover Icon" />
+        <h3 class="pwa-headline">앱스토어 검색해서<br>용량 차지하는 앱 다운받지 마세요! 🙅‍♂️</h3>
+      </div>
 
+      <div class="pwa-benefits-list">
+        <div class="benefit-item">
+          <span class="benefit-icon">⚡</span>
+          <div class="benefit-text">
+            <strong>용량 0MB • 원터치 바로 설치</strong>
+            <span>앱스토어 로그인 필요 없이 바탕화면에 즉시 아이콘 생성</span>
+          </div>
+        </div>
+        <div class="benefit-item">
+          <span class="benefit-icon">🔒</span>
+          <div class="benefit-text">
+            <strong>화면 꺼짐 방지 & 100% 프라이버시</strong>
+            <span>화장실 에티켓 소음을 민망함 없이 완벽 차단</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="pwa-modal-actions">
+        <button id="btnPwaModalCancel" class="btn-modal-cancel">취소</button>
+        <button id="btnDirectAndroidInstall" class="btn-modal-install">
+          <span>🚀 바탕화면에 무료 앱 설치</span>
+        </button>
+      </div>
+
+      <div class="pwa-ios-notice">
+        <span>🍎 아이폰(iOS): 하단 공유(⬆️) ➔ [홈 화면에 추가] 선택</span>
+      </div>
+    </div>
+  </div>
 
   <!-- Support Modal -->
   <div id="supportModal" class="modal-overlay hidden">
@@ -315,7 +353,7 @@
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js?v=90')
+        navigator.serviceWorker.register('./sw.js?v=95')
           .then(reg => {
             console.log('Service Worker registered successfully!', reg.scope);
             reg.update();
@@ -325,6 +363,6 @@
     }
   </script>
   <!-- App JS -->
-  <script src="app.js?v=90"></script>
+  <script src="app.js?v=95"></script>
 </body>
 </html>
