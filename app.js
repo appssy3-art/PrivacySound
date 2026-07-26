@@ -815,11 +815,25 @@ function setupEventListeners() {
     });
   }
 
-  // Main Home Footer Button: Open the White Benefit Modal Card
+  // Main Home Footer Button: Direct 1-Click Install Trigger (No intermediate modal)
   const btnFooterInstall = document.getElementById('btnFooterInstall');
   if (btnFooterInstall) {
     btnFooterInstall.addEventListener('click', () => {
-      openPwaModal();
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((choiceResult) => {
+          if (choiceResult.outcome === 'accepted') {
+            console.log('User accepted PWA install');
+          }
+          deferredPrompt = null;
+        });
+      } else if (window.matchMedia('(display-mode: standalone)').matches || navigator.standalone) {
+        showToast(currentLanguage === 'ko' ? '이미 앱으로 실행 중입니다! 🎉' : 'App is already running! 🎉');
+      } else if (/iphone|ipad|ipod/i.test(navigator.userAgent)) {
+        showToast(currentLanguage === 'ko' ? '🍎 하단 공유(⬆️) 버튼 ➔ [홈 화면에 추가] 선택' : '🍎 Tap Share (⬆️) ➔ Add to Home Screen');
+      } else {
+        showToast(currentLanguage === 'ko' ? '📱 상단 메뉴(⋮) ➔ [앱 설치] 선택' : '📱 Tap Menu (⋮) ➔ Install App');
+      }
     });
   }
 }
