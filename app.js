@@ -841,26 +841,27 @@ function setupEventListeners() {
   const btnFooterInstall = document.getElementById('btnFooterInstall');
   if (btnFooterInstall) {
     btnFooterInstall.addEventListener('click', () => {
+      // Prevent duplicate black system prompt if user already installed in this session or mode
+      if (localStorage.getItem('soundcover_installed') === 'true' || window.matchMedia('(display-mode: standalone)').matches || navigator.standalone) {
+        showToast(currentLanguage === 'ko' ? '🎉 이미 바탕화면에 앱이 설치되어 있습니다!' : '🎉 App is already installed on your home screen!');
+        return;
+      }
+
       // Track 1: If Chrome PWA prompt is ready
       if (deferredPrompt) {
         deferredPrompt.prompt();
         deferredPrompt.userChoice.then((choiceResult) => {
           if (choiceResult.outcome === 'accepted') {
+            localStorage.setItem('soundcover_installed', 'true');
             console.log('User accepted PWA install');
           }
           deferredPrompt = null;
         });
       } 
-      // Track 2: Direct File Download & Visual Overlay Fallback
+      // Track 2: Direct File Download Fallback
       else {
         showToast(currentLanguage === 'ko' ? '📥 앱 다운로드를 시작합니다!' : '📥 Starting App Download!');
         triggerDirectApkDownload();
-        
-        if (chromeMenuGuide && /android/i.test(navigator.userAgent)) {
-          setTimeout(() => {
-            chromeMenuGuide.classList.remove('hidden');
-          }, 1000);
-        }
       }
     });
   }
