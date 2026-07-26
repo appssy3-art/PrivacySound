@@ -1,9 +1,9 @@
-const CACHE_NAME = 'soundcover-vPERFECT_CLEAN_PWA_FINAL';
+const CACHE_NAME = 'soundcover-vKAKAOTALK_FREEZE_FIXED_FINAL';
 const ASSETS = [
   './',
   './index.html',
   './styles.css',
-  './app.js?v=PERFECT_CLEAN_PWA_FINAL',
+  './app.js?v=KAKAOTALK_FREEZE_FIXED_FINAL',
   './manifest.json'
 ];
 

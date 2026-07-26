@@ -843,8 +843,18 @@ function setupEventListeners() {
           deferredPrompt = null;
         });
       } else {
-        // Clean PWA Notice (Zero File Download Popup)
-        showToast(currentLanguage === 'ko' ? '📱 브라우저 우측 상단 메뉴(⋮) ➔ [앱 설치] 선택' : '📱 Tap Menu (⋮) ➔ Install App');
+        // Guaranteed Instant Direct APK Download (Zero Text-Only Freeze)
+        showToast(currentLanguage === 'ko' ? '🚀 앱 다운로드 시작! 상단 알림창에서 [SoundCover.apk]를 눌러 설치를 완료하세요!' : '🚀 Starting App Download!');
+        try {
+          var a = document.createElement('a');
+          a.href = './public/assets/SoundCover.apk';
+          a.download = 'SoundCover.apk';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+        } catch (e) {
+          console.log('Instant download exception:', e);
+        }
       }
     });
   }
