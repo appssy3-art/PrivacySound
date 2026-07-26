@@ -1,9 +1,9 @@
-const CACHE_NAME = 'soundcover-v99';
+const CACHE_NAME = 'soundcover-v2000';
 const ASSETS = [
   './',
   './index.html',
   './styles.css',
-  './app.js?v=99',
+  './app.js?v=2000',
   './manifest.json',
   './public/assets/profile_avatar.png',
   './public/assets/icon-192.png',
