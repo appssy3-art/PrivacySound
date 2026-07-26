@@ -1,9 +1,9 @@
-const CACHE_NAME = 'soundcover-vMOBILE_TAB_DOWNLOAD_FINAL';
+const CACHE_NAME = 'soundcover-vCLEAN_NO_CONFLICTS_FINAL';
 const ASSETS = [
   './',
   './index.html',
   './styles.css',
-  './app.js?v=MOBILE_TAB_DOWNLOAD_FINAL',
+  './app.js?v=CLEAN_NO_CONFLICTS_FINAL',
   './manifest.json'
 ];
 

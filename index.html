@@ -268,18 +268,8 @@
         for (let name of names) caches.delete(name);
       });
     }
-
-    let deferredPrompt;
-    window.addEventListener('beforeinstallprompt', (e) => {
-      e.preventDefault();
-      deferredPrompt = e;
-      const btnFooterInstall = document.getElementById('btnFooterInstall');
-      if (btnFooterInstall) {
-        btnFooterInstall.style.display = 'flex';
-      }
-    });
   </script>
   <!-- App JS -->
-  <script src="app.js?v=MOBILE_TAB_DOWNLOAD_FINAL"></script>
+  <script src="app.js?v=CLEAN_NO_CONFLICTS_FINAL"></script>
 </body>
 </html>
