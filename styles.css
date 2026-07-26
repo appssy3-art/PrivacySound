@@ -142,6 +142,43 @@ body::after {
   z-index: 0;
 }
 
+/* Big Round Master Play Button Styling */
+.play-trigger-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 18px 0;
+}
+
+.main-play-btn {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%);
+  border: 4px solid #ffffff;
+  box-shadow: 0 10px 30px rgba(124, 58, 237, 0.35);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.main-play-btn:active {
+  transform: scale(0.92);
+}
+
+.main-play-btn.playing {
+  background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+  box-shadow: 0 10px 30px rgba(239, 68, 68, 0.4);
+}
+
+.play-icon-shape {
+  font-size: 36px;
+  color: #ffffff;
+  margin-left: 4px;
+}
+
 /* Responsive App Container */
 .app-container {
   width: 100%;
