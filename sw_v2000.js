@@ -1,9 +1,9 @@
-const CACHE_NAME = 'soundcover-vPERFECT_DOWNLOAD_AND_I18N';
+const CACHE_NAME = 'soundcover-vMASTER_SYSTEM_15LANG_AUDITED';
 const ASSETS = [
   './',
   './index.html',
   './styles.css',
-  './app.js?v=PERFECT_DOWNLOAD_AND_I18N',
+  './app.js?v=MASTER_SYSTEM_15LANG_AUDITED',
   './manifest.json'
 ];
 

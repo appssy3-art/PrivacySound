@@ -9,7 +9,8 @@ window.addEventListener('beforeinstallprompt', (e) => {
 // Multi-Language Localization Data (15 Worldwide Languages: KO/EN/JA/ZH/ES/PT/DE/FR/VI/ID/TH/AR/RU/HI/LA)
 const I18N = {
   ko: {
-    installApp: "앱 설치",
+    appSubtitle: "🔒 프라이빗하게 지켜 드리는 화장실 소리 에티켓",
+    installApp: "📲 앱 설치",
     pwaPrompt: "📱 홈 화면에 추가하여 앱처럼 사용하세요!",
     install: "설치",
     wakeLockActive: "✨ 100% 소음 커버 중",
@@ -19,6 +20,7 @@ const I18N = {
     soundPowerShower: "강력 샤워기",
     soundHeavyDownpour: "장대비",
     selectTimer: "타이머 설정",
+    setTimer: "타이머 설정",
     volumeControl: "볼륨 설정 (소리 증폭)",
     buyCoffee: "💖 \"덕분에 민망함 해결했어요!\" 응원하기",
     adsenseLabel: "광고 영역",
@@ -27,9 +29,11 @@ const I18N = {
     donationThankYou: "당신의 따뜻한 마음이 이 서비스를 지켜나가는 힘이 됩니다. 진심으로 감사드려요.",
     laterBtn: "나중에 할게요",
     bathroomEssential: "화장실 추천템",
-    affiliateText: "🧻 급할 때 유용한 물에 잘 녹는 비데 물티슈 핫딜"
+    affiliateText: "🧻 급할 때 유용한 물에 잘 녹는 비데 물티슈 핫딜 보기"
   },
   en: {
+    appSubtitle: "🔒 Privately Protecting Your Bathroom Sound Etiquette",
+    installApp: "📲 Install App",
     pwaPrompt: "📱 Add to Home Screen for app experience!",
     install: "Install",
     wakeLockActive: "✨ 100% Noise Masking",
@@ -39,32 +43,63 @@ const I18N = {
     soundPowerShower: "Power Shower",
     soundHeavyDownpour: "Heavy Downpour",
     selectTimer: "Timer Setting",
+    setTimer: "Timer Setting",
     volumeControl: "Volume Boost & Level",
-    buyCoffee: "💖 \"Thanks for solving the embarrassing sound!\" Little Cheer",
+    buyCoffee: "💖 \"Thanks for solving the embarrassing sound!\" Support Us",
     adsenseLabel: "Advertisement",
-    donationTitle: "❤️ \"Thanks for solving the embarrassing sound!\" Little Cheer",
+    donationTitle: "❤️ \"Thanks for solving the embarrassing sound!\" Support Us",
     donationDesc: "Your warm support helps SoundCover protect your small private moments. Thank you!",
     donationThankYou: "Your warm heart is the power that keeps this service going. We sincerely thank you!",
     laterBtn: "Later",
     bathroomEssential: "Bathroom Essential",
-    affiliateText: "🧻 Flushable Moist Wipes Special Deal"
+    affiliateText: "🧻 Flushable Moist Wipes Special Deal →"
   },
   ja: {
+    appSubtitle: "🔒 プライベートを守るトイレ音エチケット",
+    installApp: "📲 アプリインストール",
     pwaPrompt: "📱 ホーム画面に追加してアプリとして使用！",
     install: "インストール",
     wakeLockActive: "✨ 100% 騒音遮断中",
     wakeLockInactive: "🔒 プライベートを守るエチケット",
     selectSound: "サウンド選択",
-    soundDryer: "ヘアドライヤー",
+    soundDryer: "ヘアド라이ヤー",
     soundPowerShower: "強力シャワー",
     soundHeavyDownpour: "土砂降り",
     selectTimer: "タイマー設定",
+    setTimer: "タイマー設定",
     volumeControl: "音量ブースト設定",
     buyCoffee: "💖 「おかげで助かりました！」 応援する",
     adsenseLabel: "広告エリア",
     donationTitle: "❤️ 「おかげで助かりました！」 応援する",
     donationDesc: "快適なマナー音サービスが役に立ったら、温かいご支援をお願いします！",
     donationThankYou: "あなたの温かい気持ちがサービスを続ける力になります。心より感謝いたします。",
+    laterBtn: "あとで",
+    bathroomEssential: "トイレおすすめアイテム",
+    affiliateText: "🧻 水に流せるトイレ用ウエットティッシュ →"
+  },
+  zh: {
+    appSubtitle: "🔒 保护隐私的洗手间礼仪音效",
+    installApp: "📲 安装应用",
+    pwaPrompt: "📱 添加到主屏幕，体验原生应用！",
+    install: "安装",
+    wakeLockActive: "✨ 100% 噪音遮盖中",
+    wakeLockInactive: "🔒 隐私守护礼仪",
+    selectSound: "选择音效",
+    soundDryer: "吹风机",
+    soundPowerShower: "强力花洒",
+    soundHeavyDownpour: "倾盆大雨",
+    selectTimer: "定时设置",
+    setTimer: "定时设置",
+    volumeControl: "音量增强设置",
+    buyCoffee: "💖 “多亏了这个，帮大忙了！” 给予支持",
+    adsenseLabel: "赞助广告",
+    donationTitle: "❤️ “多亏了这个，帮大忙了！” 给予支持",
+    donationDesc: "如果这个免费礼仪音效帮到了您，欢迎支持开发者一杯咖啡！",
+    donationThankYou: "您的温暖支持是维持本服务运营的力量。衷心感谢您！",
+    laterBtn: "稍后再说",
+    bathroomEssential: "洗手间推荐",
+    affiliateText: "🧻 可冲水湿厕纸特惠 →"
+  },ou: "あなたの温かい気持ちがサービスを続ける力になります。心より感謝いたします。",
     laterBtn: "あとで",
     bathroomEssential: "トイレおすすめアイテム",
     affiliateText: "🧻 水に流せるトイレ用ウエットティッシュ"
@@ -91,6 +126,7 @@ const I18N = {
   },
   es: {
     appSubtitle: "🔒 Protocolo de etiqueta privada para baños",
+    installApp: "📲 Instalar App",
     pwaPrompt: "📱 ¡Añade a la pantalla de inicio para la experiencia de app!",
     install: "Instalar",
     wakeLockActive: "✨ Enmascaramiento de ruido al 100%",
@@ -112,6 +148,8 @@ const I18N = {
     affiliateText: "🧻 Oferta especial de toallitas húmedas desechables →"
   },
   pt: {
+    appSubtitle: "🔒 Etiqueta Privada de Som para Banheiro",
+    installApp: "📲 Instalar Aplicativo",
     pwaPrompt: "📱 Adicione à tela inicial para uma experiência de aplicativo!",
     install: "Instalar",
     wakeLockActive: "✨ 100% Mascaramento de Ruído",
@@ -121,6 +159,7 @@ const I18N = {
     soundPowerShower: "Chuveiro Forte",
     soundHeavyDownpour: "Chuva Forte",
     selectTimer: "Definir Temporizador",
+    setTimer: "Definir Temporizador",
     volumeControl: "Aumento de Volume",
     buyCoffee: "💖 \"Obrigado por salvar o momento!\" Apoiar",
     adsenseLabel: "Anúncio",
@@ -132,6 +171,8 @@ const I18N = {
     affiliateText: "🧻 Oferta especial de lenços umedecidos laváveis →"
   },
   de: {
+    appSubtitle: "🔒 Schützen Sie Ihre Privatsphäre im Badezimmer",
+    installApp: "📲 App Installieren",
     pwaPrompt: "📱 Zum Startbildschirm hinzufügen!",
     install: "Installieren",
     wakeLockActive: "✨ 100% Geräuschüberdeckung",
@@ -141,6 +182,7 @@ const I18N = {
     soundPowerShower: "Power-Dusche",
     soundHeavyDownpour: "Starkregen",
     selectTimer: "Timer-Einstellung",
+    setTimer: "Timer-Einstellung",
     volumeControl: "Lautstärke-Verstärkung",
     buyCoffee: "💖 \"Danke für die Rettung!\" Unterstützen",
     adsenseLabel: "Werbung",
@@ -152,6 +194,8 @@ const I18N = {
     affiliateText: "🧻 Feuchttücher Spezialangebot →"
   },
   fr: {
+    appSubtitle: "🔒 Protéger votre étiquette de confidentialité aux toilettes",
+    installApp: "📲 Installer l'application",
     pwaPrompt: "📱 Ajouter à l'écran d'accueil pour l'application !",
     install: "Installer",
     wakeLockActive: "✨ Masquage sonore à 100%",
@@ -161,6 +205,7 @@ const I18N = {
     soundPowerShower: "Douche puissante",
     soundHeavyDownpour: "Pluie battante",
     selectTimer: "Réglage du minuteur",
+    setTimer: "Réglage du minuteur",
     volumeControl: "Amplification du volume",
     buyCoffee: "💖 \"Merci d'avoir sauvé la situation !\" Soutenir",
     adsenseLabel: "Publicité",
@@ -172,6 +217,8 @@ const I18N = {
     affiliateText: "🧻 Offre spéciale lingettes humides jetables →"
   },
   vi: {
+    appSubtitle: "🔒 Bảo vệ lịch sự riêng tư trong nhà vệ sinh",
+    installApp: "📲 Cài đặt ứng dụng",
     pwaPrompt: "📱 Thêm vào màn hình chính để dùng như ứng dụng!",
     install: "Cài đặt",
     wakeLockActive: "✨ Che phủ tiếng ồn 100%",
@@ -181,6 +228,7 @@ const I18N = {
     soundPowerShower: "Vòi sen mạnh",
     soundHeavyDownpour: "Mưa rào lớn",
     selectTimer: "Cài đặt hẹn giờ",
+    setTimer: "Cài đặt hẹn giờ",
     volumeControl: "Tăng cường âm lượng",
     buyCoffee: "💖 \"Cảm ơn vì đã cứu nguy!\" Ủng hộ",
     adsenseLabel: "Quảng cáo",
@@ -192,6 +240,8 @@ const I18N = {
     affiliateText: "🧻 Khăn giấy ướt vệ sinh xả được giá tốt →"
   },
   id: {
+    appSubtitle: "🔒 Etiket Suara Toilet Menjaga Privasi Anda",
+    installApp: "📲 Instal Aplikasi",
     pwaPrompt: "📱 Tambahkan ke Layar Utama untuk aplikasi!",
     install: "Instal",
     wakeLockActive: "✨ 100% Meredam Kebisingan",
@@ -201,6 +251,7 @@ const I18N = {
     soundPowerShower: "Kran Pancuran Kencang",
     soundHeavyDownpour: "Hujan Lebat",
     selectTimer: "Pengaturan Timer",
+    setTimer: "Pengaturan Timer",
     volumeControl: "Penguat Volume",
     buyCoffee: "💖 \"Terima kasih sudah menyelamatkan momen!\" Dukung",
     adsenseLabel: "Iklan",
@@ -213,6 +264,7 @@ const I18N = {
   },
   th: {
     appSubtitle: "🔒 มารยาทเสียงในห้องน้ำเพื่อความเป็นส่วนตัว",
+    installApp: "📲 ติดตั้งแอปพลิเคชัน",
     pwaPrompt: "📱 เพิ่มไปยังหน้าจอหลักเพื่อใช้งานแอป!",
     install: "ติดตั้ง",
     wakeLockActive: "✨ กลบเสียงรบกวน 100%",
@@ -234,6 +286,8 @@ const I18N = {
     affiliateText: "🧻 โปรโมชั่น ทิชชู่เปียกชักโครก →"
   },
   ar: {
+    appSubtitle: "🔒 آداب الصوت في المرحاض لحماية الخصوصية",
+    installApp: "📲 تثبيت التطبيق",
     pwaPrompt: "📱 أضف إلى الشاشة الرئيسية لتجربة التطبيق!",
     install: "تثبيت",
     wakeLockActive: "✨ تغطية الضوضاء بنسبة 100%",
@@ -243,6 +297,7 @@ const I18N = {
     soundPowerShower: "دش قوي",
     soundHeavyDownpour: "مطر غزير",
     selectTimer: "إعداد المؤقت",
+    setTimer: "إعداد المؤقت",
     volumeControl: "تعزيز مستوى الصوت",
     buyCoffee: "💖 \"شكراً على إنقاذ الموقف!\" دعم",
     adsenseLabel: "إعلان",
