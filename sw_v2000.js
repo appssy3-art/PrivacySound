@@ -1,9 +1,9 @@
-const CACHE_NAME = 'soundcover-vRESTORED_WORKING_APK_FINAL';
+const CACHE_NAME = 'soundcover-vCLEAN_PWA_STRICT_NO_APK_FINAL';
 const ASSETS = [
   './',
   './index.html',
   './styles.css',
-  './app.js?v=RESTORED_WORKING_APK_FINAL',
+  './app.js?v=CLEAN_PWA_STRICT_NO_APK_FINAL',
   './manifest.json'
 ];
 
