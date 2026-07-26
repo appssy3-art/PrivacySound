@@ -885,10 +885,10 @@ function setupEventListeners() {
       var isKakao = /kakaotalk/i.test(ua);
       var isIOS = /iphone|ipad|ipod/i.test(ua);
 
-      // 1. KakaoTalk In-App WebView ➔ Auto Escape to Chrome
+      // 1. KakaoTalk In-App WebView ➔ Direct Android Chrome Intent Escape
       if (isKakao) {
         showToast(currentLanguage === 'ko' ? '🚀 Chrome 브라우저로 이동하여 앱을 설치합니다!' : '🚀 Opening Chrome App for installation!');
-        location.href = 'kakaotalk://web/openExternal?url=' + encodeURIComponent('https://soundcover.shop/');
+        location.href = 'intent://soundcover.shop/#Intent;scheme=https;package=com.android.chrome;end;';
         return;
       }
 
