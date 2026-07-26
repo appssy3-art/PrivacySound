@@ -898,21 +898,30 @@ function stopSoundOnly() {
     } catch (e) {}
     currentBufferSource = null;
   }
-  if (masterGainNode && audioCtx) {
+  if (masterGainNode) {
     try {
-      masterGainNode.gain.setValueAtTime(0, audioCtx.currentTime);
+      if (audioCtx) masterGainNode.gain.setValueAtTime(0, audioCtx.currentTime);
+      masterGainNode.disconnect();
     } catch (e) {}
+    masterGainNode = null;
   }
-  if (audioCtx && audioCtx.state === 'running') {
+  if (masterCompressor) {
     try {
-      audioCtx.suspend();
+      masterCompressor.disconnect();
     } catch (e) {}
+    masterCompressor = null;
+  }
+  if (audioCtx) {
+    try {
+      audioCtx.close();
+    } catch (e) {}
+    audioCtx = null;
   }
 }
 
 async function startSound() {
-  unlockAudioContext();
   stopSoundOnly();
+  unlockAudioContext();
   
   if (masterGainNode && audioCtx) {
     try {

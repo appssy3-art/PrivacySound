@@ -1,9 +1,9 @@
-const CACHE_NAME = 'soundcover-vSTOP_FIXED';
+const CACHE_NAME = 'soundcover-vHARD_STOP';
 const ASSETS = [
   './',
   './index.html',
   './styles.css',
-  './app.js?v=STOP_FIXED',
+  './app.js?v=HARD_STOP',
   './manifest.json'
 ];
 
