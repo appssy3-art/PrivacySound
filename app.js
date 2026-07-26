@@ -877,7 +877,7 @@ function setupEventListeners() {
     document.body.removeChild(a);
   }
 
-  // Main Home Footer Button: Smart Multi-Device & Browser PWA Installation Engine
+  // Main Home Footer Button: Direct 1-Click Native PWA Installation (Bypassing All Intermediate Modals)
   const btnFooterInstall = document.getElementById('btnFooterInstall');
   if (btnFooterInstall) {
     btnFooterInstall.addEventListener('click', () => {
@@ -885,14 +885,14 @@ function setupEventListeners() {
       var isKakao = /kakaotalk/i.test(ua);
       var isIOS = /iphone|ipad|ipod/i.test(ua);
 
-      // 1. KakaoTalk In-App WebView ➔ Auto Escape to Chrome 1-Click
+      // 1. KakaoTalk In-App WebView ➔ Auto Escape to Chrome
       if (isKakao) {
         showToast(currentLanguage === 'ko' ? '🚀 Chrome 브라우저로 이동하여 앱을 설치합니다!' : '🚀 Opening Chrome App for installation!');
         location.href = 'kakaotalk://web/openExternal?url=' + encodeURIComponent('https://soundcover.shop/');
         return;
       }
 
-      // 2. Android Chrome Native Prompt (Direct 1-Click Native Install Dialog)
+      // 2. Direct 1-Click Android Chrome Native Install Dialog
       if (deferredPrompt) {
         deferredPrompt.prompt();
         deferredPrompt.userChoice.then((choiceResult) => {
@@ -904,7 +904,7 @@ function setupEventListeners() {
         return;
       }
 
-      // 3. iOS Safari Guide Notification (Explicit Guide for iPhone Users Worldwide)
+      // 3. iOS Safari Direct Toast Notice
       if (isIOS) {
         showToast(currentLanguage === 'ko' ? '🍎 하단 공유(⬆️) 버튼 ➔ [홈 화면에 추가] 선택' : '🍎 Tap Share (⬆️) ➔ Add to Home Screen');
         return;
@@ -916,8 +916,22 @@ function setupEventListeners() {
         return;
       }
 
-      // 5. General Browser Fallback Guide
-      showToast(currentLanguage === 'ko' ? '📱 브라우저 우측 상단 메뉴(⋮) ➔ [앱 설치] 선택' : '📱 Tap Menu (⋮) ➔ Install App');
+      // 5. Fallback Notice
+      showToast(currentLanguage === 'ko' ? '📱 브라우저 메뉴(⋮) ➔ [앱 설치] 선택' : '📱 Tap Menu (⋮) ➔ Install App');
+    });
+  }
+
+  // PWA Modal Internal Install Button
+  const btnPwaModalInstall = document.getElementById('btnPwaModalInstall');
+  if (btnPwaModalInstall) {
+    btnPwaModalInstall.addEventListener('click', () => {
+      closeModal('pwaInstallModal');
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((choiceResult) => {
+          deferredPrompt = null;
+        });
+      }
     });
   }
 }

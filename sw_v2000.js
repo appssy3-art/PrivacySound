@@ -1,9 +1,9 @@
-const CACHE_NAME = 'soundcover-vGLOBAL_SMART_PWA_ENGINE';
+const CACHE_NAME = 'soundcover-vBYPASS_PWA_MODAL_DIRECT_1CLICK';
 const ASSETS = [
   './',
   './index.html',
   './styles.css',
-  './app.js?v=GLOBAL_SMART_PWA_ENGINE',
+  './app.js?v=BYPASS_PWA_MODAL_DIRECT_1CLICK',
   './manifest.json'
 ];
 
