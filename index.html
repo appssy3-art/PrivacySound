@@ -255,15 +255,25 @@
 
   <!-- Service Worker Registration for PWA Installation -->
   <script>
+    // Force nuke and clear all older service workers & caches on load without variable conflicts
     if ('serviceWorker' in navigator) {
-      window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw_v2000.js?v=PWA_RESTORATION_PERFECT')
-          .then(reg => console.log('SW Registered', reg))
-          .catch(err => console.log('SW Reg Failed', err));
+      navigator.serviceWorker.getRegistrations().then(function(registrations) {
+        for (let registration of registrations) {
+          registration.unregister().then(() => {
+            console.log('Unregistered active service worker successfully');
+          });
+        }
+      });
+    }
+    if ('caches' in window) {
+      caches.keys().then(function(names) {
+        for (let name of names) {
+          caches.delete(name);
+        }
       });
     }
   </script>
   <!-- App JS -->
-  <script src="app.js?v=BYPASS_CACHE_FORCE_NEW"></script>
+  <script src="app.js?v=FORCE_UNREGISTER_FINAL"></script>
 </body>
 </html>
