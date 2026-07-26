@@ -151,7 +151,7 @@
           <span data-i18n="buyCoffee">💖 "덕분에 민망함 해결했어요!" 응원하기</span>
         </button>
         <button id="btnFooterInstall" class="btn-action-install">
-          <span>📲 앱 설치</span>
+          <span data-i18n="installApp">📲 앱 설치</span>
         </button>
       </div>
 
@@ -224,7 +224,7 @@
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', function() {
-        navigator.serviceWorker.register('./sw_v2000.js?v=ABSOLUTE_FINAL_ONE_SCREEN')
+        navigator.serviceWorker.register('./sw_v2000.js?v=PERFECT_DOWNLOAD_AND_I18N')
           .then(function(reg) {
             console.log('Fresh Service Worker registered!', reg.scope);
           })
@@ -235,6 +235,6 @@
     }
   </script>
   <!-- App JS -->
-  <script src="app.js?v=ABSOLUTE_FINAL_ONE_SCREEN"></script>
+  <script src="app.js?v=PERFECT_DOWNLOAD_AND_I18N"></script>
 </body>
 </html>

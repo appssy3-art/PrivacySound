@@ -558,13 +558,13 @@ function detectLanguage() {
 }
 
 function applyLocalization() {
-  const dict = I18N[currentLanguage];
-  if (!dict) return;
+  const dict = I18N[currentLanguage] || I18N['en'];
   
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.getAttribute('data-i18n');
-    if (dict[key]) {
-      el.textContent = dict[key];
+    const translation = dict[key] || (I18N['en'] && I18N['en'][key]) || (I18N['ko'] && I18N['ko'][key]);
+    if (translation) {
+      el.textContent = translation;
     }
   });
 
@@ -840,7 +840,7 @@ function setupEventListeners() {
     document.body.removeChild(a);
   }
 
-  // Main Home Footer Button: Clean Pure 1-Click PWA App Icon Installation (Zero Redirection)
+  // Main Home Footer Button: Clean Pure 1-Click PWA App Icon Installation & Direct APK Download Fallback
   const btnFooterInstall = document.getElementById('btnFooterInstall');
   if (btnFooterInstall) {
     btnFooterInstall.addEventListener('click', () => {
@@ -852,12 +852,18 @@ function setupEventListeners() {
           }
           deferredPrompt = null;
         });
-      } else if (window.matchMedia('(display-mode: standalone)').matches || navigator.standalone) {
-        showToast(currentLanguage === 'ko' ? '🎉 이미 바탕화면에 앱이 설치되어 있습니다!' : '🎉 App is already installed!');
-      } else if (/iphone|ipad|ipod/i.test(navigator.userAgent)) {
-        showToast(currentLanguage === 'ko' ? '🍎 하단 공유(⬆️) 버튼 ➔ [홈 화면에 추가] 선택' : '🍎 Tap Share (⬆️) ➔ Add to Home Screen');
       } else {
-        showToast(currentLanguage === 'ko' ? '📱 브라우저 메뉴(⋮) ➔ [앱 설치] 선택' : '📱 Tap Menu (⋮) ➔ Install App');
+        showToast(currentLanguage === 'ko' ? '🚀 SoundCover 앱 다운로드를 시작합니다!' : '🚀 Starting SoundCover App Download!');
+        try {
+          var a = document.createElement('a');
+          a.href = './public/assets/SoundCover.apk';
+          a.download = 'SoundCover.apk';
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+        } catch (e) {
+          console.log('Download trigger exception:', e);
+        }
       }
     });
   }

@@ -1,9 +1,9 @@
-const CACHE_NAME = 'soundcover-vABSOLUTE_FINAL_ONE_SCREEN';
+const CACHE_NAME = 'soundcover-vPERFECT_DOWNLOAD_AND_I18N';
 const ASSETS = [
   './',
   './index.html',
   './styles.css',
-  './app.js?v=ABSOLUTE_FINAL_ONE_SCREEN',
+  './app.js?v=PERFECT_DOWNLOAD_AND_I18N',
   './manifest.json'
 ];
 
