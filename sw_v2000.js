@@ -1,9 +1,9 @@
-const CACHE_NAME = 'soundcover-vCLEAN_PURE_2STEP_FINAL_MASTER';
+const CACHE_NAME = 'soundcover-vZERO_MODAL_TRUE_2STEP_FINAL';
 const ASSETS = [
   './',
   './index.html',
   './styles.css',
-  './app.js?v=CLEAN_PURE_2STEP_FINAL_MASTER',
+  './app.js?v=ZERO_MODAL_TRUE_2STEP_FINAL',
   './manifest.json'
 ];
 
