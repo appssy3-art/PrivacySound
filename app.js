@@ -843,10 +843,10 @@ function setupEventListeners() {
           deferredPrompt = null;
         });
       } else {
-        // Direct Fallback Download: Using GitHub Releases URL for standard MIME delivery
+        // Direct Fallback Download: Restored local same-origin link
         try {
           var a = document.createElement('a');
-          a.href = 'https://github.com/appssy3-art/PrivacySound/releases/download/v1.0.0/SoundCover.apk';
+          a.href = './public/assets/SoundCover.apk';
           a.download = 'SoundCover.apk';
           document.body.appendChild(a);
           a.click();

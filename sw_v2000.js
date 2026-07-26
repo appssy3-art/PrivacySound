@@ -1,9 +1,9 @@
-const CACHE_NAME = 'soundcover-vMASTER_STABLE_RELEASE';
+const CACHE_NAME = 'soundcover-vLOCAL_SAME_ORIGIN_FINAL';
 const ASSETS = [
   './',
   './index.html',
   './styles.css',
-  './app.js?v=MASTER_STABLE_RELEASE',
+  './app.js?v=LOCAL_SAME_ORIGIN_FINAL',
   './manifest.json'
 ];
 
