@@ -170,9 +170,9 @@ body::after {
 }
 
 .main-play-btn.playing {
-  border-color: #ef4444;
-  outline-color: rgba(239, 68, 68, 0.2);
-  box-shadow: 0 12px 36px rgba(239, 68, 68, 0.3);
+  border-color: #4f46e5;
+  outline-color: rgba(124, 58, 237, 0.25);
+  box-shadow: 0 12px 36px rgba(99, 102, 241, 0.35);
 }
 
 .play-icon-shape {
@@ -183,8 +183,29 @@ body::after {
 }
 
 .main-play-btn.playing .play-icon-shape {
-  color: #ef4444;
+  color: #7c3aed;
   margin-left: 0;
+}
+
+/* Hero Tagline Badge (Pixel-Perfect White Capsule Match with Image 3) */
+.hero-badge {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background: #ffffff;
+  padding: 8px 18px;
+  border-radius: 9999px;
+  box-shadow: 0 4px 16px rgba(124, 58, 237, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.8);
+  margin: 10px auto 16px auto;
+  font-size: 13.5px;
+  font-weight: 600;
+  color: #1e293b;
+}
+
+.hero-badge .badge-dot {
+  font-size: 14px;
 }
 
 /* Responsive App Container */

@@ -586,28 +586,20 @@ function applyLocalization() {
 
 function switchPaymentTab(type) {
   [payTabKr, payTabGlobal, payTabJa, payTabZh, payTabEs, payTabPt, payTabLa].forEach(t => t && t.classList.remove('active'));
-  [krDonationList, globalDonationList, jaDonationList, zhDonationList, esDonationList, ptDonationList, laDonationList].forEach(l => l && l.classList.add('hidden'));
+  if (krDonationList) krDonationList.classList.add('hidden');
+  if (globalDonationList) globalDonationList.classList.add('hidden');
 
   if (type === 'kr') {
     if (payTabKr) payTabKr.classList.add('active');
     if (krDonationList) krDonationList.classList.remove('hidden');
-  } else if (type === 'ja') {
-    if (payTabJa) payTabJa.classList.add('active');
-    if (jaDonationList) jaDonationList.classList.remove('hidden');
-  } else if (type === 'zh') {
-    if (payTabZh) payTabZh.classList.add('active');
-    if (zhDonationList) zhDonationList.classList.remove('hidden');
-  } else if (type === 'es') {
-    if (payTabEs) payTabEs.classList.add('active');
-    if (esDonationList) esDonationList.classList.remove('hidden');
-  } else if (type === 'pt') {
-    if (payTabPt) payTabPt.classList.add('active');
-    if (ptDonationList) ptDonationList.classList.remove('hidden');
-  } else if (type === 'la') {
-    if (payTabLa) payTabLa.classList.add('active');
-    if (laDonationList) laDonationList.classList.remove('hidden');
   } else {
-    if (payTabGlobal) payTabGlobal.classList.add('active');
+    if (type === 'ja' && payTabJa) payTabJa.classList.add('active');
+    else if (type === 'zh' && payTabZh) payTabZh.classList.add('active');
+    else if (type === 'es' && payTabEs) payTabEs.classList.add('active');
+    else if (type === 'pt' && payTabPt) payTabPt.classList.add('active');
+    else if (type === 'la' && payTabLa) payTabLa.classList.add('active');
+    else if (payTabGlobal) payTabGlobal.classList.add('active');
+    
     if (globalDonationList) globalDonationList.classList.remove('hidden');
   }
 }
@@ -844,7 +836,7 @@ function setupEventListeners() {
     document.body.removeChild(a);
   }
 
-  // Main Home Footer Button: Genuine PWA Home Screen App Icon Installation & KakaoTalk Auto-Escape
+  // Main Home Footer Button: Genuine PWA Home Screen App Icon Installation & Safe KakaoTalk Auto-Escape
   const btnFooterInstall = document.getElementById('btnFooterInstall');
   if (btnFooterInstall) {
     btnFooterInstall.addEventListener('click', () => {
@@ -852,13 +844,11 @@ function setupEventListeners() {
       var isAndroid = /android/i.test(ua);
       var isInApp = /kakaotalk|naver|line|inapp|kakaostory|band|daum|instagram|fb_iab|fbav/i.test(ua);
       
-      // KakaoTalk In-App Browser Auto-Escape to Chrome on Click
+      // KakaoTalk In-App Browser Safe Auto-Escape to Chrome
       if (isAndroid && isInApp) {
-        showToast(currentLanguage === 'ko' ? '🚀 Chrome 앱으로 1초 만에 이동하여 설치합니다!' : '🚀 Opening Chrome App for 1-Click Install!');
-        var cleanUrl = location.href.replace(/^https?:\/\//i, '');
-        setTimeout(() => {
-          location.href = 'intent://' + cleanUrl + '#Intent;scheme=https;package=com.android.chrome;end;';
-        }, 500);
+        showToast(currentLanguage === 'ko' ? '🚀 Chrome 브라우저로 이동하여 앱을 설치합니다!' : '🚀 Opening Chrome App for installation!');
+        var cleanUrl = 'soundcover.shop/';
+        window.location.href = 'intent://' + cleanUrl + '#Intent;scheme=https;package=com.android.chrome;end;';
         return;
       }
 
@@ -875,7 +865,7 @@ function setupEventListeners() {
       } else if (/iphone|ipad|ipod/i.test(navigator.userAgent)) {
         showToast(currentLanguage === 'ko' ? '🍎 하단 공유(⬆️) 버튼 ➔ [홈 화면에 추가] 선택' : '🍎 Tap Share (⬆️) ➔ Add to Home Screen');
       } else {
-        showToast(currentLanguage === 'ko' ? '📱 브라우저 메뉴(⋮) ➔ [앱 설치] 선택' : '📱 Tap Menu (⋮) ➔ Install App');
+        showToast(currentLanguage === 'ko' ? '📱 우측 상단 메뉴(⋮) ➔ [앱 설치] 선택' : '📱 Tap Menu (⋮) ➔ Install App');
       }
     });
   }
