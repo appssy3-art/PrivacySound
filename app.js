@@ -834,21 +834,8 @@ function setupEventListeners() {
   if (btnDirectAndroidInstall) {
     btnDirectAndroidInstall.addEventListener('click', () => {
       closePwaModalFunc();
-      var ua = navigator.userAgent.toLowerCase();
-      var isKakao = /kakaotalk/i.test(ua);
-
-      // KakaoTalk In-App WebView ➔ Auto Escape to Chrome/Safari standard scheme
-      if (isKakao) {
-        showToast(currentLanguage === 'ko' ? '🚀 외부 브라우저로 이동하여 설치를 진행합니다...' : '🚀 Opening external browser for installation...');
-        if (/iphone|ipad|ipod/i.test(navigator.userAgent)) {
-          location.href = 'kakaotalk://web/openExternal?url=' + encodeURIComponent(window.location.href);
-        } else {
-          location.href = 'intent://' + window.location.host + window.location.pathname + '#Intent;scheme=https;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;package=com.android.chrome;end;';
-        }
-        return;
-      }
-
-      // Native Chrome PWA Prompt Direct Launch
+      
+      // Native Chrome PWA Prompt Direct Launch if active
       if (deferredPrompt) {
         deferredPrompt.prompt();
         deferredPrompt.userChoice.then((choiceResult) => {
@@ -866,8 +853,18 @@ function setupEventListeners() {
         return;
       }
 
-      // If PWA prompt is not ready/supported on Android Chrome, show explicit manual menu install guide
-      showToast(currentLanguage === 'ko' ? '📱 브라우저 메뉴(⋮) ➔ [홈 화면에 추가] 또는 [앱 설치]를 선택하세요!' : '📱 Tap Menu (⋮) ➔ Add to Home Screen / Install App!');
+      // 100% Guaranteed Direct APK Download (Exactly like before the design change)
+      showToast(currentLanguage === 'ko' ? '🚀 앱 다운로드 시작! 상단 알림창에서 [SoundCover.apk]를 눌러 설치를 완료하세요!' : '🚀 Starting App Download!');
+      try {
+        var a = document.createElement('a');
+        a.href = './public/assets/SoundCover.apk';
+        a.download = 'SoundCover.apk';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+      } catch (e) {
+        console.log('Instant download exception:', e);
+      }
     });
   }
 

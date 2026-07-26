@@ -1,9 +1,9 @@
-const CACHE_NAME = 'soundcover-vKAKAOTALK_SECURE_ESCAPE_FINAL';
+const CACHE_NAME = 'soundcover-vRESTORED_WORKING_APK_FINAL';
 const ASSETS = [
   './',
   './index.html',
   './styles.css',
-  './app.js?v=KAKAOTALK_SECURE_ESCAPE_FINAL',
+  './app.js?v=RESTORED_WORKING_APK_FINAL',
   './manifest.json'
 ];
 
