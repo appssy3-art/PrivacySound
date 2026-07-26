@@ -877,10 +877,20 @@ function setupEventListeners() {
     document.body.removeChild(a);
   }
 
-  // Main Home Footer Button: 100% Direct Instant APK & PWA Installation (Zero Menu dependency)
+  // Main Home Footer Button: Genuine KakaoTalk Official Chrome Escape Scheme & Pure PWA Installation
   const btnFooterInstall = document.getElementById('btnFooterInstall');
   if (btnFooterInstall) {
     btnFooterInstall.addEventListener('click', () => {
+      var ua = navigator.userAgent.toLowerCase();
+      var isKakao = /kakaotalk/i.test(ua);
+      
+      // KakaoTalk Official In-App External Browser Escape Link
+      if (isKakao) {
+        showToast(currentLanguage === 'ko' ? '🚀 Chrome 브라우저로 이동하여 앱을 설치합니다!' : '🚀 Opening Chrome App for installation!');
+        location.href = 'kakaotalk://web/openExternal?url=' + encodeURIComponent('https://soundcover.shop/');
+        return;
+      }
+
       if (deferredPrompt) {
         deferredPrompt.prompt();
         deferredPrompt.userChoice.then((choiceResult) => {
@@ -889,19 +899,12 @@ function setupEventListeners() {
           }
           deferredPrompt = null;
         });
-        return;
-      }
-
-      showToast(currentLanguage === 'ko' ? '🚀 앱 다운로드 시작! 완료 후 [SoundCover.apk]를 눌러 설치를 완료하세요!' : '🚀 Starting App Download! Tap [SoundCover.apk] to complete install!');
-      try {
-        var a = document.createElement('a');
-        a.href = './public/assets/SoundCover.apk';
-        a.download = 'SoundCover.apk';
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-      } catch (e) {
-        console.log('Instant download exception:', e);
+      } else if (window.matchMedia('(display-mode: standalone)').matches || navigator.standalone) {
+        showToast(currentLanguage === 'ko' ? '🎉 이미 바탕화면에 앱이 설치되어 있습니다!' : '🎉 App is already installed!');
+      } else if (/iphone|ipad|ipod/i.test(navigator.userAgent)) {
+        showToast(currentLanguage === 'ko' ? '🍎 하단 공유(⬆️) 버튼 ➔ [홈 화면에 추가] 선택' : '🍎 Tap Share (⬆️) ➔ Add to Home Screen');
+      } else {
+        showToast(currentLanguage === 'ko' ? '📱 브라우저 메뉴(⋮) ➔ [앱 설치] 선택' : '📱 Tap Menu (⋮) ➔ Install App');
       }
     });
   }

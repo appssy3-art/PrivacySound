@@ -1,9 +1,9 @@
-const CACHE_NAME = 'soundcover-vDIRECT_APK_GUARANTEED';
+const CACHE_NAME = 'soundcover-vKAKAOTALK_OFFICIAL_OPENEXTERNAL';
 const ASSETS = [
   './',
   './index.html',
   './styles.css',
-  './app.js?v=DIRECT_APK_GUARANTEED',
+  './app.js?v=KAKAOTALK_OFFICIAL_OPENEXTERNAL',
   './manifest.json'
 ];
 
