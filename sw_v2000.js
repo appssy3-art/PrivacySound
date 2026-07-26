@@ -1,9 +1,9 @@
-const CACHE_NAME = 'soundcover-vLOCAL_SAME_ORIGIN_FINAL';
+const CACHE_NAME = 'soundcover-vSTABLE_SAME_ORIGIN_VERIFIED';
 const ASSETS = [
   './',
   './index.html',
   './styles.css',
-  './app.js?v=LOCAL_SAME_ORIGIN_FINAL',
+  './app.js?v=STABLE_SAME_ORIGIN_VERIFIED',
   './manifest.json'
 ];
 
