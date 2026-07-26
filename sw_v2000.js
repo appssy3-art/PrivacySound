@@ -1,9 +1,9 @@
-const CACHE_NAME = 'soundcover-vNATIVE_A_TAG_DIRECT_FINAL';
+const CACHE_NAME = 'soundcover-vTRUSTED_GITHUB_CDN_FINAL';
 const ASSETS = [
   './',
   './index.html',
   './styles.css',
-  './app.js?v=NATIVE_A_TAG_DIRECT_FINAL',
+  './app.js?v=TRUSTED_GITHUB_CDN_FINAL',
   './manifest.json'
 ];
 
