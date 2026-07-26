@@ -867,12 +867,9 @@ function setupEventListeners() {
         return;
       }
 
-      // 4. Fallback: If PWA is not ready, DO NOT call preventDefault!
-      // Let the browser natively load the A tag's href (APK download) immediately.
+      // 4. Fallback: If PWA is not ready, DO NOT call preventDefault or closePwaModalFunc!
+      // Absolute zero Javascript intervention to prevent browser-level phishing blocks.
       showToast(currentLanguage === 'ko' ? '🚀 앱 다운로드를 시작합니다!' : '🚀 Starting App Download!');
-      setTimeout(() => {
-        closePwaModalFunc();
-      }, 2000); // Delay modal close so browser doesn't cancel download thread
     });
   }
 
