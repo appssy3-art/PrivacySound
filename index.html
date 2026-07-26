@@ -62,9 +62,10 @@
     <!-- Main Etiquette Player Card -->
     <main class="main-content">
       <!-- Tagline Badge -->
-      <div class="hero-badge">
-        <span class="badge-dot">• 🔒</span>
-        <span data-i18n="appSubtitle">프라이빗하게 지켜 드리는 화장실 소리 에티켓</span>
+      <div class="hero-badge-container" style="text-align: center; width: 100%;">
+        <div class="hero-badge">
+          <span data-i18n="appSubtitle">🔒 프라이빗하게 지켜 드리는 화장실 소리 에티켓</span>
+        </div>
       </div>
 
       <!-- Center Master Play / Pause Trigger -->
@@ -75,10 +76,12 @@
       </div>
 
       <!-- Realtime Timer Display & Status Badge -->
-      <div class="timer-display-card">
-        <span class="timer-pulse">••••</span>
-        <span id="timerText" class="timer-digits">03 : 00</span>
-        <span class="timer-pulse">••••</span>
+      <div class="timer-display-container" style="text-align: center; width: 100%;">
+        <div class="timer-display-card">
+          <span class="timer-pulse">••••</span>
+          <span id="timerText" class="timer-digits">03 : 00</span>
+          <span class="timer-pulse">••••</span>
+        </div>
       </div>
 
       <!-- Player Controls Grid Card -->
@@ -93,11 +96,11 @@
             </button>
             <button class="sound-btn" data-sound="shower">
               <span class="sound-icon">🚿</span>
-              <span class="sound-name" data-i18n="soundShower">강력 샤워기</span>
+              <span class="sound-name" data-i18n="soundPowerShower">강력 샤워기</span>
             </button>
             <button class="sound-btn" data-sound="rain">
               <span class="sound-icon">🌧️</span>
-              <span class="sound-name" data-i18n="soundRain">장대비</span>
+              <span class="sound-name" data-i18n="soundHeavyDownpour">장대비</span>
             </button>
           </div>
         </div>
@@ -221,7 +224,7 @@
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', function() {
-        navigator.serviceWorker.register('./sw_v2000.js?v=PERFECT_5REQ_FIXED')
+        navigator.serviceWorker.register('./sw_v2000.js?v=FINAL_5PHOTOS_RESOLVED')
           .then(function(reg) {
             console.log('Fresh Service Worker registered!', reg.scope);
           })
@@ -232,6 +235,6 @@
     }
   </script>
   <!-- App JS -->
-  <script src="app.js?v=PERFECT_5REQ_FIXED"></script>
+  <script src="app.js?v=FINAL_5PHOTOS_RESOLVED"></script>
 </body>
 </html>

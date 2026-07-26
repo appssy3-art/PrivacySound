@@ -90,6 +90,7 @@ const I18N = {
     affiliateText: "🧻 可冲水湿厕纸特惠 →"
   },
   es: {
+    appSubtitle: "🔒 Protocolo de etiqueta privada para baños",
     pwaPrompt: "📱 ¡Añade a la pantalla de inicio para la experiencia de app!",
     install: "Instalar",
     wakeLockActive: "✨ Enmascaramiento de ruido al 100%",
@@ -99,6 +100,7 @@ const I18N = {
     soundPowerShower: "Ducha potente",
     soundHeavyDownpour: "Lluvia torrencial",
     selectTimer: "Ajuste de temporizador",
+    setTimer: "Ajuste de temporizador",
     volumeControl: "Aumento de volumen",
     buyCoffee: "💖 \"¡Gracias por salvar el momento!\" Apoyar",
     adsenseLabel: "Publicidad",
@@ -210,6 +212,7 @@ const I18N = {
     affiliateText: "🧻 Promo Spesial Tisu Basah Toilet →"
   },
   th: {
+    appSubtitle: "🔒 มารยาทเสียงในห้องน้ำเพื่อความเป็นส่วนตัว",
     pwaPrompt: "📱 เพิ่มไปยังหน้าจอหลักเพื่อใช้งานแอป!",
     install: "ติดตั้ง",
     wakeLockActive: "✨ กลบเสียงรบกวน 100%",
@@ -219,6 +222,7 @@ const I18N = {
     soundPowerShower: "ฝักบัวแรงสูง",
     soundHeavyDownpour: "ฝนตกหนัก",
     selectTimer: "ตั้งเวลา",
+    setTimer: "ตั้งเวลา",
     volumeControl: "เร่งระดับเสียง",
     buyCoffee: "💖 \"ขอบคุณที่ช่วยแก้สถานการณ์!\" สนับสนุน",
     adsenseLabel: "โฆษณา",
