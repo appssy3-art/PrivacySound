@@ -808,21 +808,51 @@ function setupEventListeners() {
     }, 4000);
   }
 
-  // Direct Install Logic: No modal, immediate action based on device/browser
+  // PWA Modal Elements & Logic
+  const pwaModal = document.getElementById('pwaModal');
+  const closePwaModal = document.getElementById('closePwaModal');
+  const btnDirectAndroidInstall = document.getElementById('btnDirectAndroidInstall');
+
+  function openPwaModal() {
+    if (pwaModal) pwaModal.classList.remove('hidden');
+  }
+
+  function closePwaModalFunc() {
+    if (pwaModal) pwaModal.classList.add('hidden');
+  }
+
+  if (closePwaModal) closePwaModal.addEventListener('click', closePwaModalFunc);
+  if (pwaModal) {
+    pwaModal.addEventListener('click', (e) => {
+      if (e.target === pwaModal) closePwaModalFunc();
+    });
+  }
+
+  // Click 1: Home footer button opens White Benefit Card Modal
   const btnFooterInstall = document.getElementById('btnFooterInstall');
   if (btnFooterInstall) {
     btnFooterInstall.addEventListener('click', () => {
+      openPwaModal();
+    });
+  }
+
+  // Click 2: Inside White Benefit Card Modal, click "바탕화면에 무료 앱 설치" button
+  if (btnDirectAndroidInstall) {
+    btnDirectAndroidInstall.addEventListener('click', (e) => {
+      e.preventDefault();
+      closePwaModalFunc();
+
       var ua = navigator.userAgent.toLowerCase();
       var isKakao = /kakaotalk/i.test(ua);
 
-      // 1. KakaoTalk In-App WebView → Auto Escape to external browser
+      // 1. KakaoTalk In-App WebView → Open in external Chrome browser
       if (isKakao) {
         showToast(currentLanguage === 'ko' ? '🚀 외부 브라우저로 이동하여 설치를 진행합니다...' : '🚀 Opening external browser for installation...');
         location.href = 'kakaotalk://web/openExternal?url=' + encodeURIComponent(window.location.href);
         return;
       }
 
-      // 2. Native Chrome PWA Prompt → Direct install to home screen
+      // 2. Native Chrome PWA Prompt → Triggers Chrome Native Dark Install Modal
       if (deferredPrompt) {
         deferredPrompt.prompt();
         deferredPrompt.userChoice.then((choiceResult) => {
@@ -840,12 +870,8 @@ function setupEventListeners() {
         return;
       }
 
-      // 4. Android/기타 → APK 바로 다운로드
-      const apkLink = document.getElementById('btnDirectApkDownload');
-      if (apkLink) {
-        showToast(currentLanguage === 'ko' ? '🚀 앱 다운로드를 시작합니다!' : '🚀 Starting App Download!');
-        apkLink.click();
-      }
+      // 4. Fallback (Chrome cooling down or already installed)
+      showToast(currentLanguage === 'ko' ? '📱 브라우저 메뉴(⋮) ➔ [홈 화면에 추가] 또는 [앱 설치]를 선택하세요' : '📱 Select [Add to Home Screen] in browser menu');
     });
   }
 }
