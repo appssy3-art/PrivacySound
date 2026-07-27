@@ -808,46 +808,22 @@ function setupEventListeners() {
     }, 4000);
   }
 
-  // PWA Benefit Card Modal Elements & Logic (Global Standard Engine)
-  const pwaModal = document.getElementById('pwaModal');
-  const closePwaModal = document.getElementById('closePwaModal');
-  const btnPwaModalCancel = document.getElementById('btnPwaModalCancel');
-  const btnDirectAndroidInstall = document.getElementById('btnDirectAndroidInstall');
-
-  function openPwaModal() {
-    if (pwaModal) pwaModal.classList.remove('hidden');
-  }
-
-  function closePwaModalFunc() {
-    if (pwaModal) pwaModal.classList.add('hidden');
-  }
-
-  if (closePwaModal) closePwaModal.addEventListener('click', closePwaModalFunc);
-  if (btnPwaModalCancel) btnPwaModalCancel.addEventListener('click', closePwaModalFunc);
-  if (pwaModal) {
-    pwaModal.addEventListener('click', (e) => {
-      if (e.target === pwaModal) closePwaModalFunc();
-    });
-  }
-
-  // Action inside the White Benefit Modal Card: 100% Clean PWA Installation (Zero File Download Popup)
-  if (btnDirectAndroidInstall) {
-    btnDirectAndroidInstall.addEventListener('click', (e) => {
+  // Direct Install Logic: No modal, immediate action based on device/browser
+  const btnFooterInstall = document.getElementById('btnFooterInstall');
+  if (btnFooterInstall) {
+    btnFooterInstall.addEventListener('click', () => {
       var ua = navigator.userAgent.toLowerCase();
       var isKakao = /kakaotalk/i.test(ua);
 
-      // 1. KakaoTalk In-App WebView ➔ Auto Escape to Chrome/Safari standard scheme
+      // 1. KakaoTalk In-App WebView → Auto Escape to external browser
       if (isKakao) {
-        e.preventDefault();
         showToast(currentLanguage === 'ko' ? '🚀 외부 브라우저로 이동하여 설치를 진행합니다...' : '🚀 Opening external browser for installation...');
         location.href = 'kakaotalk://web/openExternal?url=' + encodeURIComponent(window.location.href);
-        closePwaModalFunc();
         return;
       }
 
-      // 2. Native Chrome PWA Prompt Direct Launch if active (Saves on Home Screen)
+      // 2. Native Chrome PWA Prompt → Direct install to home screen
       if (deferredPrompt) {
-        e.preventDefault(); // Stop default anchor download file
         deferredPrompt.prompt();
         deferredPrompt.userChoice.then((choiceResult) => {
           if (choiceResult.outcome === 'accepted') {
@@ -855,29 +831,21 @@ function setupEventListeners() {
           }
           deferredPrompt = null;
         });
-        closePwaModalFunc();
         return;
       }
 
-      // 3. iOS Safari Guide Notice
+      // 3. iOS Safari → Guide notice
       if (/iphone|ipad|ipod/i.test(navigator.userAgent)) {
-        e.preventDefault();
-        closePwaModalFunc();
-        showToast(currentLanguage === 'ko' ? '🍎 하단 공유(⬆️) 버튼 ➔ [홈 화면에 추가] 선택' : '🍎 Tap Share (⬆️) ➔ Add to Home Screen');
+        showToast(currentLanguage === 'ko' ? '🍎 하단 공유(⬆️) 버튼 ➔ [홈 화면에 추가]를 선택하세요' : '🍎 Tap Share (⬆️) ➔ Add to Home Screen');
         return;
       }
 
-      // 4. Fallback: If PWA is not ready, DO NOT call preventDefault or closePwaModalFunc!
-      // Absolute zero Javascript intervention to prevent browser-level phishing blocks.
-      showToast(currentLanguage === 'ko' ? '🚀 앱 다운로드를 시작합니다!' : '🚀 Starting App Download!');
-    });
-  }
-
-  // Main Home Footer Button: Open 1:06 Benefit Modal Instantly
-  const btnFooterInstall = document.getElementById('btnFooterInstall');
-  if (btnFooterInstall) {
-    btnFooterInstall.addEventListener('click', () => {
-      openPwaModal();
+      // 4. Android/기타 → APK 바로 다운로드
+      const apkLink = document.getElementById('btnDirectApkDownload');
+      if (apkLink) {
+        showToast(currentLanguage === 'ko' ? '🚀 앱 다운로드를 시작합니다!' : '🚀 Starting App Download!');
+        apkLink.click();
+      }
     });
   }
 }
