@@ -870,8 +870,14 @@ function setupEventListeners() {
         return;
       }
 
-      // 4. Fallback (Chrome cooling down or already installed)
-      showToast(currentLanguage === 'ko' ? '📱 브라우저 메뉴(⋮) ➔ [홈 화면에 추가] 또는 [앱 설치]를 선택하세요' : '📱 Select [Add to Home Screen] in browser menu');
+      // 4. Fallback: Trigger Direct File Download + Menu Guide Toast
+      const apkLink = document.getElementById('btnDirectApkDownload');
+      if (apkLink) {
+        showToast(currentLanguage === 'ko' ? '🚀 앱 파일 다운로드를 시작합니다!' : '🚀 Starting App File Download!');
+        apkLink.click();
+      } else {
+        showToast(currentLanguage === 'ko' ? '📱 브라우저 메뉴(⋮) ➔ [홈 화면에 추가] 또는 [앱 설치]를 선택하세요' : '📱 Select [Add to Home Screen] in browser menu');
+      }
     });
   }
 }
