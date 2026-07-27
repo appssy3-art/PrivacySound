@@ -839,21 +839,22 @@ function setupEventListeners() {
   // Click 2: Inside White Benefit Card Modal, click "바탕화면에 무료 앱 설치" button
   if (btnDirectAndroidInstall) {
     btnDirectAndroidInstall.addEventListener('click', (e) => {
-      e.preventDefault();
-      closePwaModalFunc();
-
       var ua = navigator.userAgent.toLowerCase();
       var isKakao = /kakaotalk/i.test(ua);
 
-      // 1. KakaoTalk In-App WebView → Open in external Chrome browser
+      // 1. KakaoTalk In-App WebView → Escape to external browser
       if (isKakao) {
+        e.preventDefault();
+        closePwaModalFunc();
         showToast(currentLanguage === 'ko' ? '🚀 외부 브라우저로 이동하여 설치를 진행합니다...' : '🚀 Opening external browser for installation...');
         location.href = 'kakaotalk://web/openExternal?url=' + encodeURIComponent(window.location.href);
         return;
       }
 
-      // 2. Native Chrome PWA Prompt → Triggers Chrome Native Dark Install Modal
+      // 2. Native Chrome PWA Prompt if available
       if (deferredPrompt) {
+        e.preventDefault();
+        closePwaModalFunc();
         deferredPrompt.prompt();
         deferredPrompt.userChoice.then((choiceResult) => {
           if (choiceResult.outcome === 'accepted') {
@@ -865,15 +866,16 @@ function setupEventListeners() {
       }
 
       // 3. iOS Safari → Guide notice
-      if (/iphone|ipad|ipod/i.test(navigator.userAgent)) {
+      if (/iphone|ipad|ipod/i.test(ua)) {
+        e.preventDefault();
+        closePwaModalFunc();
         showToast(currentLanguage === 'ko' ? '🍎 하단 공유(⬆️) 버튼 ➔ [홈 화면에 추가]를 선택하세요' : '🍎 Tap Share (⬆️) ➔ Add to Home Screen');
         return;
       }
 
-      // 4. Fallback: Direct Location Download for Android/Mobile (Bypasses all mobile popup blockers)
+      // 4. Standard HTML direct A tag link handles APK file download natively without being blocked
       closePwaModalFunc();
       showToast(currentLanguage === 'ko' ? '🚀 앱 파일 다운로드를 시작합니다!' : '🚀 Starting App File Download!');
-      window.location.href = './public/assets/SoundCover.apk';
     });
   }
 }
