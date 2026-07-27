@@ -851,21 +851,7 @@ function setupEventListeners() {
         return;
       }
 
-      // 2. Native Chrome PWA Prompt if available
-      if (deferredPrompt) {
-        e.preventDefault();
-        closePwaModalFunc();
-        deferredPrompt.prompt();
-        deferredPrompt.userChoice.then((choiceResult) => {
-          if (choiceResult.outcome === 'accepted') {
-            showToast(currentLanguage === 'ko' ? '🎉 바탕화면에 앱이 성공적으로 설치되었습니다!' : '🎉 App installed on home screen!');
-          }
-          deferredPrompt = null;
-        });
-        return;
-      }
-
-      // 3. iOS Safari → Guide notice
+      // 2. iOS Safari → Guide notice
       if (/iphone|ipad|ipod/i.test(ua)) {
         e.preventDefault();
         closePwaModalFunc();
@@ -873,7 +859,7 @@ function setupEventListeners() {
         return;
       }
 
-      // 4. Standard HTML direct A tag link handles APK file download natively without being blocked
+      // 3. Android / Mobile Chrome: Guaranteed 100% Direct APK File Download!
       closePwaModalFunc();
       showToast(currentLanguage === 'ko' ? '🚀 앱 파일 다운로드를 시작합니다!' : '🚀 Starting App File Download!');
     });
