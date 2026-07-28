@@ -560,7 +560,7 @@ const affiliateLink = document.getElementById('affiliateLink');
 const bannerText = document.getElementById('bannerText');
 
 // Initial Setup
-document.addEventListener('DOMContentLoaded', async () => {
+async function initApp() {
   detectLanguage();
   setupEventListeners();
   updateTimerDisplay();
@@ -572,9 +572,13 @@ document.addEventListener('DOMContentLoaded', async () => {
   updateVolumeUI();
   
   loadAudioBuffers();
+}
 
-  // beforeinstallprompt listener is at top of file
-});
+if (document.readyState === 'loading') {
+  document.addEventListener('DOMContentLoaded', initApp);
+} else {
+  initApp();
+}
 
 function detectLanguage() {
   const browserLang = navigator.language || navigator.userLanguage;

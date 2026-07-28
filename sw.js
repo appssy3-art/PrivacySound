@@ -1,4 +1,4 @@
-const CACHE_NAME = 'soundcover-v3004-sw-bypass-improved';
+const CACHE_NAME = 'soundcover-v3005-init-fix';
 
 self.addEventListener('install', (e) => {
   self.skipWaiting();
