@@ -844,7 +844,7 @@ function setupEventListeners() {
 
       // 1. KakaoTalk In-App WebView → Escape to external browser
       if (isKakao) {
-        e.preventDefault();
+        if (e) e.preventDefault();
         closePwaModalFunc();
         showToast(currentLanguage === 'ko' ? '🚀 외부 브라우저로 이동하여 설치를 진행합니다...' : '🚀 Opening external browser for installation...');
         location.href = 'kakaotalk://web/openExternal?url=' + encodeURIComponent(window.location.href);
@@ -853,15 +853,18 @@ function setupEventListeners() {
 
       // 2. iOS Safari → Guide notice
       if (/iphone|ipad|ipod/i.test(ua)) {
-        e.preventDefault();
+        if (e) e.preventDefault();
         closePwaModalFunc();
         showToast(currentLanguage === 'ko' ? '🍎 하단 공유(⬆️) 버튼 ➔ [홈 화면에 추가]를 선택하세요' : '🍎 Tap Share (⬆️) ➔ Add to Home Screen');
         return;
       }
 
-      // 3. Android / Mobile Chrome: Guaranteed 100% Direct APK File Download!
-      closePwaModalFunc();
+      // 3. Android / Mobile Chrome: NATIVE DIRECT FILE DOWNLOAD
+      // Do NOT call e.preventDefault() so browser natively initiates the APK download!
       showToast(currentLanguage === 'ko' ? '🚀 앱 파일 다운로드를 시작합니다!' : '🚀 Starting App File Download!');
+      setTimeout(() => {
+        closePwaModalFunc();
+      }, 500);
     });
   }
 }
