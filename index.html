@@ -258,11 +258,15 @@
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js');
+        navigator.serviceWorker.register('./sw.js?v=v3003').then((reg) => {
+          reg.update();
+        }).catch((err) => {
+          console.error('Service Worker registration failed:', err);
+        });
       });
     }
   </script>
   <!-- App JS -->
-  <script src="app.js?v=NATIVE_DOWNLOAD_FIX_V12"></script>
+  <script src="app.js?v=NATIVE_DOWNLOAD_FIX_V13"></script>
 </body>
 </html>

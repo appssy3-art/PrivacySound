@@ -859,9 +859,13 @@ function setupEventListeners() {
         return;
       }
 
-      // 3. Android / Mobile Chrome: NATIVE DIRECT FILE DOWNLOAD
-      // Do NOT call e.preventDefault() so browser natively initiates the APK download!
+      // 3. Android / Mobile Chrome: Programmatic direct APK download
+      if (e) e.preventDefault();
       showToast(currentLanguage === 'ko' ? '🚀 앱 파일 다운로드를 시작합니다!' : '🚀 Starting App File Download!');
+      
+      const apkUrl = window.location.origin + '/public/assets/SoundCover.apk';
+      window.location.href = apkUrl;
+
       setTimeout(() => {
         closePwaModalFunc();
       }, 500);
