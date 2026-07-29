@@ -843,33 +843,52 @@ function setupEventListeners() {
   // Click 2: Inside White Benefit Card Modal, click "바탕화면에 무료 앱 설치" button
   if (btnDirectAndroidInstall) {
     btnDirectAndroidInstall.addEventListener('click', (e) => {
+      e.preventDefault();
+
       var ua = navigator.userAgent.toLowerCase();
       var isKakao = /kakaotalk/i.test(ua);
+      var isNaver = /naver/i.test(ua);
+      var isLine = /line/i.test(ua);
+      var isFb = /fb/i.test(ua) || /instagram/i.test(ua);
+      var isAndroid = /android/i.test(ua);
 
-      // 1. KakaoTalk In-App WebView → Escape to external browser
-      if (isKakao) {
-        e.preventDefault();
+      // 1. In-App WebViews (Kakao, Naver, Instagram, FB, Line) on Android -> Escape to native browser
+      if (isAndroid && (isKakao || isNaver || isLine || isFb)) {
         closePwaModalFunc();
-        showToast(currentLanguage === 'ko' ? '🚀 외부 브라우저로 이동하여 설치를 진행합니다...' : '🚀 Opening external browser for installation...');
-        location.href = 'kakaotalk://web/openExternal?url=' + encodeURIComponent(window.location.href);
+        showToast(currentLanguage === 'ko' ? '🚀 외부 브라우저로 이동하여 다운로드를 진행합니다...' : '🚀 Opening external browser for download...');
+        
+        if (isKakao) {
+          location.href = 'kakaotalk://web/openExternal?url=' + encodeURIComponent(window.location.href);
+        } else {
+          // General Android Intent Scheme to open current page in external Chrome/Default browser
+          var targetUrl = window.location.href.replace(/https?:\/\//, '');
+          var intentUrl = 'intent://' + targetUrl + '#Intent;scheme=https;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;end';
+          location.href = intentUrl;
+        }
         return;
       }
 
-      // 2. iOS Safari → Guide notice (PWA add to home screen)
+      // 2. iOS Safari / Webview → Guide notice (Apple doesn't support APK download)
       if (/iphone|ipad|ipod/i.test(ua)) {
-        e.preventDefault();
         closePwaModalFunc();
         showToast(currentLanguage === 'ko' ? '🍎 하단 공유(⬆️) 버튼 ➔ [홈 화면에 추가]를 선택하세요' : '🍎 Tap Share (⬆️) ➔ Add to Home Screen');
         return;
       }
 
-      // 3. Android / Desktop: Let the <a> tag's native href + download attribute
-      //    handle the APK download naturally. DO NOT call e.preventDefault() here!
-      //    The anchor already has href="./public/assets/SoundCover.apk" download="SoundCover.apk"
-      //    so the browser will trigger a native file download automatically.
+      // 3. Android Chrome/Samsung Internet or Desktop: Programmatic absolute URL download trigger
       showToast(currentLanguage === 'ko' ? '🚀 앱 파일 다운로드를 시작합니다!' : '🚀 Starting App File Download!');
 
+      const apkUrl = window.location.origin + '/public/assets/SoundCover.apk';
+      const tempLink = document.createElement('a');
+      tempLink.href = apkUrl;
+      tempLink.download = 'SoundCover.apk';
+      tempLink.style.display = 'none';
+      
+      document.body.appendChild(tempLink);
+      tempLink.click();
+
       setTimeout(() => {
+        document.body.removeChild(tempLink);
         closePwaModalFunc();
       }, 1500);
     });
