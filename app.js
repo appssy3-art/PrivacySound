@@ -891,8 +891,6 @@ function setupEventListeners() {
   // Click 2: Inside White Benefit Card Modal, click "바탕화면에 무료 앱 설치" button
   if (btnDirectAndroidInstall) {
     btnDirectAndroidInstall.addEventListener('click', (e) => {
-      e.preventDefault();
-
       var ua = navigator.userAgent.toLowerCase();
       var isKakao = /kakaotalk/i.test(ua);
       var isNaver = /naver/i.test(ua);
@@ -903,6 +901,7 @@ function setupEventListeners() {
 
       // Priority 1: If PWA install prompt is somehow ready now, use it!
       if (deferredPrompt) {
+        e.preventDefault(); // Intercept!
         closePwaModalFunc();
         deferredPrompt.prompt();
         deferredPrompt.userChoice.then((choiceResult) => {
@@ -917,13 +916,13 @@ function setupEventListeners() {
 
       // 1. In-App WebViews (Kakao, Naver, Instagram, FB, Line) on Android -> Escape to native browser
       if (isAndroid && (isKakao || isNaver || isLine || isFb)) {
+        e.preventDefault(); // Intercept!
         closePwaModalFunc();
         showToast(currentLanguage === 'ko' ? '🚀 외부 브라우저로 이동하여 다운로드를 진행합니다...' : '🚀 Opening external browser for download...');
         
         if (isKakao) {
           location.href = 'kakaotalk://web/openExternal?url=' + encodeURIComponent(window.location.href);
         } else {
-          // General Android Intent Scheme to open current page in external Chrome/Default browser
           var targetUrl = window.location.href.replace(/https?:\/\//, '');
           var intentUrl = 'intent://' + targetUrl + '#Intent;scheme=https;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;end';
           location.href = intentUrl;
@@ -934,6 +933,7 @@ function setupEventListeners() {
       // 2. Installed PWA Standalone Mode on Android -> WebView blocks APK file saving inside sandbox.
       //    We must open the APK URL in the system browser using Intent Scheme.
       if (isAndroid && isStandalone) {
+        e.preventDefault(); // Intercept!
         closePwaModalFunc();
         showToast(currentLanguage === 'ko' ? '🚀 시스템 브라우저를 통해 안전하게 다운로드를 실행합니다...' : '🚀 Launching system browser for download...');
         
@@ -945,29 +945,91 @@ function setupEventListeners() {
 
       // 3. iOS Safari / Webview → Guide notice (Apple doesn't support APK download)
       if (/iphone|ipad|ipod/i.test(ua)) {
+        e.preventDefault(); // Intercept!
         closePwaModalFunc();
         showToast(currentLanguage === 'ko' ? '🍎 하단 공유(⬆️) 버튼 ➔ [홈 화면에 추가]를 선택하세요' : '🍎 Tap Share (⬆️) ➔ Add to Home Screen');
         return;
       }
 
       // 4. Android Chrome/Samsung Internet or Desktop Browser:
-      // Show explicit instruction to open/install the file after download finishes.
+      // DO NOT call e.preventDefault() here! Let the browser handle the raw anchor click.
+      // This preserves 100% user gesture trust so download fires instantly on a single tap.
       showToast(currentLanguage === 'ko' ? '📥 다운로드 완료 후, 알림창의 [열기]를 눌러 설치해 주세요!' : '📥 After download, tap [Open] in notifications to install!');
 
-      // Create a temporary anchor with target="_blank" to ensure native browser download manager intercepts it
-      const tempLink = document.createElement('a');
-      tempLink.href = apkUrl;
-      tempLink.download = 'SoundCover.apk';
-      tempLink.target = '_blank';
-      tempLink.style.display = 'none';
-      
-      document.body.appendChild(tempLink);
-      tempLink.click();
+      setTimeout(() => {
+        closePwaModalFunc();
+      }, 1500);
+    });
+  }
+
+  // Click 3: Inside Auto Download Gesture Trigger Overlay, click "즉시 다운로드 시작" button
+  const btnAutoDownloadTrigger = document.getElementById('btnAutoDownloadTrigger');
+  const autoDownloadOverlay = document.getElementById('autoDownloadOverlay');
+  
+  if (btnAutoDownloadTrigger) {
+    btnAutoDownloadTrigger.addEventListener('click', (e) => {
+      var ua = navigator.userAgent.toLowerCase();
+      var isKakao = /kakaotalk/i.test(ua);
+      var isNaver = /naver/i.test(ua);
+      var isLine = /line/i.test(ua);
+      var isFb = /fb/i.test(ua) || /instagram/i.test(ua);
+      var isAndroid = /android/i.test(ua);
+      var isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+
+      const apkUrl = window.location.origin + '/public/assets/SoundCover.apk';
+
+      // 1. Android In-App WebViews -> Escape to native browser
+      if (isAndroid && (isKakao || isNaver || isLine || isFb)) {
+        e.preventDefault();
+        if (autoDownloadOverlay) autoDownloadOverlay.classList.add('hidden');
+        showToast(currentLanguage === 'ko' ? '🚀 외부 브라우저로 이동하여 다운로드를 진행합니다...' : '🚀 Opening external browser for download...');
+        
+        if (isKakao) {
+          location.href = 'kakaotalk://web/openExternal?url=' + encodeURIComponent(window.location.href);
+        } else {
+          var targetUrl = window.location.href.replace(/https?:\/\//, '');
+          var intentUrl = 'intent://' + targetUrl + '#Intent;scheme=https;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;end';
+          location.href = intentUrl;
+        }
+        return;
+      }
+
+      // 2. Android Installed PWA Standalone Mode -> Escape to native browser directly to APK url
+      if (isAndroid && isStandalone) {
+        e.preventDefault();
+        if (autoDownloadOverlay) autoDownloadOverlay.classList.add('hidden');
+        showToast(currentLanguage === 'ko' ? '🚀 시스템 브라우저를 통해 안전하게 다운로드를 실행합니다...' : '🚀 Launching system browser for download...');
+        
+        var targetApkHostPath = apkUrl.replace(/https?:\/\//, '');
+        var intentApkUrl = 'intent://' + targetApkHostPath + '#Intent;scheme=https;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;end';
+        location.href = intentApkUrl;
+        return;
+      }
+
+      // 3. iOS -> Guide notice
+      if (/iphone|ipad|ipod/i.test(ua)) {
+        e.preventDefault();
+        if (autoDownloadOverlay) autoDownloadOverlay.classList.add('hidden');
+        showToast(currentLanguage === 'ko' ? '🍎 하단 공유(⬆️) 버튼 ➔ [홈 화면에 추가]를 선택하세요' : '🍎 Tap Share (⬆️) ➔ Add to Home Screen');
+        return;
+      }
+
+      // 4. Android Chrome/Samsung Internet or Desktop Browser:
+      // Let the native anchor link handle it with 100% user gesture trust.
+      showToast(currentLanguage === 'ko' ? '📥 다운로드 완료 후, 알림창의 [열기]를 눌러 설치해 주세요!' : '📥 After download, tap [Open] in notifications to install!');
 
       setTimeout(() => {
-        document.body.removeChild(tempLink);
-        closePwaModalFunc();
-      }, 1200);
+        if (autoDownloadOverlay) autoDownloadOverlay.classList.add('hidden');
+      }, 1500);
+    });
+  }
+
+  // Click handler to close the auto download overlay when clicking outside
+  if (autoDownloadOverlay) {
+    autoDownloadOverlay.addEventListener('click', (e) => {
+      if (e.target === autoDownloadOverlay) {
+        autoDownloadOverlay.classList.add('hidden');
+      }
     });
   }
 }
@@ -1187,21 +1249,11 @@ function executeAutoDownload() {
       return;
     }
 
-    // 4. Android Chrome/Samsung Internet or Desktop Browser -> Direct Auto Download
-    showToast(currentLanguage === 'ko' ? '📥 앱 파일 다운로드를 자동으로 시작합니다!' : '📥 Starting App File Download automatically!');
-
-    const tempLink = document.createElement('a');
-    tempLink.href = apkUrl;
-    tempLink.download = 'SoundCover.apk';
-    tempLink.target = '_blank';
-    tempLink.style.display = 'none';
-    
-    document.body.appendChild(tempLink);
-    tempLink.click();
-
-    setTimeout(() => {
-      document.body.removeChild(tempLink);
-    }, 1000);
+    // 4. Android Chrome/Samsung Internet or Desktop Browser -> Show user-interactive download card overlay
+    const autoDownloadOverlay = document.getElementById('autoDownloadOverlay');
+    if (autoDownloadOverlay) {
+      autoDownloadOverlay.classList.remove('hidden');
+    }
   }
 }
 

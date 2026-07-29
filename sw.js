@@ -1,4 +1,4 @@
-const CACHE_NAME = 'soundcover-v3013-auto-download';
+const CACHE_NAME = 'soundcover-v3014-final-gesture-trust';
 
 self.addEventListener('install', (e) => {
   self.skipWaiting();
