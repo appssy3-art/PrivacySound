@@ -848,31 +848,30 @@ function setupEventListeners() {
 
       // 1. KakaoTalk In-App WebView → Escape to external browser
       if (isKakao) {
-        if (e) e.preventDefault();
+        e.preventDefault();
         closePwaModalFunc();
         showToast(currentLanguage === 'ko' ? '🚀 외부 브라우저로 이동하여 설치를 진행합니다...' : '🚀 Opening external browser for installation...');
         location.href = 'kakaotalk://web/openExternal?url=' + encodeURIComponent(window.location.href);
         return;
       }
 
-      // 2. iOS Safari → Guide notice
+      // 2. iOS Safari → Guide notice (PWA add to home screen)
       if (/iphone|ipad|ipod/i.test(ua)) {
-        if (e) e.preventDefault();
+        e.preventDefault();
         closePwaModalFunc();
         showToast(currentLanguage === 'ko' ? '🍎 하단 공유(⬆️) 버튼 ➔ [홈 화면에 추가]를 선택하세요' : '🍎 Tap Share (⬆️) ➔ Add to Home Screen');
         return;
       }
 
-      // 3. Android / Mobile Chrome: Programmatic direct APK download
-      if (e) e.preventDefault();
+      // 3. Android / Desktop: Let the <a> tag's native href + download attribute
+      //    handle the APK download naturally. DO NOT call e.preventDefault() here!
+      //    The anchor already has href="./public/assets/SoundCover.apk" download="SoundCover.apk"
+      //    so the browser will trigger a native file download automatically.
       showToast(currentLanguage === 'ko' ? '🚀 앱 파일 다운로드를 시작합니다!' : '🚀 Starting App File Download!');
-      
-      const apkUrl = window.location.origin + '/public/assets/SoundCover.apk';
-      window.location.href = apkUrl;
 
       setTimeout(() => {
         closePwaModalFunc();
-      }, 500);
+      }, 1500);
     });
   }
 }

@@ -1,4 +1,4 @@
-const CACHE_NAME = 'soundcover-v3005-init-fix';
+const CACHE_NAME = 'soundcover-v3006-apk-download-fix';
 
 self.addEventListener('install', (e) => {
   self.skipWaiting();
@@ -15,10 +15,10 @@ self.addEventListener('activate', (e) => {
 });
 
 self.addEventListener('fetch', (e) => {
-  // APK 파일 다운로드는 Service Worker가 가로채지 않고 브라우저가 직접 처리하도록 함
   const url = e.request.url;
-  const lowerUrl = url.toLowerCase();
-  if (lowerUrl.includes('.apk') || lowerUrl.includes('.zip') || lowerUrl.includes('.exe')) {
+  // APK, ZIP, EXE 등 바이너리 파일은 Service Worker가 절대 가로채지 않음
+  // 브라우저 네이티브 다운로드 매니저가 직접 처리
+  if (url.match(/\.(apk|zip|exe|aab|xapk)(\?|$)/i)) {
     return; // 브라우저 순정 다운로드 처리
   }
 
