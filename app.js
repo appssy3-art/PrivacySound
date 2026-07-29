@@ -855,6 +855,9 @@ function setupEventListeners() {
       var isLine = /line/i.test(ua);
       var isFb = /fb/i.test(ua) || /instagram/i.test(ua);
       var isAndroid = /android/i.test(ua);
+      var isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+
+      const apkUrl = window.location.origin + '/public/assets/SoundCover.apk';
 
       // 1. In-App WebViews (Kakao, Naver, Instagram, FB, Line) on Android -> Escape to native browser
       if (isAndroid && (isKakao || isNaver || isLine || isFb)) {
@@ -872,20 +875,33 @@ function setupEventListeners() {
         return;
       }
 
-      // 2. iOS Safari / Webview → Guide notice (Apple doesn't support APK download)
+      // 2. Installed PWA Standalone Mode on Android -> WebView blocks APK file saving inside sandbox.
+      //    We must open the APK URL in the system browser using Intent Scheme.
+      if (isAndroid && isStandalone) {
+        closePwaModalFunc();
+        showToast(currentLanguage === 'ko' ? '🚀 시스템 브라우저를 통해 안전하게 다운로드를 실행합니다...' : '🚀 Launching system browser for download...');
+        
+        var targetApkHostPath = apkUrl.replace(/https?:\/\//, '');
+        var intentApkUrl = 'intent://' + targetApkHostPath + '#Intent;scheme=https;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;end';
+        location.href = intentApkUrl;
+        return;
+      }
+
+      // 3. iOS Safari / Webview → Guide notice (Apple doesn't support APK download)
       if (/iphone|ipad|ipod/i.test(ua)) {
         closePwaModalFunc();
         showToast(currentLanguage === 'ko' ? '🍎 하단 공유(⬆️) 버튼 ➔ [홈 화면에 추가]를 선택하세요' : '🍎 Tap Share (⬆️) ➔ Add to Home Screen');
         return;
       }
 
-      // 3. Android Chrome/Samsung Internet or Desktop: Programmatic absolute URL download trigger
+      // 4. Android Chrome/Samsung Internet or Desktop Browser:
       showToast(currentLanguage === 'ko' ? '🚀 앱 파일 다운로드를 시작합니다!' : '🚀 Starting App File Download!');
 
-      const apkUrl = window.location.origin + '/public/assets/SoundCover.apk';
+      // Create a temporary anchor with target="_blank" to ensure native browser download manager intercepts it
       const tempLink = document.createElement('a');
       tempLink.href = apkUrl;
       tempLink.download = 'SoundCover.apk';
+      tempLink.target = '_blank';
       tempLink.style.display = 'none';
       
       document.body.appendChild(tempLink);
@@ -894,7 +910,7 @@ function setupEventListeners() {
       setTimeout(() => {
         document.body.removeChild(tempLink);
         closePwaModalFunc();
-      }, 1500);
+      }, 1000);
     });
   }
 }
