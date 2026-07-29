@@ -874,7 +874,6 @@ function setupEventListeners() {
   }
 
   // Click 2: Inside White Benefit Card Modal, click "바탕화면에 무료 앱 설치" button
-  const btnDirectAndroidInstall = document.getElementById('btnDirectAndroidInstall');
   if (btnDirectAndroidInstall) {
     btnDirectAndroidInstall.addEventListener('click', (e) => {
       // 1. If Browser's PWA Install Prompt is ready, use it as first priority!
