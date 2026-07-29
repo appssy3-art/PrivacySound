@@ -897,29 +897,12 @@ function setupEventListeners() {
       var isLine = /line/i.test(ua);
       var isFb = /fb/i.test(ua) || /instagram/i.test(ua);
       var isAndroid = /android/i.test(ua);
-      var isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
-
-      // Detect WebView: Android but not pure Chrome and not Samsung Browser
+      
       var isPureChrome = /chrome/i.test(ua) && !/wv/i.test(ua) && !/naver/i.test(ua) && !/kakaotalk/i.test(ua) && !/fb/i.test(ua) && !/instagram/i.test(ua) && !/line/i.test(ua);
       var isSamsung = /samsungbrowser/i.test(ua);
       var isWebView = isAndroid && (!isPureChrome && !isSamsung);
 
-      // Priority 1: If PWA install prompt is somehow ready now, use it!
-      if (deferredPrompt) {
-        e.preventDefault(); // Intercept!
-        closePwaModalFunc();
-        deferredPrompt.prompt();
-        deferredPrompt.userChoice.then((choiceResult) => {
-          if (choiceResult.outcome === 'accepted') {
-            deferredPrompt = null;
-          }
-        });
-        return;
-      }
-
-      const apkUrl = window.location.origin + '/public/assets/SoundCover.apk';
-
-      // 1. In-App WebViews (Kakao, Naver, Instagram, FB, Line, WebView) on Android -> Escape to native browser
+      // 1. Android In-App WebViews -> Escape to native browser immediately
       if (isAndroid && (isKakao || isNaver || isLine || isFb || isWebView)) {
         e.preventDefault(); // Intercept!
         closePwaModalFunc();
@@ -935,20 +918,7 @@ function setupEventListeners() {
         return;
       }
 
-      // 2. Installed PWA Standalone Mode on Android -> WebView blocks APK file saving inside sandbox.
-      //    We must open the APK URL in the system browser using Intent Scheme.
-      if (isAndroid && isStandalone) {
-        e.preventDefault(); // Intercept!
-        closePwaModalFunc();
-        showToast(currentLanguage === 'ko' ? '🚀 시스템 브라우저를 통해 안전하게 다운로드를 실행합니다...' : '🚀 Launching system browser for download...');
-        
-        var targetApkHostPath = apkUrl.replace(/https?:\/\//, '');
-        var intentApkUrl = 'intent://' + targetApkHostPath + '#Intent;scheme=https;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;end';
-        location.href = intentApkUrl;
-        return;
-      }
-
-      // 3. iOS Safari / Webview → Guide notice (Apple doesn't support APK download)
+      // 2. iOS iPhone/iPad -> Notice guide
       if (/iphone|ipad|ipod/i.test(ua)) {
         e.preventDefault(); // Intercept!
         closePwaModalFunc();
@@ -956,9 +926,9 @@ function setupEventListeners() {
         return;
       }
 
-      // 4. Android Chrome/Samsung Internet or Desktop Browser:
-      // DO NOT call e.preventDefault() here! Let the browser handle the raw anchor click.
-      // This preserves 100% user gesture trust so download fires instantly on a single tap.
+      // 3. Android Chrome / Samsung Internet / Desktop:
+      // DO NOT call e.preventDefault() here. Let browser handle raw anchor target click.
+      // This guarantees 100% User Gesture trust so browser starts download instantly.
       showToast(currentLanguage === 'ko' ? '📥 다운로드 완료 후, 알림창의 [열기]를 눌러 설치해 주세요!' : '📥 After download, tap [Open] in notifications to install!');
 
       setTimeout(() => {

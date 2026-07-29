@@ -1,4 +1,4 @@
-const CACHE_NAME = 'soundcover-v3015-webview-escape-fix';
+const CACHE_NAME = 'soundcover-v3016-pure-native-download';
 
 self.addEventListener('install', (e) => {
   self.skipWaiting();
