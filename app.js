@@ -4,19 +4,6 @@ window.addEventListener('beforeinstallprompt', (e) => {
   e.preventDefault();
   deferredPrompt = e;
   console.log('[PWA] beforeinstallprompt captured!');
-  
-  // If the user already clicked App Install and the white modal is visible,
-  // close the modal and immediately show the native black install dialog.
-  const pwaModal = document.getElementById('pwaModal');
-  if (pwaModal && !pwaModal.classList.contains('hidden')) {
-    if (typeof closePwaModalFunc === 'function') closePwaModalFunc();
-    deferredPrompt.prompt();
-    deferredPrompt.userChoice.then((choiceResult) => {
-      if (choiceResult.outcome === 'accepted') {
-        deferredPrompt = null;
-      }
-    });
-  }
 });
 
 // Multi-Language Localization Data (15 Worldwide Languages: KO/EN/JA/ZH/ES/PT/DE/FR/VI/ID/TH/AR/RU/HI/LA)
@@ -881,33 +868,8 @@ function setupEventListeners() {
   const btnFooterInstall = document.getElementById('btnFooterInstall');
   if (btnFooterInstall) {
     btnFooterInstall.addEventListener('click', () => {
-      // 1. If Browser's PWA Install Prompt is ready, trigger it immediately!
-      if (deferredPrompt) {
-        deferredPrompt.prompt();
-        deferredPrompt.userChoice.then((choiceResult) => {
-          if (choiceResult.outcome === 'accepted') {
-            deferredPrompt = null;
-          }
-        });
-        return;
-      }
-      
-      // 2. If not ready yet (Service Worker loading), wait briefly for PWA availability
-      showToast(currentLanguage === 'ko' ? '⚙️ 설치 환경을 준비 중입니다. 잠시만 기다려 주세요...' : '⚙️ Preparing install environment...');
-      
-      setTimeout(() => {
-        if (deferredPrompt) {
-          deferredPrompt.prompt();
-          deferredPrompt.userChoice.then((choiceResult) => {
-            if (choiceResult.outcome === 'accepted') {
-              deferredPrompt = null;
-            }
-          });
-        } else {
-          // If still not ready (WebView/iOS/etc.), show fallback informational modal
-          openPwaModal();
-        }
-      }, 700);
+      // Direct opening without any prompt delay hacks
+      openPwaModal();
     });
   }
 

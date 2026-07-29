@@ -1,4 +1,4 @@
-const CACHE_NAME = 'soundcover-v3017-pwa-instant-prompt';
+const CACHE_NAME = 'soundcover-v3018-revert-pwa-hacks';
 
 self.addEventListener('install', (e) => {
   self.skipWaiting();
