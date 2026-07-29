@@ -1,8 +1,8 @@
 // SoundCover - Mobile Etiquette Sound App JS
-let deferredPrompt = null;
+window.deferredPrompt = null;
 window.addEventListener('beforeinstallprompt', (e) => {
   e.preventDefault();
-  deferredPrompt = e;
+  window.deferredPrompt = e;
   console.log('[PWA] beforeinstallprompt captured!');
 });
 
@@ -878,13 +878,13 @@ function setupEventListeners() {
     btnDirectAndroidInstall.addEventListener('click', (e) => {
       // 1. If Browser's PWA Install Prompt is ready, use it as first priority!
       // This launches the secure black native chrome install prompt (modal #3)
-      if (deferredPrompt) {
+      if (window.deferredPrompt) {
         e.preventDefault();
         closePwaModalFunc();
-        deferredPrompt.prompt();
-        deferredPrompt.userChoice.then((choiceResult) => {
+        window.deferredPrompt.prompt();
+        window.deferredPrompt.userChoice.then((choiceResult) => {
           if (choiceResult.outcome === 'accepted') {
-            deferredPrompt = null;
+            window.deferredPrompt = null;
           }
         });
         return;
