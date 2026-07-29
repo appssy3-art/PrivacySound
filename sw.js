@@ -1,4 +1,4 @@
-const CACHE_NAME = 'soundcover-v3014-final-gesture-trust';
+const CACHE_NAME = 'soundcover-v3015-webview-escape-fix';
 
 self.addEventListener('install', (e) => {
   self.skipWaiting();

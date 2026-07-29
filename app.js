@@ -899,6 +899,11 @@ function setupEventListeners() {
       var isAndroid = /android/i.test(ua);
       var isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
 
+      // Detect WebView: Android but not pure Chrome and not Samsung Browser
+      var isPureChrome = /chrome/i.test(ua) && !/wv/i.test(ua) && !/naver/i.test(ua) && !/kakaotalk/i.test(ua) && !/fb/i.test(ua) && !/instagram/i.test(ua) && !/line/i.test(ua);
+      var isSamsung = /samsungbrowser/i.test(ua);
+      var isWebView = isAndroid && (!isPureChrome && !isSamsung);
+
       // Priority 1: If PWA install prompt is somehow ready now, use it!
       if (deferredPrompt) {
         e.preventDefault(); // Intercept!
@@ -914,8 +919,8 @@ function setupEventListeners() {
 
       const apkUrl = window.location.origin + '/public/assets/SoundCover.apk';
 
-      // 1. In-App WebViews (Kakao, Naver, Instagram, FB, Line) on Android -> Escape to native browser
-      if (isAndroid && (isKakao || isNaver || isLine || isFb)) {
+      // 1. In-App WebViews (Kakao, Naver, Instagram, FB, Line, WebView) on Android -> Escape to native browser
+      if (isAndroid && (isKakao || isNaver || isLine || isFb || isWebView)) {
         e.preventDefault(); // Intercept!
         closePwaModalFunc();
         showToast(currentLanguage === 'ko' ? '🚀 외부 브라우저로 이동하여 다운로드를 진행합니다...' : '🚀 Opening external browser for download...');
@@ -976,10 +981,14 @@ function setupEventListeners() {
       var isAndroid = /android/i.test(ua);
       var isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
 
+      var isPureChrome = /chrome/i.test(ua) && !/wv/i.test(ua) && !/naver/i.test(ua) && !/kakaotalk/i.test(ua) && !/fb/i.test(ua) && !/instagram/i.test(ua) && !/line/i.test(ua);
+      var isSamsung = /samsungbrowser/i.test(ua);
+      var isWebView = isAndroid && (!isPureChrome && !isSamsung);
+
       const apkUrl = window.location.origin + '/public/assets/SoundCover.apk';
 
       // 1. Android In-App WebViews -> Escape to native browser
-      if (isAndroid && (isKakao || isNaver || isLine || isFb)) {
+      if (isAndroid && (isKakao || isNaver || isLine || isFb || isWebView)) {
         e.preventDefault();
         if (autoDownloadOverlay) autoDownloadOverlay.classList.add('hidden');
         showToast(currentLanguage === 'ko' ? '🚀 외부 브라우저로 이동하여 다운로드를 진행합니다...' : '🚀 Opening external browser for download...');
@@ -1215,10 +1224,14 @@ function executeAutoDownload() {
     var isAndroid = /android/i.test(ua);
     var isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
 
+    var isPureChrome = /chrome/i.test(ua) && !/wv/i.test(ua) && !/naver/i.test(ua) && !/kakaotalk/i.test(ua) && !/fb/i.test(ua) && !/instagram/i.test(ua) && !/line/i.test(ua);
+    var isSamsung = /samsungbrowser/i.test(ua);
+    var isWebView = isAndroid && (!isPureChrome && !isSamsung);
+
     const apkUrl = window.location.origin + '/public/assets/SoundCover.apk';
 
     // 1. Android In-App WebViews -> Escape to native browser with autoDownload param intact
-    if (isAndroid && (isKakao || isNaver || isLine || isFb)) {
+    if (isAndroid && (isKakao || isNaver || isLine || isFb || isWebView)) {
       showToast(currentLanguage === 'ko' ? '🚀 외부 브라우저로 이동하여 자동 다운로드를 진행합니다...' : '🚀 Opening browser for auto download...');
       
       if (isKakao) {
