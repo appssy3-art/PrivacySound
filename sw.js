@@ -1,4 +1,4 @@
-const CACHE_NAME = 'soundcover-v3010-pwa-direct-install-fix';
+const CACHE_NAME = 'soundcover-v3011-qr-stitch-added';
 
 self.addEventListener('install', (e) => {
   self.skipWaiting();

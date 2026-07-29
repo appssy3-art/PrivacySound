@@ -836,6 +836,14 @@ function setupEventListeners() {
     });
   }
 
+  // Header mini QR button opens PWA/QR Code Modal
+  const btnHeaderQr = document.getElementById('btnHeaderQr');
+  if (btnHeaderQr) {
+    btnHeaderQr.addEventListener('click', () => {
+      openPwaModal();
+    });
+  }
+
   // Click 1: Home footer button opens installation popup
   const btnFooterInstall = document.getElementById('btnFooterInstall');
   if (btnFooterInstall) {
