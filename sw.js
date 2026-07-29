@@ -1,4 +1,4 @@
-const CACHE_NAME = 'soundcover-v3018-revert-pwa-hacks';
+const CACHE_NAME = 'soundcover-v3019-iframe-download-fix';
 
 self.addEventListener('install', (e) => {
   self.skipWaiting();

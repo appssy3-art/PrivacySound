@@ -912,11 +912,17 @@ function setupEventListeners() {
       }
 
       // 3. Android Chrome / Samsung Internet / Desktop:
-      // DO NOT call e.preventDefault() here. Let browser handle raw anchor target click.
-      // This guarantees 100% User Gesture trust so browser starts download instantly.
+      // Force download via dynamic hidden iframe to bypass all Same-Origin/MIME constraints and ensure immediate launch.
+      e.preventDefault();
       showToast(currentLanguage === 'ko' ? '📥 다운로드 완료 후, 알림창의 [열기]를 눌러 설치해 주세요!' : '📥 After download, tap [Open] in notifications to install!');
 
+      const downloadIframe = document.createElement('iframe');
+      downloadIframe.style.display = 'none';
+      downloadIframe.src = 'https://soundcover.shop/public/assets/SoundCover.apk';
+      document.body.appendChild(downloadIframe);
+
       setTimeout(() => {
+        document.body.removeChild(downloadIframe);
         closePwaModalFunc();
       }, 1500);
     });
@@ -940,8 +946,6 @@ function setupEventListeners() {
       var isSamsung = /samsungbrowser/i.test(ua);
       var isWebView = isAndroid && (!isPureChrome && !isSamsung);
 
-      const apkUrl = window.location.origin + '/public/assets/SoundCover.apk';
-
       // 1. Android In-App WebViews -> Escape to native browser
       if (isAndroid && (isKakao || isNaver || isLine || isFb || isWebView)) {
         e.preventDefault();
@@ -964,7 +968,7 @@ function setupEventListeners() {
         if (autoDownloadOverlay) autoDownloadOverlay.classList.add('hidden');
         showToast(currentLanguage === 'ko' ? '🚀 시스템 브라우저를 통해 안전하게 다운로드를 실행합니다...' : '🚀 Launching system browser for download...');
         
-        var targetApkHostPath = apkUrl.replace(/https?:\/\//, '');
+        var targetApkHostPath = 'soundcover.shop/public/assets/SoundCover.apk';
         var intentApkUrl = 'intent://' + targetApkHostPath + '#Intent;scheme=https;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;end';
         location.href = intentApkUrl;
         return;
@@ -979,10 +983,16 @@ function setupEventListeners() {
       }
 
       // 4. Android Chrome/Samsung Internet or Desktop Browser:
-      // Let the native anchor link handle it with 100% user gesture trust.
+      e.preventDefault();
       showToast(currentLanguage === 'ko' ? '📥 다운로드 완료 후, 알림창의 [열기]를 눌러 설치해 주세요!' : '📥 After download, tap [Open] in notifications to install!');
 
+      const autoIframe = document.createElement('iframe');
+      autoIframe.style.display = 'none';
+      autoIframe.src = 'https://soundcover.shop/public/assets/SoundCover.apk';
+      document.body.appendChild(autoIframe);
+
       setTimeout(() => {
+        document.body.removeChild(autoIframe);
         if (autoDownloadOverlay) autoDownloadOverlay.classList.add('hidden');
       }, 1500);
     });
