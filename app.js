@@ -836,10 +836,26 @@ function setupEventListeners() {
     });
   }
 
-  // Click 1: Home footer button opens White Benefit Card Modal
+  // Click 1: Home footer button opens installation popup
   const btnFooterInstall = document.getElementById('btnFooterInstall');
   if (btnFooterInstall) {
     btnFooterInstall.addEventListener('click', () => {
+      // 1. If Browser's PWA Install Prompt is ready, trigger it immediately!
+      // This achieves the "instant 2-click desktop icon creation" perfectly without APK downloads.
+      if (deferredPrompt) {
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((choiceResult) => {
+          if (choiceResult.outcome === 'accepted') {
+            console.log('[PWA] User accepted the install prompt');
+          } else {
+            console.log('[PWA] User dismissed the install prompt');
+          }
+          deferredPrompt = null;
+        });
+        return;
+      }
+      
+      // 2. Otherwise, fall back to showing the information modal
       openPwaModal();
     });
   }
@@ -856,6 +872,18 @@ function setupEventListeners() {
       var isFb = /fb/i.test(ua) || /instagram/i.test(ua);
       var isAndroid = /android/i.test(ua);
       var isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+
+      // Priority 1: If PWA install prompt is somehow ready now, use it!
+      if (deferredPrompt) {
+        closePwaModalFunc();
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((choiceResult) => {
+          if (choiceResult.outcome === 'accepted') {
+            deferredPrompt = null;
+          }
+        });
+        return;
+      }
 
       const apkUrl = window.location.origin + '/public/assets/SoundCover.apk';
 
@@ -895,7 +923,8 @@ function setupEventListeners() {
       }
 
       // 4. Android Chrome/Samsung Internet or Desktop Browser:
-      showToast(currentLanguage === 'ko' ? '🚀 앱 파일 다운로드를 시작합니다!' : '🚀 Starting App File Download!');
+      // Show explicit instruction to open/install the file after download finishes.
+      showToast(currentLanguage === 'ko' ? '📥 다운로드 완료 후, 알림창의 [열기]를 눌러 설치해 주세요!' : '📥 After download, tap [Open] in notifications to install!');
 
       // Create a temporary anchor with target="_blank" to ensure native browser download manager intercepts it
       const tempLink = document.createElement('a');
@@ -910,7 +939,7 @@ function setupEventListeners() {
       setTimeout(() => {
         document.body.removeChild(tempLink);
         closePwaModalFunc();
-      }, 1000);
+      }, 1200);
     });
   }
 }

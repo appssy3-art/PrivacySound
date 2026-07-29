@@ -1,4 +1,4 @@
-const CACHE_NAME = 'soundcover-v3009-apk-sandbox-fix';
+const CACHE_NAME = 'soundcover-v3010-pwa-direct-install-fix';
 
 self.addEventListener('install', (e) => {
   self.skipWaiting();
