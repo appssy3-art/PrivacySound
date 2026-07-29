@@ -9,6 +9,7 @@ window.addEventListener('beforeinstallprompt', (e) => {
 // Multi-Language Localization Data (15 Worldwide Languages: KO/EN/JA/ZH/ES/PT/DE/FR/VI/ID/TH/AR/RU/HI/LA)
 const I18N = {
   ko: {
+    appTitle: "사운드커버 (SoundCover.shop) - 프라이빗 화장실 소리 에티켓",
     appSubtitle: "🔒 프라이빗하게 지켜 드리는 화장실 소리 에티켓",
     installApp: "📲 앱 설치",
     pwaPrompt: "📱 홈 화면에 추가하여 앱처럼 사용하세요!",
@@ -32,6 +33,7 @@ const I18N = {
     affiliateText: "🧻 급할 때 유용한 물에 잘 녹는 비데 물티슈 핫딜 보기"
   },
   en: {
+    appTitle: "SoundCover (SoundCover.shop) - Private Toilet Sound Etiquette",
     appSubtitle: "🔒 Privately Protecting Your Bathroom Sound Etiquette",
     installApp: "📲 Install App",
     pwaPrompt: "📱 Add to Home Screen for app experience!",
@@ -55,6 +57,7 @@ const I18N = {
     affiliateText: "🧻 Flushable Moist Wipes Special Deal →"
   },
   ja: {
+    appTitle: "サウンドカバー (SoundCover.shop) - トイレ音エチケット",
     appSubtitle: "🔒 プライベートを守るトイレ音エチケット",
     installApp: "📲 アプリインストール",
     pwaPrompt: "📱 ホーム画面に追加してアプリとして使用！",
@@ -78,6 +81,7 @@ const I18N = {
     affiliateText: "🧻 水に流せるトイレ用ウエットティッシュ →"
   },
   zh: {
+    appTitle: "洗手间礼仪音效 (SoundCover.shop) - 保护隐私",
     appSubtitle: "🔒 保护隐私的洗手间礼仪音效",
     installApp: "📲 安装应用",
     pwaPrompt: "📱 添加到主屏幕，体验原生应用！",

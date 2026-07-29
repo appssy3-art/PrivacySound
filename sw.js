@@ -1,4 +1,4 @@
-const CACHE_NAME = 'soundcover-v3007-apk-download-final';
+const CACHE_NAME = 'soundcover-v3008-seo-update';
 
 self.addEventListener('install', (e) => {
   self.skipWaiting();
