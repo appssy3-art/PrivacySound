@@ -1,4 +1,4 @@
-const CACHE_NAME = 'soundcover-v3020-raw-html-link';
+const CACHE_NAME = 'soundcover-v3021-restore-pwa-flow';
 
 self.addEventListener('install', (e) => {
   self.skipWaiting();

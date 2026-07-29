@@ -303,7 +303,7 @@
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js?v=v3020').then((reg) => {
+        navigator.serviceWorker.register('./sw.js?v=v3021').then((reg) => {
           reg.update();
         }).catch((err) => {
           console.error('Service Worker registration failed:', err);
@@ -312,6 +312,6 @@
     }
   </script>
   <!-- App JS -->
-  <script src="app.js?v=APK_NATIVE_DOWNLOAD_FIX_V14"></script>
+  <script src="app.js?v=APK_NATIVE_DOWNLOAD_FIX_V15"></script>
 </body>
 </html>

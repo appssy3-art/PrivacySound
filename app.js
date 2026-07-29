@@ -874,7 +874,64 @@ function setupEventListeners() {
   }
 
   // Click 2: Inside White Benefit Card Modal, click "바탕화면에 무료 앱 설치" button
-  // Reverted to pure raw HTML anchor link download in index.html to guarantee 100% user gesture trust.
+  const btnDirectAndroidInstall = document.getElementById('btnDirectAndroidInstall');
+  if (btnDirectAndroidInstall) {
+    btnDirectAndroidInstall.addEventListener('click', (e) => {
+      // 1. If Browser's PWA Install Prompt is ready, use it as first priority!
+      // This launches the secure black native chrome install prompt (modal #3)
+      if (deferredPrompt) {
+        e.preventDefault();
+        closePwaModalFunc();
+        deferredPrompt.prompt();
+        deferredPrompt.userChoice.then((choiceResult) => {
+          if (choiceResult.outcome === 'accepted') {
+            deferredPrompt = null;
+          }
+        });
+        return;
+      }
+
+      // 2. Otherwise (Fallback), trigger direct APK download via Raw HTML anchor target
+      var ua = navigator.userAgent.toLowerCase();
+      var isAndroid = /android/i.test(ua);
+      var isKakao = /kakaotalk/i.test(ua);
+      var isNaver = /naver/i.test(ua);
+      var isLine = /line/i.test(ua);
+      var isFb = /fb/i.test(ua) || /instagram/i.test(ua);
+      var isPureChrome = /chrome/i.test(ua) && !/wv/i.test(ua) && !/naver/i.test(ua) && !/kakaotalk/i.test(ua) && !/fb/i.test(ua) && !/instagram/i.test(ua) && !/line/i.test(ua);
+      var isSamsung = /samsungbrowser/i.test(ua);
+      var isWebView = isAndroid && (!isPureChrome && !isSamsung);
+
+      // WebViews escape
+      if (isAndroid && (isKakao || isNaver || isLine || isFb || isWebView)) {
+        e.preventDefault();
+        closePwaModalFunc();
+        showToast(currentLanguage === 'ko' ? '🚀 외부 브라우저로 이동하여 다운로드를 진행합니다...' : '🚀 Opening external browser for download...');
+        if (isKakao) {
+          location.href = 'kakaotalk://web/openExternal?url=' + encodeURIComponent(window.location.href);
+        } else {
+          var targetUrl = window.location.href.replace(/https?:\/\//, '');
+          var intentUrl = 'intent://' + targetUrl + '#Intent;scheme=https;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;end';
+          location.href = intentUrl;
+        }
+        return;
+      }
+
+      // iOS notice
+      if (/iphone|ipad|ipod/i.test(ua)) {
+        e.preventDefault();
+        closePwaModalFunc();
+        showToast(currentLanguage === 'ko' ? '🍎 하단 공유(⬆️) 버튼 ➔ [홈 화면에 추가]를 선택하세요' : '🍎 Tap Share (⬆️) ➔ Add to Home Screen');
+        return;
+      }
+
+      // Android default - No preventDefault, let raw HTML link execute APK download
+      showToast(currentLanguage === 'ko' ? '📥 다운로드 완료 후, 알림창의 [열기]를 눌러 설치해 주세요!' : '📥 After download, tap [Open] in notifications to install!');
+      setTimeout(() => {
+        closePwaModalFunc();
+      }, 1500);
+    });
+  }
 
   // Click 3: Inside Auto Download Gesture Trigger Overlay, click "즉시 다운로드 시작" button
   const btnAutoDownloadTrigger = document.getElementById('btnAutoDownloadTrigger');
