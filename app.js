@@ -836,11 +836,30 @@ function setupEventListeners() {
     });
   }
 
-  // Header mini QR button opens PWA/QR Code Modal
+  // QR Code Modal Elements & Logic
+  const qrModal = document.getElementById('qrModal');
+  const closeQrModal = document.getElementById('closeQrModal');
+
+  function openQrModalFunc() {
+    if (qrModal) qrModal.classList.remove('hidden');
+  }
+
+  function closeQrModalFunc() {
+    if (qrModal) qrModal.classList.add('hidden');
+  }
+
+  if (closeQrModal) closeQrModal.addEventListener('click', closeQrModalFunc);
+  if (qrModal) {
+    qrModal.addEventListener('click', (e) => {
+      if (e.target === qrModal) closeQrModalFunc();
+    });
+  }
+
+  // Header mini QR button opens dedicated QR Modal
   const btnHeaderQr = document.getElementById('btnHeaderQr');
   if (btnHeaderQr) {
     btnHeaderQr.addEventListener('click', () => {
-      openPwaModal();
+      openQrModalFunc();
     });
   }
 

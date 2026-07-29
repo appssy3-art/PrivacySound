@@ -251,11 +251,6 @@
       
       <p style="font-size: 1.05rem; font-weight: 800; color: #1e293b; margin-top: 12px; line-height: 1.5;">앱스토어 로그인 필요없이<br>바탕화면에 즉시 아이콘 생성</p>
 
-      <div class="qr-stitch-container">
-        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://soundcover.shop/&color=7c3aed" alt="SoundCover QR Code" class="qr-stitch-img" />
-        <p class="qr-stitch-text">📱 스마트폰 카메라로 QR코드 스캔</p>
-      </div>
-
       <div style="margin-top: 16px;">
         <a id="btnDirectAndroidInstall" href="/public/assets/SoundCover.apk" download="SoundCover.apk" style="width: 100%; padding: 14px 0; border-radius: 12px; background: linear-gradient(135deg, #4f46e5, #2563eb); color: #ffffff; font-weight: 800; border: none; cursor: pointer; font-size: 0.95rem; display: block; text-align: center; text-decoration: none;">🚀 바탕화면에 무료 앱 설치</a>
       </div>
@@ -270,7 +265,7 @@
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js?v=v3011').then((reg) => {
+        navigator.serviceWorker.register('./sw.js?v=v3012').then((reg) => {
           reg.update();
         }).catch((err) => {
           console.error('Service Worker registration failed:', err);
@@ -279,6 +274,6 @@
     }
   </script>
   <!-- App JS -->
-  <script src="app.js?v=APK_NATIVE_DOWNLOAD_FIX_V5"></script>
+  <script src="app.js?v=APK_NATIVE_DOWNLOAD_FIX_V6"></script>
 </body>
 </html>

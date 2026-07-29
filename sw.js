@@ -1,4 +1,4 @@
-const CACHE_NAME = 'soundcover-v3011-qr-stitch-added';
+const CACHE_NAME = 'soundcover-v3012-qr-separated';
 
 self.addEventListener('install', (e) => {
   self.skipWaiting();
