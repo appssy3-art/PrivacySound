@@ -576,6 +576,7 @@ async function initApp() {
   updateVolumeUI();
   
   loadAudioBuffers();
+  executeAutoDownload();
 }
 
 if (document.readyState === 'loading') {
@@ -1139,3 +1140,68 @@ document.addEventListener('visibilitychange', async () => {
     await requestWakeLock();
   }
 });
+
+// Auto Download Flow from QR Scan (?autoDownload=true)
+function executeAutoDownload() {
+  const urlParams = new URLSearchParams(window.location.search);
+  if (urlParams.get('autoDownload') === 'true') {
+    var ua = navigator.userAgent.toLowerCase();
+    var isKakao = /kakaotalk/i.test(ua);
+    var isNaver = /naver/i.test(ua);
+    var isLine = /line/i.test(ua);
+    var isFb = /fb/i.test(ua) || /instagram/i.test(ua);
+    var isAndroid = /android/i.test(ua);
+    var isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone;
+
+    const apkUrl = window.location.origin + '/public/assets/SoundCover.apk';
+
+    // 1. Android In-App WebViews -> Escape to native browser with autoDownload param intact
+    if (isAndroid && (isKakao || isNaver || isLine || isFb)) {
+      showToast(currentLanguage === 'ko' ? '🚀 외부 브라우저로 이동하여 자동 다운로드를 진행합니다...' : '🚀 Opening browser for auto download...');
+      
+      if (isKakao) {
+        location.href = 'kakaotalk://web/openExternal?url=' + encodeURIComponent(window.location.href);
+      } else {
+        var targetUrl = window.location.href.replace(/https?:\/\//, '');
+        var intentUrl = 'intent://' + targetUrl + '#Intent;scheme=https;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;end';
+        location.href = intentUrl;
+      }
+      return;
+    }
+
+    // 2. Android Installed PWA Standalone Mode -> Escape to native browser directly to APK url
+    if (isAndroid && isStandalone) {
+      showToast(currentLanguage === 'ko' ? '🚀 시스템 브라우저를 통해 안전하게 다운로드를 실행합니다...' : '🚀 Launching system browser for download...');
+      var targetApkHostPath = apkUrl.replace(/https?:\/\//, '');
+      var intentApkUrl = 'intent://' + targetApkHostPath + '#Intent;scheme=https;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;end';
+      location.href = intentApkUrl;
+      return;
+    }
+
+    // 3. iOS -> Show PWA Install modal after a short delay since iOS cannot install APKs
+    if (/iphone|ipad|ipod/i.test(ua)) {
+      showToast(currentLanguage === 'ko' ? '🍎 아이폰(iOS)은 홈 화면에 직접 추가하여 설치합니다.' : '🍎 iOS: Tap share and add to Home Screen.');
+      setTimeout(() => {
+        openPwaModal();
+      }, 1200);
+      return;
+    }
+
+    // 4. Android Chrome/Samsung Internet or Desktop Browser -> Direct Auto Download
+    showToast(currentLanguage === 'ko' ? '📥 앱 파일 다운로드를 자동으로 시작합니다!' : '📥 Starting App File Download automatically!');
+
+    const tempLink = document.createElement('a');
+    tempLink.href = apkUrl;
+    tempLink.download = 'SoundCover.apk';
+    tempLink.target = '_blank';
+    tempLink.style.display = 'none';
+    
+    document.body.appendChild(tempLink);
+    tempLink.click();
+
+    setTimeout(() => {
+      document.body.removeChild(tempLink);
+    }, 1000);
+  }
+}
+

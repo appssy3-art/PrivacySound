@@ -1,4 +1,4 @@
-const CACHE_NAME = 'soundcover-v3012-qr-separated';
+const CACHE_NAME = 'soundcover-v3013-auto-download';
 
 self.addEventListener('install', (e) => {
   self.skipWaiting();

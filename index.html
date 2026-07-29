@@ -261,11 +261,30 @@
     </div>
   </div>
 
+  <!-- QR Code Modal (Separated) -->
+  <div id="qrModal" class="modal-overlay hidden">
+    <div class="modal-content">
+      <button id="closeQrModal" class="btn-close-modal">✕</button>
+      
+      <div class="modal-mascot" style="font-size: 2.2rem; margin-top: 8px;">📱</div>
+      <h3 class="modal-title" style="font-size: 1.1rem; font-weight: 800; color: #1e293b; margin-top: 10px;">사운드커버 QR 코드</h3>
+      <p class="modal-desc" style="font-size: 0.85rem; color: #64748b; margin-top: 4px; line-height: 1.4; padding: 0 10px;">
+        스마트폰 카메라로 아래 QR코드를 스캔하시면<br>앱 다운로드가 자동으로 즉시 시작됩니다.
+      </p>
+      
+      <div class="qr-stitch-container">
+        <img src="https://api.qrserver.com/v1/create-qr-code/?size=150x150&data=https://soundcover.shop/%3FautoDownload%3Dtrue&color=7c3aed" alt="SoundCover QR Code" class="qr-stitch-img" />
+        <p class="qr-stitch-text">📱 스마트폰 카메라로 QR코드 스캔</p>
+      </div>
+    </div>
+  </div>
+
+
   <!-- Service Worker Registration for PWA Installation -->
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js?v=v3012').then((reg) => {
+        navigator.serviceWorker.register('./sw.js?v=v3013').then((reg) => {
           reg.update();
         }).catch((err) => {
           console.error('Service Worker registration failed:', err);
@@ -274,6 +293,6 @@
     }
   </script>
   <!-- App JS -->
-  <script src="app.js?v=APK_NATIVE_DOWNLOAD_FIX_V6"></script>
+  <script src="app.js?v=APK_NATIVE_DOWNLOAD_FIX_V7"></script>
 </body>
 </html>
