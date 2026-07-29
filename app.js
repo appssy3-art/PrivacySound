@@ -874,59 +874,7 @@ function setupEventListeners() {
   }
 
   // Click 2: Inside White Benefit Card Modal, click "바탕화면에 무료 앱 설치" button
-  if (btnDirectAndroidInstall) {
-    btnDirectAndroidInstall.addEventListener('click', (e) => {
-      var ua = navigator.userAgent.toLowerCase();
-      var isKakao = /kakaotalk/i.test(ua);
-      var isNaver = /naver/i.test(ua);
-      var isLine = /line/i.test(ua);
-      var isFb = /fb/i.test(ua) || /instagram/i.test(ua);
-      var isAndroid = /android/i.test(ua);
-      
-      var isPureChrome = /chrome/i.test(ua) && !/wv/i.test(ua) && !/naver/i.test(ua) && !/kakaotalk/i.test(ua) && !/fb/i.test(ua) && !/instagram/i.test(ua) && !/line/i.test(ua);
-      var isSamsung = /samsungbrowser/i.test(ua);
-      var isWebView = isAndroid && (!isPureChrome && !isSamsung);
-
-      // 1. Android In-App WebViews -> Escape to native browser immediately
-      if (isAndroid && (isKakao || isNaver || isLine || isFb || isWebView)) {
-        e.preventDefault(); // Intercept!
-        closePwaModalFunc();
-        showToast(currentLanguage === 'ko' ? '🚀 외부 브라우저로 이동하여 다운로드를 진행합니다...' : '🚀 Opening external browser for download...');
-        
-        if (isKakao) {
-          location.href = 'kakaotalk://web/openExternal?url=' + encodeURIComponent(window.location.href);
-        } else {
-          var targetUrl = window.location.href.replace(/https?:\/\//, '');
-          var intentUrl = 'intent://' + targetUrl + '#Intent;scheme=https;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;end';
-          location.href = intentUrl;
-        }
-        return;
-      }
-
-      // 2. iOS iPhone/iPad -> Notice guide
-      if (/iphone|ipad|ipod/i.test(ua)) {
-        e.preventDefault(); // Intercept!
-        closePwaModalFunc();
-        showToast(currentLanguage === 'ko' ? '🍎 하단 공유(⬆️) 버튼 ➔ [홈 화면에 추가]를 선택하세요' : '🍎 Tap Share (⬆️) ➔ Add to Home Screen');
-        return;
-      }
-
-      // 3. Android Chrome / Samsung Internet / Desktop:
-      // Force download via dynamic hidden iframe to bypass all Same-Origin/MIME constraints and ensure immediate launch.
-      e.preventDefault();
-      showToast(currentLanguage === 'ko' ? '📥 다운로드 완료 후, 알림창의 [열기]를 눌러 설치해 주세요!' : '📥 After download, tap [Open] in notifications to install!');
-
-      const downloadIframe = document.createElement('iframe');
-      downloadIframe.style.display = 'none';
-      downloadIframe.src = 'https://soundcover.shop/public/assets/SoundCover.apk';
-      document.body.appendChild(downloadIframe);
-
-      setTimeout(() => {
-        document.body.removeChild(downloadIframe);
-        closePwaModalFunc();
-      }, 1500);
-    });
-  }
+  // Reverted to pure raw HTML anchor link download in index.html to guarantee 100% user gesture trust.
 
   // Click 3: Inside Auto Download Gesture Trigger Overlay, click "즉시 다운로드 시작" button
   const btnAutoDownloadTrigger = document.getElementById('btnAutoDownloadTrigger');

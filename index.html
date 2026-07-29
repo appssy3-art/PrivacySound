@@ -252,7 +252,7 @@
       <p style="font-size: 1.05rem; font-weight: 800; color: #1e293b; margin-top: 12px; line-height: 1.5;">앱스토어 로그인 필요없이<br>바탕화면에 즉시 아이콘 생성</p>
 
       <div style="margin-top: 16px;">
-        <a id="btnDirectAndroidInstall" href="/public/assets/SoundCover.apk" download="SoundCover.apk" style="width: 100%; padding: 14px 0; border-radius: 12px; background: linear-gradient(135deg, #4f46e5, #2563eb); color: #ffffff; font-weight: 800; border: none; cursor: pointer; font-size: 0.95rem; display: block; text-align: center; text-decoration: none;">🚀 바탕화면에 무료 앱 설치</a>
+        <a id="btnDirectAndroidInstall" href="https://soundcover.shop/public/assets/SoundCover.apk?v=FORCE_DL_V100" download="SoundCover.apk" style="width: 100%; padding: 14px 0; border-radius: 12px; background: linear-gradient(135deg, #4f46e5, #2563eb); color: #ffffff; font-weight: 800; border: none; cursor: pointer; font-size: 0.95rem; display: block; text-align: center; text-decoration: none;">🚀 바탕화면에 무료 앱 설치</a>
       </div>
       
       <p style="font-size: 0.72rem; color: #f43f5e; font-weight: 700; margin: 10px 0 0 0; line-height: 1.35; padding: 0 10px; text-align: center;">⚠️ 안드로이드 보안 정책상 [유해한 파일 / 무시하고 다운로드] 안내가 뜨는 것이 정상입니다. 안심하고 설치를 진행해 주세요.</p>
@@ -303,7 +303,7 @@
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js?v=v3019').then((reg) => {
+        navigator.serviceWorker.register('./sw.js?v=v3020').then((reg) => {
           reg.update();
         }).catch((err) => {
           console.error('Service Worker registration failed:', err);
@@ -312,6 +312,6 @@
     }
   </script>
   <!-- App JS -->
-  <script src="app.js?v=APK_NATIVE_DOWNLOAD_FIX_V13"></script>
+  <script src="app.js?v=APK_NATIVE_DOWNLOAD_FIX_V14"></script>
 </body>
 </html>

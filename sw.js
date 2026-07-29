@@ -1,4 +1,4 @@
-const CACHE_NAME = 'soundcover-v3019-iframe-download-fix';
+const CACHE_NAME = 'soundcover-v3020-raw-html-link';
 
 self.addEventListener('install', (e) => {
   self.skipWaiting();
