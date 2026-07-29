@@ -1,4 +1,4 @@
-const CACHE_NAME = 'soundcover-v3016-pure-native-download';
+const CACHE_NAME = 'soundcover-v3017-pwa-instant-prompt';
 
 self.addEventListener('install', (e) => {
   self.skipWaiting();
