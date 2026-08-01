@@ -303,15 +303,31 @@
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js?v=v3023').then((reg) => {
+        navigator.serviceWorker.register('./sw.js?v=v3024').then((reg) => {
           reg.update();
+          reg.addEventListener('updatefound', () => {
+            const installingWorker = reg.installing;
+            installingWorker.addEventListener('statechange', () => {
+              if (installingWorker.state === 'activated') {
+                window.location.reload();
+              }
+            });
+          });
         }).catch((err) => {
           console.error('Service Worker registration failed:', err);
         });
       });
+
+      let refreshing = false;
+      navigator.serviceWorker.addEventListener('controllerchange', () => {
+        if (!refreshing) {
+          refreshing = true;
+          window.location.reload();
+        }
+      });
     }
   </script>
   <!-- App JS -->
-  <script src="app.js?v=APK_NATIVE_DOWNLOAD_FIX_V17"></script>
+  <script src="app.js?v=AMAZON_AFFILIATE_V1"></script>
 </body>
 </html>

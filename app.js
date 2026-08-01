@@ -30,7 +30,8 @@ const I18N = {
     donationThankYou: "당신의 따뜻한 마음이 이 서비스를 지켜나가는 힘이 됩니다. 진심으로 감사드려요.",
     laterBtn: "나중에 할게요",
     bathroomEssential: "화장실 추천템",
-    affiliateText: "🧻 급할 때 유용한 물에 잘 녹는 비데 물티슈 핫딜 보기"
+    affiliateText: "🧻 급할 때 유용한 물에 잘 녹는 비데 물티슈 핫딜 보기",
+    coupangDisclaimer: "이 포스팅은 쿠팡 파트너스 활동의 일환으로, 이에 따른 일정액의 수수료를 제공받습니다."
   },
   en: {
     appTitle: "SoundCover (SoundCover.shop) - Private Toilet Sound Etiquette",
@@ -54,7 +55,8 @@ const I18N = {
     donationThankYou: "Your warm heart is the power that keeps this service going. We sincerely thank you!",
     laterBtn: "Later",
     bathroomEssential: "Bathroom Essential",
-    affiliateText: "🧻 Flushable Moist Wipes Special Deal →"
+    affiliateText: "🌸 Block odor before you go! Poo-Pourri Toilet Spray Special Deal →",
+    coupangDisclaimer: "As an Amazon Associate I earn from qualifying purchases."
   },
   ja: {
     appTitle: "サウンドカバー (SoundCover.shop) - トイレ音エチケット",
@@ -62,10 +64,10 @@ const I18N = {
     installApp: "📲 アプリインストール",
     pwaPrompt: "📱 ホーム画面に追加してアプリとして使用！",
     install: "インストール",
-    wakeLockActive: "✨ 100% 騒音遮断中",
+    wakeLockActive: "✨ 100% 騒音遮단中",
     wakeLockInactive: "🔒 プライベートを守るエチケット",
     selectSound: "サウンド選択",
-    soundDryer: "ヘアド라이ヤー",
+    soundDryer: "ヘアドライヤー",
     soundPowerShower: "強力シャワー",
     soundHeavyDownpour: "土砂降り",
     selectTimer: "タイマー設定",
@@ -78,7 +80,8 @@ const I18N = {
     donationThankYou: "あなたの温かい気持ちがサービスを続ける力になります。心より感謝いたします。",
     laterBtn: "あとで",
     bathroomEssential: "トイレおすすめアイテム",
-    affiliateText: "🧻 水に流せるトイレ用ウエットティッシュ →"
+    affiliateText: "🌸 使用前にスプレーしてニオイを遮断！プープーリ トイレスプレー特価 →",
+    coupangDisclaimer: "Amazonのアソシエイトとして、適格販売により収入を得ています。"
   },
   zh: {
     appTitle: "洗手间礼仪音效 (SoundCover.shop) - 保护隐私",
@@ -102,7 +105,8 @@ const I18N = {
     donationThankYou: "您的温暖支持是维持本服务运营的力量。衷心感谢您！",
     laterBtn: "稍后再说",
     bathroomEssential: "洗手间推荐",
-    affiliateText: "🧻 可冲水湿厕纸特惠 →"
+    affiliateText: "🌸 便前喷雾阻挡异味！Poo-Pourri 便前香氛喷雾特惠 →",
+    coupangDisclaimer: "作为亚马逊合伙人，我们从合规购买中赚取佣金。"
   },
   es: {
     appSubtitle: "🔒 Protocolo de etiqueta privada para baños",
@@ -117,15 +121,16 @@ const I18N = {
     soundHeavyDownpour: "Lluvia torrencial",
     selectTimer: "Ajuste de temporizador",
     setTimer: "Ajuste de temporizador",
-    volumeControl: "Aumento de volumen",
+    volumeControl: "Aumento de volume",
     buyCoffee: "💖 \"¡Gracias por salvar el momento!\" Apoyar",
     adsenseLabel: "Publicidad",
     donationTitle: "❤️ \"¡Gracias por salvar el momento!\" Apoyar",
     donationDesc: "Si este servicio gratuito de etiqueta te ayudó, ¡envía un cálido café al desarrollador!",
-    donationThankYou: "Tu apoyo es la fuerza que mantiene este servicio. ¡Gracias de todo corazón!",
+    donationThankYou: "Tu apoio es la força que mantiene este servicio. ¡Gracias de todo coração!",
     laterBtn: "Más tarde",
     bathroomEssential: "Recomendado para el baño",
-    affiliateText: "🧻 Oferta especial de toallitas húmedas desechables →"
+    affiliateText: "🌸 ¡Bloquea el olor antes de ir! Oferta especial de Poo-Pourri →",
+    coupangDisclaimer: "Como asociado de Amazon, gano con las compras que califican."
   },
   pt: {
     appSubtitle: "🔒 Etiqueta Privada de Som para Banheiro",
@@ -148,7 +153,8 @@ const I18N = {
     donationThankYou: "Seu apoio é a força que mantém este serviço funcionando. Nosso muito obrigado!",
     laterBtn: "Mais tarde",
     bathroomEssential: "Recomendado para Banheiro",
-    affiliateText: "🧻 Oferta especial de lenços umedecidos laváveis →"
+    affiliateText: "🌸 Bloqueie o odor antes de usar! Oferta especial de Poo-Pourri →",
+    coupangDisclaimer: "Como associado da Amazon, ganho com compras qualificadas."
   },
   de: {
     appSubtitle: "🔒 Schützen Sie Ihre Privatsphäre im Badezimmer",
@@ -171,12 +177,13 @@ const I18N = {
     donationThankYou: "Deine Unterstützung hält diesen Dienst am Leben. Herzlichen Dank!",
     laterBtn: "Später",
     bathroomEssential: "Badezimmer-Empfehlung",
-    affiliateText: "🧻 Feuchttücher Spezialangebot →"
+    affiliateText: "🌸 Geruch vor dem Toilettengang blockieren! Poo-Pourri Spezialangebot →",
+    coupangDisclaimer: "Als Amazon-Partner verdiene ich an qualifizierten Verkäufen."
   },
   fr: {
     appSubtitle: "🔒 Protéger votre étiquette de confidentialité aux toilettes",
     installApp: "📲 Installer l'application",
-    pwaPrompt: "📱 Ajouter à l'écran d'accueil pour l'application !",
+    pwaPrompt: "📱 Ajouter à l'écran d'accueil pro l'application !",
     install: "Installer",
     wakeLockActive: "✨ Masquage sonore à 100%",
     wakeLockInactive: "🔒 Protéger votre étiquette privée",
@@ -194,7 +201,8 @@ const I18N = {
     donationThankYou: "Votre soutien permet de maintenir ce service. Merci du fond du cœur !",
     laterBtn: "Plus tard",
     bathroomEssential: "Recommandation salle de bain",
-    affiliateText: "🧻 Offre spéciale lingettes humides jetables →"
+    affiliateText: "🌸 Bloquez les odeurs avant de faire! Offre spéciale Poo-Pourri →",
+    coupangDisclaimer: "En tant que Partenaire Amazon, je réalise un bénéfice sur les achats remplissant les conditions requises."
   },
   vi: {
     appSubtitle: "🔒 Bảo vệ lịch sự riêng tư trong nhà vệ sinh",
@@ -217,7 +225,8 @@ const I18N = {
     donationThankYou: "Tấm lòng của bạn là động lực duy trì dịch vụ này. Chân thành cảm ơn!",
     laterBtn: "Để sau",
     bathroomEssential: "Gợi ý phòng tắm",
-    affiliateText: "🧻 Khăn giấy ướt vệ sinh xả được giá tốt →"
+    affiliateText: "🌸 Ngăn mùi trước khi đi vệ sinh! Xịt thơm toilet Poo-Pourri giá tốt →",
+    coupangDisclaimer: "Là một Đối tác Amazon, tôi kiếm được tiền từ các khoản mua hàng đủ điều kiện."
   },
   id: {
     appSubtitle: "🔒 Etiket Suara Toilet Menjaga Privasi Anda",
@@ -240,7 +249,8 @@ const I18N = {
     donationThankYou: "Dukungan hangat Anda adalah energi untuk menjaga layanan ini. Terima kasih tulus!",
     laterBtn: "Nanti",
     bathroomEssential: "Rekomendasi Kamar Mandi",
-    affiliateText: "🧻 Promo Spesial Tisu Basah Toilet →"
+    affiliateText: "🌸 Blokir bau sebelum Anda buang air! Promo Spesial Poo-Pourri →",
+    coupangDisclaimer: "Sebagai Rekan Amazon, saya menghasilkan uang dari pembelian yang memenuhi syarat."
   },
   th: {
     appSubtitle: "🔒 มารยาทเสียงในห้องน้ำเพื่อความเป็นส่วนตัว",
@@ -263,7 +273,8 @@ const I18N = {
     donationThankYou: "กำลังใจของคุณคือแรงขับเคลื่อนบริการนี้ ขอบพระคุณจากใจจริง!",
     laterBtn: "ไว้ทีหลัง",
     bathroomEssential: "ของแนะนำในห้องน้ำ",
-    affiliateText: "🧻 โปรโมชั่น ทิชชู่เปียกชักโครก →"
+    affiliateText: "🌸 ดักจับกลิ่นก่อนทำธุระ! สเปรย์ดับกลิ่นชักโครก Poo-Pourri โปรโมชั่นพิเศษ →",
+    coupangDisclaimer: "ในฐานะพันธมิตรของ Amazon ฉันมีรายได้จากการซื้อที่เข้าเกณฑ์"
   },
   ar: {
     appSubtitle: "🔒 آداب الصوت في المرحاض لحماية الخصوصية",
@@ -286,7 +297,8 @@ const I18N = {
     donationThankYou: "دعمك الدافئ هو القوة التي تحافظ على هذه الخدمة. شكراً جزيلاً!",
     laterBtn: "لاحقاً",
     bathroomEssential: "توصيات الحمام",
-    affiliateText: "🧻 عرض خاص على مناديل الميمون المبللة →"
+    affiliateText: "🌸 امنع الرائحة قبل قضاء الحاجة! عرض خاص على بخاخ بو-بوري →",
+    coupangDisclaimer: "بصفتي أحد شركاء أمازون، أحصل على عمولة من عمليات الشراء المؤهلة."
   },
   ru: {
     pwaPrompt: "📱 Добавьте на главный экран как приложение!",
@@ -306,7 +318,8 @@ const I18N = {
     donationThankYou: "Ваша поддержка — сила, поддерживающая этот сервис. Огромное спасибо!",
     laterBtn: "Позже",
     bathroomEssential: "Рекомендуем для ванной",
-    affiliateText: "🧻 Смываемая влажная туалетная бумага со скидкой →"
+    affiliateText: "🌸 Блокируйте запах до его появления! Спрей Poo-Pourri со скидкой →",
+    coupangDisclaimer: "Как партнер Amazon, я получаю комиссионные за квалифицированные покупки."
   },
   hi: {
     pwaPrompt: "📱 ऐप अनुभव के लिए होम स्क्रीन पर जोड़ें!",
@@ -322,11 +335,12 @@ const I18N = {
     buyCoffee: "💖 \"शर्मिंदगी से बचाने के लिए धन्यवाद!\" समर्थन दें",
     adsenseLabel: "विज्ञापन",
     donationTitle: "❤️ \"शर्मिंदगी से बचाने के लिए धन्यवाद!\" समर्थन दें",
-    donationDesc: "यदि इस मुफ्त सेवा ने आपकी मदद की, तो डेवलपर को एक कॉफी से समर्थन दें!",
+    donationDesc: "यदि इस मुफ्त सेवा ने आपकी मदद की, तो डेवलپر को एक कॉफी से समर्थन दें!",
     donationThankYou: "आपका समर्थन ही इस सेवा को जारी रखने की ताकत है। हार्दिक धन्यवाद!",
     laterBtn: "बाद में",
     bathroomEssential: "बाथरूम सुझाव",
-    affiliateText: "🧻 फ्लशेबल वेट वाइप्स ऑफर →"
+    affiliateText: "🌸 उपयोग करने से पहले गंध को रोकें! पू-पूरी टॉयलेट स्प्रे विशेष ऑफर →",
+    coupangDisclaimer: "एक अमेज़ॅन एसओसीएट के रूप में, मैं योग्य खरीद से कमाता हूं।"
   },
   la: {
     pwaPrompt: "📱 Adde ad tegulam primariam pro applicatione!",
@@ -346,29 +360,28 @@ const I18N = {
     donationThankYou: "Animus tuus benignus est vis quae hoc servitium conservat. Gratias maximas agimus!",
     laterBtn: "Postea",
     bathroomEssential: "Commendatio Balnei",
-    affiliateText: "🧻 Mappa humida aquosa balnei specialis →"
+    affiliateText: "🌸 Obstruere odorem antequam eas! Poo-Pourri specialis oblatio →",
+    coupangDisclaimer: "Ut Amazon Associate mereri ex qualificato emit."
   }
 };
 
 const AFFILIATE_LINKS = {
   ko: { url: "https://link.coupang.com/a/fFeFuNicFg", text: "🧻 급할 때 유용한 물에 잘 녹는 비데 물티슈 핫딜 보기 →" },
-  en: { url: "https://www.amazon.com/dp/B000000000", text: "🧻 Flushable Moist Wipes Special Deal →" },
-  ja: { url: "https://www.amazon.co.jp/dp/B000000000", text: "🧻 水に流せるトイレ用ウエットティッシュ 特価 →" },
-  zh: { url: "https://www.amazon.com/dp/B000000000", text: "🧻 可冲水湿厕纸特惠 →" },
-  es: { url: "https://www.amazon.es/dp/B000000000", text: "🧻 Oferta especial de toallitas húmedas desechables →" },
-  pt: { url: "https://www.amazon.com.br/dp/B000000000", text: "🧻 Oferta especial de lenços umedecidos laváveis →" },
-  de: { url: "https://www.amazon.de/dp/B000000000", text: "🧻 Feuchttücher Spezialangebot →" },
-  fr: { url: "https://www.amazon.fr/dp/B000000000", text: "🧻 Offre spéciale lingettes humides jetables →" },
-  vi: { url: "https://www.shopee.vn", text: "🧻 Khăn giấy ướt vệ sinh xả được giá tốt →" },
-  id: { url: "https://www.tokopedia.com", text: "🧻 Promo Spesial Tisu Basah Toilet →" },
-  th: { url: "https://www.lazada.co.th", text: "🧻 โปรโมชั่น ทิชชู่เปียกชักโครก →" },
-  ar: { url: "https://www.amazon.sa/dp/B000000000", text: "🧻 عرض خاص على مناديل الميمون المبللة →" },
-  ru: { url: "https://www.amazon.com/dp/B000000000", text: "🧻 Смываемая влажная туалетная бумага со скидкой →" },
-  hi: { url: "https://www.amazon.in/dp/B000000000", text: "🧻 फ्लशेबल वेट वाइप्स ऑफर →" },
-  la: { url: "https://www.amazon.com/dp/B000000000", text: "🧻 Mappa humida aquosa balnei specialis →" }
+  en: { url: "https://amzn.to/4x7Vl1U", text: "🌸 Block odor before you go! Poo-Pourri Toilet Spray Special Deal →" },
+  ja: { url: "https://amzn.to/4x7Vl1U", text: "🌸 使用前にスプレーしてニオイを遮断！プープーリ トイレスプレー特価 →" },
+  zh: { url: "https://amzn.to/4x7Vl1U", text: "🌸 便前喷雾阻挡异味！Poo-Pourri 便前香氛喷雾特惠 →" },
+  es: { url: "https://amzn.to/4x7Vl1U", text: "🌸 ¡Bloquea el olor antes de ir! Oferta especial de Poo-Pourri →" },
+  pt: { url: "https://amzn.to/4x7Vl1U", text: "🌸 Bloqueie o odor antes de usar! Oferta especial de Poo-Pourri →" },
+  de: { url: "https://amzn.to/4x7Vl1U", text: "🌸 Geruch vor dem Toilettengang blockieren! Poo-Pourri Spezialangebot →" },
+  fr: { url: "https://amzn.to/4x7Vl1U", text: "🌸 Bloquez les odeurs antes de faire! Offre spéciale Poo-Pourri →" },
+  vi: { url: "https://amzn.to/4x7Vl1U", text: "🌸 Ngăn mùi trước khi đi vệ sinh! Xịt thơm toilet Poo-Pourri giá tốt →" },
+  id: { url: "https://amzn.to/4x7Vl1U", text: "🌸 Blokir bau sebelum Anda buang air! Promo Spesial Poo-Pourri →" },
+  th: { url: "https://amzn.to/4x7Vl1U", text: "🌸 ดักจับกลิ่นก่อนทำธุระ! สเปรย์ดับกลิ่นชักโครก Poo-Pourri โปรโมชั่นพิเศษ →" },
+  ar: { url: "https://amzn.to/4x7Vl1U", text: "🌸 امنع الرائحة قبل قضاء الحاجة! عرض خاص على بخاخ بو-بوري →" },
+  ru: { url: "https://amzn.to/4x7Vl1U", text: "🌸 Блокируйте запах до его появления! Спрей Poo-Pourri со скидкой →" },
+  hi: { url: "https://amzn.to/4x7Vl1U", text: "🌸 उपयोग करने से पहले गंध को रोकें! पू-पूरी टॉयलेट स्प्रे विशेष ऑफर →" },
+  la: { url: "https://amzn.to/4x7Vl1U", text: "🌸 Obstruere odorem antequam eas! Poo-Pourri specialis oblatio →" }
 };
-
-// Global App State
 let currentLanguage = 'ko';
 let currentSoundName = 'dryer';
 let isPlaying = false;
