@@ -1,44 +1,31 @@
 {
-  "id": "soundcover-pwa",
   "short_name": "SoundCover",
-  "name": "SoundCover - Toilet Etiquette Sound App",
+  "name": "SoundCover - Restroom Etiquette Sound",
   "icons": [
     {
-      "src": "./public/assets/icon-192.png",
+      "src": "/icon-192.png",
       "type": "image/png",
       "sizes": "192x192",
-      "purpose": "any"
+      "purpose": "any maskable"
     },
     {
-      "src": "./public/assets/icon-192.png",
-      "type": "image/png",
-      "sizes": "192x192",
-      "purpose": "maskable"
-    },
-    {
-      "src": "./public/assets/icon-512.png",
+      "src": "/icon-512.png",
       "type": "image/png",
       "sizes": "512x512",
-      "purpose": "any"
-    },
-    {
-      "src": "./public/assets/icon-512.png",
-      "type": "image/png",
-      "sizes": "512x512",
-      "purpose": "maskable"
-    },
-    {
-      "src": "./public/assets/profile_avatar.png",
-      "type": "image/png",
-      "sizes": "512x512"
+      "purpose": "any maskable"
     }
   ],
-  "start_url": "./index.html",
-  "scope": "./",
-  "background_color": "#f3f0ff",
-  "theme_color": "#7c3aed",
-  "display": "standalone",
-  "orientation": "portrait",
-  "description": "SoundCover - Mobile Optimized PWA Restroom Etiquette Sound App. 100% Noise Masking.",
-  "prefer_related_applications": false
+  "screenshots": [
+    {
+      "src": "/screenshot1.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "narrow",
+      "label": "SoundCover Mobile View"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#ffffff",
+  "theme_color": "#ffffff",
+  "display": "standalone"
 }
