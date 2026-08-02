@@ -1,28 +1,28 @@
 {
-  "id": "/",
+  "id": "./",
   "short_name": "SoundCover",
   "name": "SoundCover - Restroom Etiquette Sound",
   "description": "SoundCover is a mobile-optimized PWA Restroom Etiquette Sound App for 100% Noise Masking.",
-  "start_url": "/",
+  "start_url": "./",
   "display": "standalone",
   "orientation": "portrait",
   "background_color": "#ffffff",
   "theme_color": "#ffffff",
   "icons": [
     {
-      "src": "/icon-192.png",
+      "src": "./icon-192.png",
       "type": "image/png",
       "sizes": "192x192",
       "purpose": "any"
     },
     {
-      "src": "/icon-512.png",
+      "src": "./icon-512.png",
       "type": "image/png",
       "sizes": "512x512",
       "purpose": "any"
     },
     {
-      "src": "/icon-512.png",
+      "src": "./icon-512.png",
       "type": "image/png",
       "sizes": "512x512",
       "purpose": "maskable"
@@ -30,7 +30,7 @@
   ],
   "screenshots": [
     {
-      "src": "/screenshot1.png",
+      "src": "./screenshot1.png",
       "sizes": "1080x1920",
       "type": "image/png",
       "form_factor": "narrow",
