@@ -136,30 +136,7 @@ makeGaplessLoop(dryerSamples, sampleRate, 0.8);
 normalizePeak(dryerSamples, 0.98);
 writeWav(path.join(assetsDir, 'dryer.wav'), sampleRate, dryerSamples);
 
-// 2. Power Shower (강력 샤워기 - 촤아아아 날카롭고 쨍한 고압 미세 물줄기)
-console.log('Generating DISTINCT Power Shower sound...');
-const showerSamples = new Float32Array(numSamples);
-const pinkShower = new PinkNoise();
-let s1 = 0, s2 = 0;
-
-for (let i = 0; i < numSamples; i++) {
-  const noise = Math.random() * 2 - 1;
-  const pink = pinkShower.next();
-
-  // High-pressure spray filter (Highpass at ~2.5kHz)
-  s1 += 0.42 * (noise - s1);
-  s2 += 0.42 * (s1 - s2);
-  const hpSpray = s1 - s2 * 0.25;
-
-  showerSamples[i] = hpSpray * 0.8 + pink * 0.2;
-}
-
-applyHighPassFilter(showerSamples, sampleRate, 300);
-makeGaplessLoop(showerSamples, sampleRate, 0.8);
-normalizePeak(showerSamples, 0.98);
-writeWav(path.join(assetsDir, 'power_shower.wav'), sampleRate, showerSamples);
-
-// 3. Heavy Downpour (장대비 - 묵직한 저음 빗소리 + 후두둑 빗물 스플래시)
+// 2. Heavy Downpour (장대비 - 묵직한 저음 빗소리 + 후두둑 빗물 스플래시)
 console.log('Generating DISTINCT Heavy Downpour sound...');
 const downpourSamples = new Float32Array(numSamples);
 const pinkDownpour = new PinkNoise();
@@ -187,58 +164,98 @@ for (let i = 0; i < numSamples; i++) {
   downpourSamples[i] = (lpOut * 0.7 + dropSplash * 0.3) * rainSurge;
 }
 
-// 4. Toilet Flush (리얼 도기 변기 물내림 + 회오리 수류 + 도기 공명 음향)
-console.log('Generating HYPER-REALISTIC Toilet Bowl Flush sound...');
-const flushSamples = new Float32Array(numSamples);
-const pinkFlush = new PinkNoise();
+applyHighPassFilter(downpourSamples, sampleRate, 150);
+makeGaplessLoop(downpourSamples, sampleRate, 0.8);
+normalizePeak(downpourSamples, 0.98);
+writeWav(path.join(assetsDir, 'heavy_downpour.wav'), sampleRate, downpourSamples);
 
-// Filters for Ceramic Bowl Resonance (Low Churn, Mid Swirl, High Spray)
-let b1_in = 0, b1_out = 0;
-let b2_in = 0, b2_out = 0;
-let b3_in = 0, b3_out = 0;
+// 3. Birds (시끄러운 새소리 - 계곡 물소리 마스킹 포함)
+console.log('Generating DISTINCT Birds sound with stream water masking...');
+const birdsSamples = new Float32Array(numSamples);
+const pinkBirds = new PinkNoise();
+
+// 3가지 타입의 새소리 합성 내부 함수들 정의
+function getChirpA(t, start, dur) {
+  if (t < start || t > start + dur) return 0;
+  const u = (t - start) / dur;
+  const tLocal = t - start;
+  const phase = 2 * Math.PI * (3800 * tLocal - (1600 / dur) * tLocal * tLocal * 0.5);
+  const amp = Math.sin(u * Math.PI) * Math.exp(-u * 2.0);
+  return Math.sin(phase) * amp * 0.45;
+}
+
+function getChirpB(t, start, dur) {
+  if (t < start || t > start + dur) return 0;
+  const u = (t - start) / dur;
+  const tLocal = t - start;
+  const phase = 2 * Math.PI * (2800 * tLocal + 2000 * (dur / Math.PI) * (1 - Math.cos(u * Math.PI)));
+  const amp = Math.sin(u * Math.PI) * 0.4;
+  return Math.sin(phase) * amp;
+}
+
+function getChirpC(t, start, dur) {
+  if (t < start || t > start + dur) return 0;
+  const u = (t - start) / dur;
+  const tLocal = t - start;
+  const phase = 2 * Math.PI * 4500 * tLocal - (600 / 75) * Math.cos(2 * Math.PI * 75 * tLocal);
+  const amp = Math.sin(u * Math.PI) * 0.3;
+  return Math.sin(phase) * amp;
+}
+
+const birdSchedule = [
+  { type: 'A', start: 0.3, dur: 0.15 },
+  { type: 'A', start: 0.6, dur: 0.15 },
+  { type: 'A', start: 2.1, dur: 0.18 },
+  { type: 'A', start: 2.4, dur: 0.15 },
+  { type: 'A', start: 4.8, dur: 0.15 },
+  { type: 'A', start: 5.1, dur: 0.18 },
+  { type: 'A', start: 7.2, dur: 0.15 },
+  
+  { type: 'B', start: 1.1, dur: 0.45 },
+  { type: 'B', start: 3.4, dur: 0.50 },
+  { type: 'B', start: 5.7, dur: 0.42 },
+  
+  { type: 'C', start: 1.7, dur: 0.60 },
+  { type: 'C', start: 4.1, dur: 0.70 },
+  { type: 'C', start: 6.4, dur: 0.65 }
+];
+
+let bLpIn = 0, bLpOut = 0;
+let waterIn = 0, waterOut = 0;
 
 for (let i = 0; i < numSamples; i++) {
   const t = i / sampleRate;
   const white = Math.random() * 2 - 1;
-  const pink = pinkFlush.next();
+  const pink = pinkBirds.next();
 
-  // 1. Initial Mechanical Handle/Button Click (t < 0.14s)
-  let buttonClick = 0;
-  if (t < 0.14) {
-    const clickEnv = Math.exp(-t * 35);
-    buttonClick = (Math.sin(2 * Math.PI * 1400 * t) * 0.5 + Math.sin(2 * Math.PI * 650 * t) * 0.5) * clickEnv;
+  // 1. 끊김 없는 계곡 물소리 마스킹 레이어 (물소리 볼륨 배율 0.53 적용)
+  waterIn = pink * 0.7 + white * 0.3;
+  waterOut += 0.22 * (waterIn - waterOut);
+  const streamWater = (waterIn - waterOut) * 0.53;
+
+  // 2. 부드러운 숲속 나뭇잎 바람 소리
+  bLpIn = pink * 0.8 + white * 0.2;
+  bLpOut += 0.04 * (bLpIn - bLpOut);
+  const forestWind = bLpOut * 0.08;
+
+  // 3. 스케줄된 새소리 합성 및 누적
+  let birdsSignal = 0;
+  for (const item of birdSchedule) {
+    if (item.type === 'A') {
+      birdsSignal += getChirpA(t, item.start, item.dur);
+    } else if (item.type === 'B') {
+      birdsSignal += getChirpB(t, item.start, item.dur);
+    } else if (item.type === 'C') {
+      birdsSignal += getChirpC(t, item.start, item.dur);
+    }
   }
 
-  // 2. Deep Low Ceramic Bowl Resonant Water Churning (180Hz ~ 320Hz)
-  b1_in = pink * 0.8 + white * 0.2;
-  b1_out += 0.04 * (b1_in - b1_out); // Deep low pass for bowl mass
-
-  // 3. Swirling Vortex Gush (450Hz ~ 950Hz)
-  b2_in = white * 0.6 + pink * 0.4;
-  b2_out += 0.14 * (b2_in - b2_out); // Mid-range water swirl
-
-  // 4. High Water Spray (~2200Hz)
-  b3_in = white;
-  b3_out += 0.35 * (b3_in - b3_out);
-  const highSpray = b3_in - b3_out;
-
-  // Periodic Water Vortex Swirl Modulation (1.4Hz swirl rhythm)
-  const swirlRhythm = 0.82 + 0.18 * Math.sin(2 * Math.PI * 1.4 * t);
-
-  // Gurgling siphon bubbles
-  let gurgleBubble = 0;
-  if (Math.random() < 0.03) {
-    gurgleBubble = Math.sin(2 * Math.PI * (250 + Math.random() * 200) * t) * (Math.random() * 0.3);
-  }
-
-  const waterFlow = (b1_out * 0.5 + b2_out * 0.35 + highSpray * 0.15 + gurgleBubble * 0.1) * swirlRhythm;
-
-  flushSamples[i] = buttonClick * 0.5 + waterFlow * 0.85;
+  birdsSamples[i] = streamWater + forestWind + birdsSignal * 0.88;
 }
 
-applyHighPassFilter(flushSamples, sampleRate, 80);
-makeGaplessLoop(flushSamples, sampleRate, 0.8);
-normalizePeak(flushSamples, 0.98);
-writeWav(path.join(assetsDir, 'flush.wav'), sampleRate, flushSamples);
+applyHighPassFilter(birdsSamples, sampleRate, 700);
+makeGaplessLoop(birdsSamples, sampleRate, 0.8);
+normalizePeak(birdsSamples, 0.98);
+writeWav(path.join(assetsDir, 'birds.wav'), sampleRate, birdsSamples);
 
 console.log('SoundCover distinct audio assets generation complete!');

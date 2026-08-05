@@ -18,7 +18,7 @@ const I18N = {
     wakeLockInactive: "🔒 프라이빗하게 지켜 드리는 화장실 소리 에티켓",
     selectSound: "음원 선택",
     soundDryer: "드라이기",
-    soundPowerShower: "강력 샤워기",
+    soundBirds: "새소리",
     soundHeavyDownpour: "장대비",
     selectTimer: "타이머 설정",
     setTimer: "타이머 설정",
@@ -43,7 +43,7 @@ const I18N = {
     wakeLockInactive: "🔒 Privately Protecting Your Etiquette",
     selectSound: "Select Sound",
     soundDryer: "Hair Dryer",
-    soundPowerShower: "Power Shower",
+    soundBirds: "Bird Song",
     soundHeavyDownpour: "Heavy Downpour",
     selectTimer: "Timer Setting",
     setTimer: "Timer Setting",
@@ -68,7 +68,7 @@ const I18N = {
     wakeLockInactive: "🔒 プライベートを守るエチケット",
     selectSound: "サウンド選択",
     soundDryer: "ヘアドライヤー",
-    soundPowerShower: "強力シャワー",
+    soundBirds: "鳥のさえずり",
     soundHeavyDownpour: "土砂降り",
     selectTimer: "タイマー設定",
     setTimer: "タイマー設定",
@@ -93,7 +93,7 @@ const I18N = {
     wakeLockInactive: "🔒 隐私守护礼仪",
     selectSound: "选择音效",
     soundDryer: "吹风机",
-    soundPowerShower: "强力花洒",
+    soundBirds: "鸟鸣声",
     soundHeavyDownpour: "倾盆大雨",
     selectTimer: "定时设置",
     setTimer: "定时设置",
@@ -117,7 +117,7 @@ const I18N = {
     wakeLockInactive: "🔒 Protocolo de etiqueta privada",
     selectSound: "Seleccionar sonido",
     soundDryer: "Secador de pelo",
-    soundPowerShower: "Ducha potente",
+    soundBirds: "Canto de aves",
     soundHeavyDownpour: "Lluvia torrencial",
     selectTimer: "Ajuste de temporizador",
     setTimer: "Ajuste de temporizador",
@@ -141,7 +141,7 @@ const I18N = {
     wakeLockInactive: "🔒 Protocolo de Etiqueta Privada",
     selectSound: "Selecionar Som",
     soundDryer: "Secador de Cabelo",
-    soundPowerShower: "Chuveiro Forte",
+    soundBirds: "Canto de aves",
     soundHeavyDownpour: "Chuva Forte",
     selectTimer: "Definir Temporizador",
     setTimer: "Definir Temporizador",
@@ -165,7 +165,7 @@ const I18N = {
     wakeLockInactive: "🔒 Private Etikette schützend",
     selectSound: "Sound auswählen",
     soundDryer: "Haartrockner",
-    soundPowerShower: "Power-Dusche",
+    soundBirds: "Vogelgesang",
     soundHeavyDownpour: "Starkregen",
     selectTimer: "Timer-Einstellung",
     setTimer: "Timer-Einstellung",
@@ -189,7 +189,7 @@ const I18N = {
     wakeLockInactive: "🔒 Protéger votre étiquette privée",
     selectSound: "Sélectionner le son",
     soundDryer: "Sèche-cheveux",
-    soundPowerShower: "Douche puissante",
+    soundBirds: "Chant d'oiseaux",
     soundHeavyDownpour: "Pluie battante",
     selectTimer: "Réglage du minuteur",
     setTimer: "Réglage du minuteur",
@@ -213,7 +213,7 @@ const I18N = {
     wakeLockInactive: "🔒 Bảo vệ sự riêng tư lịch sự",
     selectSound: "Chọn âm thanh",
     soundDryer: "Máy sấy tóc",
-    soundPowerShower: "Vòi sen mạnh",
+    soundBirds: "Tiếng chim hót",
     soundHeavyDownpour: "Mưa rào lớn",
     selectTimer: "Cài đặt hẹn giờ",
     setTimer: "Cài đặt hẹn giờ",
@@ -237,7 +237,7 @@ const I18N = {
     wakeLockInactive: "🔒 Menjaga Etiket Privasi Anda",
     selectSound: "Pilih Suara",
     soundDryer: "Pengering Rambut",
-    soundPowerShower: "Kran Pancuran Kencang",
+    soundBirds: "Kicau Burung",
     soundHeavyDownpour: "Hujan Lebat",
     selectTimer: "Pengaturan Timer",
     setTimer: "Pengaturan Timer",
@@ -261,7 +261,7 @@ const I18N = {
     wakeLockInactive: "🔒 ปกป้องมารยาทความเป็นส่วนตัว",
     selectSound: "เลือกเสียง",
     soundDryer: "ไดร์เป่าผม",
-    soundPowerShower: "ฝักบัวแรงสูง",
+    soundBirds: "เสียงนกร้อง",
     soundHeavyDownpour: "ฝนตกหนัก",
     selectTimer: "ตั้งเวลา",
     setTimer: "ตั้งเวลา",
@@ -285,7 +285,7 @@ const I18N = {
     wakeLockInactive: "🔒 حماية الخصوصية واللياقة",
     selectSound: "اختر الصوت",
     soundDryer: "مجفف الشعر",
-    soundPowerShower: "دش قوي",
+    soundBirds: "أصوات الطيور",
     soundHeavyDownpour: "مطر غزير",
     selectTimer: "إعداد المؤقت",
     setTimer: "إعداد المؤقت",
@@ -307,7 +307,7 @@ const I18N = {
     wakeLockInactive: "🔒 Конфиденциальный этикет",
     selectSound: "Выбор звука",
     soundDryer: "Фен",
-    soundPowerShower: "Мощный душ",
+    soundBirds: "Пение птиц",
     soundHeavyDownpour: "Сильный проливной дождь",
     selectTimer: "Таймер",
     volumeControl: "Усиление громкости",
@@ -327,8 +327,8 @@ const I18N = {
     wakeLockActive: "✨ 100% शोर छुपाएं",
     wakeLockInactive: "🔒 आपकी गोपनीयता शिष्टाचार",
     selectSound: "ध्वनि चुनें",
-    soundDryer: "हेयर ड्रायर",
-    soundPowerShower: "तेज़ शावर",
+    soundDryer: "हेयर 드라이어",
+    soundBirds: "पक्षियों की चहचहाहट",
     soundHeavyDownpour: "मुसलाधार बारिश",
     selectTimer: "टाइमर सेट करें",
     volumeControl: "आवाज़ बूस्ट सेटिंग्स",
@@ -349,7 +349,7 @@ const I18N = {
     wakeLockInactive: "🔒 Etiquetta Privata et Tutela",
     selectSound: "Elige Sonum",
     soundDryer: "Siccator Capillorum",
-    soundPowerShower: "Cataracta Balnei",
+    soundBirds: "Avium Cantus",
     soundHeavyDownpour: "Imber Magnificus",
     selectTimer: "Constitue Horologium",
     volumeControl: "Amplificatio Voluminis",
@@ -404,8 +404,8 @@ const audioBuffers = {};
 async function loadAudioBuffers() {
   const soundPaths = {
     dryer: './public/assets/dryer.wav',
-    power_shower: './public/assets/power_shower.wav',
-    heavy_downpour: './public/assets/heavy_downpour.wav'
+    heavy_downpour: './public/assets/heavy_downpour.wav',
+    birds: './public/assets/birds.wav'
   };
 
   const AudioContextClass = window.AudioContext || window.webkitAudioContext;
@@ -478,13 +478,33 @@ function createSynthSoundNode(soundType) {
     const pink = b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362;
     b6 = white * 0.115926;
     
-    let motorHum = 0;
+    let signal = pink * 0.11;
     if (soundType === 'dryer') {
       const t = i / audioCtx.sampleRate;
-      motorHum = 0.25 * Math.sin(2 * Math.PI * 120 * t);
+      const motorHum = 0.25 * Math.sin(2 * Math.PI * 120 * t);
+      signal = pink * 0.11 + motorHum;
+    } else if (soundType === 'birds') {
+      const t = i / audioCtx.sampleRate;
+      // 1.5초마다 우는 새 A
+      const tA = t % 1.5;
+      let chirpA = 0;
+      if (tA < 0.2) {
+        const u = tA / 0.2;
+        const phase = 2 * Math.PI * (3500 * tA - (1200 / 0.2) * tA * tA * 0.5);
+        chirpA = Math.sin(phase) * Math.sin(u * Math.PI) * Math.exp(-u * 2) * 0.35;
+      }
+      // 2.3초마다 우는 새 B
+      const tB = (t + 0.6) % 2.3;
+      let chirpB = 0;
+      if (tB < 0.4) {
+        const u = tB / 0.4;
+        const phase = 2 * Math.PI * (2800 * tB + 1500 * (0.4 / Math.PI) * (1 - Math.cos(u * Math.PI)));
+        chirpB = Math.sin(phase) * Math.sin(u * Math.PI) * 0.3;
+      }
+      signal = pink * 0.22 + chirpA * 0.5 + chirpB * 0.4;
     }
     
-    data[i] = pink * 0.11 + motorHum;
+    data[i] = signal;
   }
 
   const noiseSource = audioCtx.createBufferSource();
@@ -496,13 +516,9 @@ function createSynthSoundNode(soundType) {
     filter.type = 'bandpass';
     filter.frequency.setValueAtTime(900, audioCtx.currentTime);
     filter.Q.setValueAtTime(0.6, audioCtx.currentTime);
-  } else if (soundType === 'power_shower') {
+  } else if (soundType === 'birds') {
     filter.type = 'highpass';
-    filter.frequency.setValueAtTime(2500, audioCtx.currentTime);
-  } else if (soundType === 'flush') {
-    filter.type = 'bandpass';
-    filter.frequency.setValueAtTime(800, audioCtx.currentTime);
-    filter.Q.setValueAtTime(0.8, audioCtx.currentTime);
+    filter.frequency.setValueAtTime(600, audioCtx.currentTime);
   } else { // heavy_downpour
     filter.type = 'lowpass';
     filter.frequency.setValueAtTime(1000, audioCtx.currentTime);
