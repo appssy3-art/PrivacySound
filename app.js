@@ -928,7 +928,7 @@ function setupEventListeners() {
         if (isKakao) {
           location.href = 'kakaotalk://web/openExternal?url=' + encodeURIComponent(apkUrl);
         } else {
-          var targetUrl = apkUrl.replace(/https?:///, '');
+          var targetUrl = apkUrl.replace(/https?:\/\//, '');
           var intentUrl = 'intent://' + targetUrl + '#Intent;scheme=https;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;end';
           location.href = intentUrl;
         }
