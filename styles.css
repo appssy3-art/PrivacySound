@@ -1,6 +1,7 @@
 /* SoundCover - Ultra-Clean Minimalist Glass UI */
 
 :root {
+  color-scheme: light;
   /* Soft Pastel Gradient Base */
   --bg-gradient: linear-gradient(150deg, #f3f0ff 0%, #e0f2fe 50%, #fdf2f8 100%);
   
