@@ -905,21 +905,8 @@ function setupEventListeners() {
   // Click 2: Inside White Benefit Card Modal, click "바탕화면에 무료 앱 설치" button
   if (btnDirectAndroidInstall) {
     btnDirectAndroidInstall.addEventListener('click', (e) => {
-      // 1. If Browser's PWA Install Prompt is ready, use it as first priority!
-      // This launches the secure black native chrome install prompt (modal #3)
-      if (window.deferredPrompt) {
-        e.preventDefault();
-        closePwaModalFunc();
-        window.deferredPrompt.prompt();
-        window.deferredPrompt.userChoice.then((choiceResult) => {
-          if (choiceResult.outcome === 'accepted') {
-            window.deferredPrompt = null;
-          }
-        });
-        return;
-      }
-
-      // 2. Otherwise (Fallback), trigger direct APK download via Raw HTML anchor target
+      // Force direct APK download/guidance instead of native PWA install prompt
+      // (Bypassed window.deferredPrompt to always trigger direct APK download on 2nd screen)
       var ua = navigator.userAgent.toLowerCase();
       var isAndroid = /android/i.test(ua);
       var isKakao = /kakaotalk/i.test(ua);
@@ -930,15 +917,18 @@ function setupEventListeners() {
       var isSamsung = /samsungbrowser/i.test(ua);
       var isWebView = isAndroid && (!isPureChrome && !isSamsung);
 
-      // WebViews escape
+      var apkUrl = window.location.origin + '/public/assets/SoundCover.apk';
+
+      // WebViews escape: Open the external browser pointing directly to the APK download link,
+      // so the user doesn't have to navigate from the home screen again!
       if (isAndroid && (isKakao || isNaver || isLine || isFb || isWebView)) {
         e.preventDefault();
         closePwaModalFunc();
         showToast(currentLanguage === 'ko' ? '🚀 외부 브라우저로 이동하여 다운로드를 진행합니다...' : '🚀 Opening external browser for download...');
         if (isKakao) {
-          location.href = 'kakaotalk://web/openExternal?url=' + encodeURIComponent(window.location.href);
+          location.href = 'kakaotalk://web/openExternal?url=' + encodeURIComponent(apkUrl);
         } else {
-          var targetUrl = window.location.href.replace(/https?:\/\//, '');
+          var targetUrl = apkUrl.replace(/https?:///, '');
           var intentUrl = 'intent://' + targetUrl + '#Intent;scheme=https;action=android.intent.action.VIEW;category=android.intent.category.BROWSABLE;end';
           location.href = intentUrl;
         }
@@ -953,9 +943,17 @@ function setupEventListeners() {
         return;
       }
 
-      // Android default - No preventDefault, let raw HTML link execute APK download
+      // Android default - Trigger direct same-origin APK download via dynamic iframe
+      e.preventDefault();
       showToast(currentLanguage === 'ko' ? '📥 다운로드 완료 후, 알림창의 [열기]를 눌러 설치해 주세요!' : '📥 After download, tap [Open] in notifications to install!');
+      
+      const autoIframe = document.createElement('iframe');
+      autoIframe.style.display = 'none';
+      autoIframe.src = apkUrl;
+      document.body.appendChild(autoIframe);
+
       setTimeout(() => {
+        document.body.removeChild(autoIframe);
         closePwaModalFunc();
       }, 1500);
     });
