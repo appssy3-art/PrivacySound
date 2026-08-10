@@ -17,16 +17,21 @@
     var isFacebook = /fb_iab|fbav|fb/i.test(ua);
     var isThreads = /threads/i.test(ua);
     var isLine = /line/i.test(ua);
+    var isWebView = /; wv\)/.test(ua); // 안드로이드 웹뷰(인앱 브라우저) 감지
     
-    var isInApp = isKakao || isInstagram || isFacebook || isThreads || isLine;
+    var isInApp = isKakao || isInstagram || isFacebook || isThreads || isLine || (isAndroid && isWebView);
     
-    if (isKakao) {
-      // 카카오톡 탈출 (Android & iOS)
-      window.location.href = 'kakaotalk://web/openExternal?url=' + encodeURIComponent(window.location.href);
-    } else if (isAndroid && isInApp) {
-      // 안드로이드 네이티브 브라우저로 강제 이동 (인스타, 페북, 스레드, 라인 등)
-      var url = window.location.href.replace(/^https?:\/\//, '');
-      window.location.href = 'intent://' + url + '#Intent;scheme=https;end';
+    try {
+      if (isKakao) {
+        // 카카오톡 탈출 (Android & iOS)
+        window.location.href = 'kakaotalk://web/openExternal?url=' + encodeURIComponent(window.location.href);
+      } else if (isAndroid && isInApp) {
+        // 안드로이드 네이티브 브라우저로 강제 이동 (인스타, 페북, 스레드, 라인 등)
+        var url = window.location.href.replace(/^https?:\/\//, '');
+        window.location.href = 'intent://' + url + '#Intent;scheme=https;end';
+      }
+    } catch (e) {
+      console.warn('Auto-redirection failed, fallback to manual interaction:', e);
     }
 
     // 인앱 브라우저 대응 (안드로이드는 수동 탈출 버튼 제공, iOS는 상단 가이드 노출)
@@ -34,7 +39,7 @@
       if (isInApp && !isKakao) {
         var warningBanner = document.getElementById("inAppWarning");
         if (warningBanner) {
-          warningBanner.style.display = "flex";
+          warningBanner.style.setProperty('display', 'flex', 'important');
         }
         if (isIOS) {
           var iosText = document.getElementById("iosWarningText");
@@ -227,7 +232,7 @@
       border: 1px solid #fde68a !important;
       border-radius: 16px !important;
       padding: 14px 16px !important;
-      display: flex !important;
+      display: none; /* 자바스크립트로 감지 및 노출 제어 */
       flex-direction: column !important;
       gap: 6px !important;
       box-shadow: 0 4px 12px rgba(251, 191, 36, 0.15) !important;
