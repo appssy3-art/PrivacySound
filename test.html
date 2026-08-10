@@ -29,12 +29,25 @@
       window.location.href = 'intent://' + url + '#Intent;scheme=https;end';
     }
 
-    // iOS 인앱 브라우저 대응 (자동 탈출이 불가능하므로 상단 경고 배너 활성화)
+    // 인앱 브라우저 대응 (안드로이드는 수동 탈출 버튼 제공, iOS는 상단 가이드 노출)
     document.addEventListener("DOMContentLoaded", function() {
-      if (isIOS && isInApp && !isKakao) {
-        var warningBanner = document.getElementById("iosInAppWarning");
+      if (isInApp && !isKakao) {
+        var warningBanner = document.getElementById("inAppWarning");
         if (warningBanner) {
           warningBanner.style.display = "flex";
+        }
+        if (isIOS) {
+          var iosText = document.getElementById("iosWarningText");
+          if (iosText) iosText.style.display = "block";
+        } else if (isAndroid) {
+          var androidText = document.getElementById("androidWarningText");
+          if (androidText) androidText.style.display = "block";
+          
+          var escapeBtn = document.getElementById("btnAndroidEscape");
+          if (escapeBtn) {
+            var escapeUrl = 'intent://' + window.location.href.replace(/^https?:\/\//, '') + '#Intent;scheme=https;end';
+            escapeBtn.href = escapeUrl;
+          }
         }
       }
     });
@@ -50,15 +63,15 @@
   
   <style>
     html, body {
-      height: auto;
-      min-height: 100%;
-      min-height: 100dvh;
-      overflow-y: auto;
-      overflow-x: hidden;
-      display: flex;
-      flex-direction: column;
-      justify-content: flex-start;
-      align-items: center;
+      height: auto !important;
+      min-height: 100% !important;
+      min-height: 100dvh !important;
+      overflow-y: auto !important;
+      overflow-x: hidden !important;
+      display: flex !important;
+      flex-direction: column !important;
+      justify-content: flex-start !important;
+      align-items: center !important;
     }
 
     .guide-container {
@@ -209,16 +222,18 @@
       line-height: 1.4;
     }
 
-    .ios-inapp-warning {
-      background: #fffbeb;
-      border: 1px solid #fde68a;
-      border-radius: 16px;
-      padding: 14px 16px;
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      box-shadow: 0 4px 12px rgba(251, 191, 36, 0.15);
-      margin-bottom: 8px;
+    .inapp-warning {
+      background: #fffbeb !important;
+      border: 1px solid #fde68a !important;
+      border-radius: 16px !important;
+      padding: 14px 16px !important;
+      display: flex !important;
+      flex-direction: column !important;
+      gap: 6px !important;
+      box-shadow: 0 4px 12px rgba(251, 191, 36, 0.15) !important;
+      margin-bottom: 8px !important;
+      width: 100% !important;
+      box-sizing: border-box !important;
     }
     
     .warning-badge {
@@ -241,13 +256,20 @@
 </head>
 <body>
   <div class="guide-container">
-    <!-- iOS In-App Browser Warning Banner -->
-    <div id="iosInAppWarning" class="ios-inapp-warning" style="display: none;">
+    <!-- In-App Browser Warning Banner -->
+    <div id="inAppWarning" class="inapp-warning" style="display: none;">
       <span class="warning-badge">⚠️ 필독: 로그인 에러 방지</span>
-      <p class="warning-text">
+      <div id="iosWarningText" class="warning-text" style="display: none;">
         현재 <strong>인스타그램/스레드</strong> 앱 안에서 링크가 열려 구글 로그인 시 오류가 발생할 수 있습니다.<br>
-        화면 <strong>우측 상단 [점 3개(•••)]</strong> 또는 <strong>[🧭 나침반 모양]</strong>을 누른 후 <strong>[Safari로 열기]</strong>(또는 다른 브라우저로 열기)를 터치하여 진행해 주세요!
-      </p>
+        화면 <strong>우측 상단 [점 3개(•••)]</strong> 또는 <strong>[🧭 나침반 모양]</strong>을 누른 후 <strong>[Safari로 열기]</strong>를 선택해 진행해 주세요!
+      </div>
+      <div id="androidWarningText" class="warning-text" style="display: none; width: 100%;">
+        현재 <strong>인스타그램/스레드</strong> 앱 안에서 링크가 열려 구글 로그인 시 오류가 발생할 수 있습니다.<br>
+        아래 버튼을 눌러 <strong>크롬(기본 브라우저)</strong>으로 전환해 설치를 진행해 주세요!<br>
+        <a id="btnAndroidEscape" href="#" class="btn-step-action btn-blue" style="margin-top: 10px; display: block; text-align: center; text-decoration: none;">
+          🌐 크롬 / 기본 브라우저로 전환하기
+        </a>
+      </div>
     </div>
 
     <!-- Header -->
