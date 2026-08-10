@@ -6,16 +6,38 @@
   <title>사운드커버 테스터 안내 가이드</title>
   <meta name="color-scheme" content="light">
   
-  <!-- 카카오톡 인앱 브라우저 강제 탈출 스크립트 (Android 전용) -->
+  <!-- 인앱 브라우저 강제 탈출 및 에러 예방 스크립트 -->
   <script>
     var ua = navigator.userAgent.toLowerCase();
     var isAndroid = /android/i.test(ua);
-    var isKakao = /kakaotalk/i.test(ua);
+    var isIOS = /iphone|ipad|ipod/i.test(ua);
     
-    if (isAndroid && isKakao) {
-      // 카톡 인앱 브라우저를 닫고 크롬 등 시스템 기본 브라우저로 강제 이동시킵니다.
+    var isKakao = /kakaotalk/i.test(ua);
+    var isInstagram = /instagram/i.test(ua);
+    var isFacebook = /fb_iab|fbav|fb/i.test(ua);
+    var isThreads = /threads/i.test(ua);
+    var isLine = /line/i.test(ua);
+    
+    var isInApp = isKakao || isInstagram || isFacebook || isThreads || isLine;
+    
+    if (isKakao) {
+      // 카카오톡 탈출 (Android & iOS)
       window.location.href = 'kakaotalk://web/openExternal?url=' + encodeURIComponent(window.location.href);
+    } else if (isAndroid && isInApp) {
+      // 안드로이드 네이티브 브라우저로 강제 이동 (인스타, 페북, 스레드, 라인 등)
+      var url = window.location.href.replace(/^https?:\/\//, '');
+      window.location.href = 'intent://' + url + '#Intent;scheme=https;end';
     }
+
+    // iOS 인앱 브라우저 대응 (자동 탈출이 불가능하므로 상단 경고 배너 활성화)
+    document.addEventListener("DOMContentLoaded", function() {
+      if (isIOS && isInApp && !isKakao) {
+        var warningBanner = document.getElementById("iosInAppWarning");
+        if (warningBanner) {
+          warningBanner.style.display = "flex";
+        }
+      }
+    });
   </script>
 
   <!-- Google Fonts -->
@@ -186,10 +208,48 @@
       color: #64748b;
       line-height: 1.4;
     }
+
+    .ios-inapp-warning {
+      background: #fffbeb;
+      border: 1px solid #fde68a;
+      border-radius: 16px;
+      padding: 14px 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      box-shadow: 0 4px 12px rgba(251, 191, 36, 0.15);
+      margin-bottom: 8px;
+    }
+    
+    .warning-badge {
+      align-self: flex-start;
+      background: #d97706;
+      color: #ffffff;
+      font-size: 11px;
+      font-weight: 800;
+      padding: 3px 10px;
+      border-radius: 9999px;
+    }
+    
+    .warning-text {
+      font-size: 11.5px;
+      font-weight: 700;
+      color: #92400e;
+      line-height: 1.5;
+    }
   </style>
 </head>
 <body>
   <div class="guide-container">
+    <!-- iOS In-App Browser Warning Banner -->
+    <div id="iosInAppWarning" class="ios-inapp-warning" style="display: none;">
+      <span class="warning-badge">⚠️ 필독: 로그인 에러 방지</span>
+      <p class="warning-text">
+        현재 <strong>인스타그램/스레드</strong> 앱 안에서 링크가 열려 구글 로그인 시 오류가 발생할 수 있습니다.<br>
+        화면 <strong>우측 상단 [점 3개(•••)]</strong> 또는 <strong>[🧭 나침반 모양]</strong>을 누른 후 <strong>[Safari로 열기]</strong>(또는 다른 브라우저로 열기)를 터치하여 진행해 주세요!
+      </p>
+    </div>
+
     <!-- Header -->
     <header class="guide-header">
       <div class="guide-logo-wrap">
