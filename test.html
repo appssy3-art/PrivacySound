@@ -32,10 +32,6 @@
       if (isKakao) {
         // 카카오톡 탈출 (Android & iOS)
         window.location.href = 'kakaotalk://web/openExternal?url=' + encodeURIComponent(window.location.href);
-      } else if (isAndroid && isInApp) {
-        // 안드로이드 네이티브 브라우저로 강제 이동 (인스타, 페북, 스레드, 라인 등)
-        var url = window.location.href.replace(/^https?:\/\//, '');
-        window.location.href = 'intent://' + url + '#Intent;scheme=https;end';
       }
     } catch (e) {
       console.warn('Auto-redirection failed, fallback to manual interaction:', e);
@@ -272,11 +268,11 @@
     <div id="inAppWarning" class="inapp-warning" style="display: none;">
       <span class="warning-badge">⚠️ 필독: 로그인 에러 방지</span>
       <div id="iosWarningText" class="warning-text" style="display: none;">
-        현재 <strong>인스타그램/스레드</strong> 앱 안에서 링크가 열려 구글 로그인 시 오류가 발생할 수 있습니다.<br>
+        현재 <strong>인스타/스레드/네이버 등</strong> 앱 안에서 링크가 열려 구글 로그인 시 오류가 발생할 수 있습니다.<br>
         화면 <strong>우측 상단 [점 3개(•••)]</strong> 또는 <strong>[🧭 나침반 모양]</strong>을 누른 후 <strong>[Safari로 열기]</strong>를 선택해 진행해 주세요!
       </div>
       <div id="androidWarningText" class="warning-text" style="display: none; width: 100%;">
-        현재 <strong>인스타그램/스레드</strong> 앱 안에서 링크가 열려 구글 로그인 시 오류가 발생할 수 있습니다.<br>
+        현재 <strong>인스타/스레드/네이버 등</strong> 앱 안에서 링크가 열려 구글 로그인 시 오류가 발생할 수 있습니다.<br>
         아래 버튼을 눌러 <strong>크롬(기본 브라우저)</strong>으로 전환해 설치를 진행해 주세요!<br>
         <a id="btnAndroidEscape" href="#" class="btn-step-action btn-blue" style="margin-top: 10px; display: block; text-align: center; text-decoration: none;">
           🌐 크롬 / 기본 브라우저로 전환하기
