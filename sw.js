@@ -1,4 +1,4 @@
-const CACHE_NAME = 'soundcover-v3025-pwa-window-prompt';
+const CACHE_NAME = 'soundcover-v3026-pwa-window-prompt';
 
 self.addEventListener('install', (e) => {
   self.skipWaiting();

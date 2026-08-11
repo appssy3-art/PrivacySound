@@ -356,8 +356,8 @@ body::after {
 }
 
 .brand-logo-img {
-  width: 24px;
-  height: 24px;
+  width: 28px;
+  height: 28px;
   border-radius: 50%;
   object-fit: cover;
   box-shadow: 0 2px 8px rgba(124, 58, 237, 0.4);
@@ -365,7 +365,7 @@ body::after {
 }
 
 .logo-text {
-  font-size: 17px;
+  font-size: 21px;
   font-weight: 800;
   letter-spacing: -0.5px;
   color: var(--text-main);
