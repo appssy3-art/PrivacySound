@@ -790,12 +790,26 @@ body::after {
 /* Affiliate Banner */
 .affiliate-banner {
   display: block;
-  background: linear-gradient(135deg, #f5f3ff 0%, #f0fdfa 100%);
-  border: 1.5px solid rgba(124, 58, 237, 0.15);
-  box-shadow: 0 6px 18px rgba(124, 58, 237, 0.06);
+  background: linear-gradient(135deg, #f0e7ff 0%, #e0f4ff 50%, #fff0f7 100%);
+  border: 1.5px solid rgba(124, 58, 237, 0.22);
+  box-shadow: 0 6px 22px rgba(124, 58, 237, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.8);
   border-radius: var(--radius-md);
-  padding: 10px 14px;
+  padding: 12px 14px;
   transition: all 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.affiliate-banner::before {
+  content: '';
+  position: absolute;
+  top: -30%;
+  right: -20%;
+  width: 120px;
+  height: 120px;
+  background: radial-gradient(circle, rgba(124, 58, 237, 0.08) 0%, transparent 70%);
+  border-radius: 50%;
+  pointer-events: none;
 }
 
 .affiliate-banner a {
@@ -804,11 +818,16 @@ body::after {
 }
 
 .banner-badge {
-  font-size: 9px;
+  font-size: 11.5px;
   font-weight: 800;
   text-transform: uppercase;
-  color: var(--accent-purple);
-  margin-bottom: 2px;
+  color: #7c3aed;
+  background: linear-gradient(135deg, rgba(124, 58, 237, 0.12), rgba(139, 92, 246, 0.08));
+  display: inline-block;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+  margin-bottom: 6px;
+  letter-spacing: 0.3px;
 }
 
 .banner-body {
@@ -818,15 +837,20 @@ body::after {
 }
 
 .banner-text {
-  font-size: 11px;
+  font-size: 12.5px;
   font-weight: 700;
   color: var(--text-main);
+  line-height: 1.4;
 }
 
 .banner-go {
-  color: var(--accent-purple);
+  color: #7c3aed;
   font-weight: 800;
-  font-size: 12px;
+  font-size: 16px;
+  background: linear-gradient(135deg, #8b5cf6, #6d28d9);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
 }
 
 .coupang-disclaimer {
@@ -834,9 +858,9 @@ body::after {
   color: #94a3b8;
   text-align: center;
   line-height: 1.3;
-  border-top: 1px dashed rgba(124, 58, 237, 0.12);
-  padding-top: 6px;
-  margin-top: 6px;
+  border-top: 1px dashed rgba(124, 58, 237, 0.15);
+  padding-top: 7px;
+  margin-top: 8px;
 }
 
 /* Bottom Dual Action Buttons (Support & App Install) */
