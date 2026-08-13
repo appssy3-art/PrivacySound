@@ -790,11 +790,11 @@ body::after {
 /* Affiliate Banner */
 .affiliate-banner {
   display: block;
-  background: linear-gradient(135deg, #f0e7ff 0%, #e0f4ff 50%, #fff0f7 100%);
-  border: 1.5px solid rgba(124, 58, 237, 0.22);
-  box-shadow: 0 6px 22px rgba(124, 58, 237, 0.1), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+  background: linear-gradient(135deg, #6d28d9 0%, #7c3aed 40%, #a855f7 100%);
+  border: none;
+  box-shadow: 0 6px 24px rgba(109, 40, 217, 0.35);
   border-radius: var(--radius-md);
-  padding: 12px 14px;
+  padding: 14px 16px;
   transition: all 0.2s ease;
   position: relative;
   overflow: hidden;
@@ -803,11 +803,11 @@ body::after {
 .affiliate-banner::before {
   content: '';
   position: absolute;
-  top: -30%;
-  right: -20%;
-  width: 120px;
-  height: 120px;
-  background: radial-gradient(circle, rgba(124, 58, 237, 0.08) 0%, transparent 70%);
+  top: -40%;
+  right: -15%;
+  width: 100px;
+  height: 100px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.15) 0%, transparent 70%);
   border-radius: 50%;
   pointer-events: none;
 }
@@ -821,8 +821,8 @@ body::after {
   font-size: 11.5px;
   font-weight: 800;
   text-transform: uppercase;
-  color: #7c3aed;
-  background: linear-gradient(135deg, rgba(124, 58, 237, 0.12), rgba(139, 92, 246, 0.08));
+  color: #ffffff;
+  background: rgba(255, 255, 255, 0.2);
   display: inline-block;
   padding: 3px 10px;
   border-radius: var(--radius-full);
@@ -837,28 +837,27 @@ body::after {
 }
 
 .banner-text {
-  font-size: 12.5px;
+  font-size: 13px;
   font-weight: 700;
-  color: var(--text-main);
+  color: #ffffff;
   line-height: 1.4;
 }
 
 .banner-go {
-  color: #7c3aed;
+  color: #ffffff;
   font-weight: 800;
-  font-size: 16px;
-  background: linear-gradient(135deg, #8b5cf6, #6d28d9);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
+  font-size: 18px;
+  text-shadow: 0 1px 4px rgba(0, 0, 0, 0.15);
+  -webkit-text-fill-color: #ffffff;
+  background: none;
 }
 
 .coupang-disclaimer {
   font-size: 9px;
-  color: #94a3b8;
+  color: rgba(255, 255, 255, 0.7);
   text-align: center;
   line-height: 1.3;
-  border-top: 1px dashed rgba(124, 58, 237, 0.15);
+  border-top: 1px dashed rgba(255, 255, 255, 0.25);
   padding-top: 7px;
   margin-top: 8px;
 }
