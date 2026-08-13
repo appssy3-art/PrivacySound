@@ -1,9 +1,9 @@
-const CACHE_NAME = 'soundcover-vZERO_INTERVENTION_FINAL';
+const CACHE_NAME = 'soundcover-vZERO_INTERVENTION_FINAL_V2';
 const ASSETS = [
   './',
   './index.html',
   './styles.css',
-  './app.js?v=ZERO_INTERVENTION_FINAL',
+  './app.js?v=ZERO_INTERVENTION_FINAL_V2',
   './manifest.json'
 ];
 
