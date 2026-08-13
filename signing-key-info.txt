@@ -1,0 +1,10 @@
+Keep this file and signing.keystore in a safe place. You'll need these files if you want to upload future versions of your PWA to the Google Play Store.
+
+Key store file: signing.keystore
+Key store password: OOkrgO7DLXpm
+Key alias: my-key-alias
+Key password: OOkrgO7DLXpm
+Signer's full name: SoundCover Admin
+Signer's organization: SoundCover - Restroom Etiquette Sound
+Signer's organizational unit: Engineering
+Signer's country code: US

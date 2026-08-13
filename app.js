@@ -19,7 +19,8 @@ const I18N = {
     selectSound: "음원 선택",
     soundDryer: "드라이기",
     soundBirds: "새소리",
-    soundHeavyDownpour: "장대비",
+    soundHeavyDownpour: "샤워기",
+    soundFlush: "변기 물소리",
     selectTimer: "타이머 설정",
     setTimer: "타이머 설정",
     volumeControl: "볼륨 설정 (소리 증폭)",
@@ -44,7 +45,8 @@ const I18N = {
     selectSound: "Select Sound",
     soundDryer: "Hair Dryer",
     soundBirds: "Bird Song",
-    soundHeavyDownpour: "Heavy Downpour",
+    soundHeavyDownpour: "Shower",
+    soundFlush: "Toilet Flush",
     selectTimer: "Timer Setting",
     setTimer: "Timer Setting",
     volumeControl: "Volume Boost & Level",
@@ -69,7 +71,8 @@ const I18N = {
     selectSound: "サウンド選択",
     soundDryer: "ヘアドライヤー",
     soundBirds: "鳥のさえずり",
-    soundHeavyDownpour: "土砂降り",
+    soundHeavyDownpour: "シャワー",
+    soundFlush: "トイレの音",
     selectTimer: "タイマー設定",
     setTimer: "タイマー設定",
     volumeControl: "音量ブースト設定",
@@ -94,7 +97,8 @@ const I18N = {
     selectSound: "选择音效",
     soundDryer: "吹风机",
     soundBirds: "鸟鸣声",
-    soundHeavyDownpour: "倾盆大雨",
+    soundHeavyDownpour: "淋浴",
+    soundFlush: "洗手间水声",
     selectTimer: "定时设置",
     setTimer: "定时设置",
     volumeControl: "音量增强设置",
@@ -335,7 +339,7 @@ const I18N = {
     buyCoffee: "💖 \"शर्मिंदगी से बचाने के लिए धन्यवाद!\" समर्थन दें",
     adsenseLabel: "विज्ञापन",
     donationTitle: "❤️ \"शर्मिंदगी से बचाने के लिए धन्यवाद!\" समर्थन दें",
-    donationDesc: "यदि इस मुफ्त सेवा ने आपकी मदद की, तो डेवलپر को एक कॉफी से समर्थन दें!",
+    donationDesc: "यदि इस मुफ्त सेवा ने आपकी मदद की, तो डेवलपर को एक कॉफी से समर्थन दें!",
     donationThankYou: "आपका समर्थन ही इस सेवा को जारी रखने की ताकत है। हार्दिक धन्यवाद!",
     laterBtn: "बाद में",
     bathroomEssential: "बाथरूम सुझाव",
@@ -383,7 +387,7 @@ const AFFILIATE_LINKS = {
   la: { url: "https://amzn.to/4x7Vl1U", text: "🌸 Obstruere odorem antequam eas! Poo-Pourri specialis oblatio →" }
 };
 let currentLanguage = 'ko';
-let currentSoundName = 'dryer';
+let currentSoundName = 'flush';
 let isPlaying = false;
 let timer = null;
 let timeLeft = 180;
@@ -403,9 +407,9 @@ const audioBuffers = {};
 // Pre-load WAV Audio Files into AudioBuffers
 async function loadAudioBuffers() {
   const soundPaths = {
-    dryer: './public/assets/dryer.wav',
-    heavy_downpour: './public/assets/heavy_downpour.wav',
-    birds: './public/assets/birds.wav'
+    flush: './public/assets/flush.wav',
+    rain: './public/assets/power_shower.wav',
+    dryer: './public/assets/fan.wav'
   };
 
   const AudioContextClass = window.AudioContext || window.webkitAudioContext;
@@ -502,6 +506,8 @@ function createSynthSoundNode(soundType) {
         chirpB = Math.sin(phase) * Math.sin(u * Math.PI) * 0.3;
       }
       signal = pink * 0.22 + chirpA * 0.5 + chirpB * 0.4;
+    } else if (soundType === 'flush') {
+      signal = pink * 0.18;
     }
     
     data[i] = signal;
@@ -519,6 +525,9 @@ function createSynthSoundNode(soundType) {
   } else if (soundType === 'birds') {
     filter.type = 'highpass';
     filter.frequency.setValueAtTime(600, audioCtx.currentTime);
+  } else if (soundType === 'flush') {
+    filter.type = 'lowpass';
+    filter.frequency.setValueAtTime(1200, audioCtx.currentTime);
   } else { // heavy_downpour
     filter.type = 'lowpass';
     filter.frequency.setValueAtTime(1000, audioCtx.currentTime);

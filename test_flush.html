@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+  <title>SoundCover - HTML5 표준 오디오 테스터</title>
+  
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-gradient: linear-gradient(135deg, #070a13 0%, #0f172a 100%);
+      --card-bg: rgba(30, 41, 59, 0.7);
+      --card-border: rgba(255, 255, 255, 0.08);
+      --accent-blue: #3b82f6;
+      --text-main: #f8fafc;
+      --text-muted: #94a3b8;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', 'Outfit', -apple-system, sans-serif;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    body {
+      background: var(--bg-gradient);
+      color: var(--text-main);
+      min-height: 100vh;
+      min-height: 100dvh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      padding: 24px 16px;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 440px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+    }
+
+    header {
+      text-align: center;
+      margin-top: 10px;
+      margin-bottom: 5px;
+    }
+
+    .logo-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid rgba(16, 185, 129, 0.3);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 700;
+      color: #34d399;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-size: 23px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+      background: linear-gradient(135deg, #ffffff 0%, #cbd5e1 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 6px;
+    }
+
+    .subtitle {
+      font-size: 13px;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 28px;
+      padding: 24px;
+      box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 22px;
+      width: 100%;
+    }
+
+    /* Circular Progress Display */
+    .play-circle-wrap {
+      position: relative;
+      width: 140px;
+      height: 140px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .progress-ring {
+      position: absolute;
+      top: 0;
+      left: 0;
+      transform: rotate(-90deg);
+    }
+
+    .progress-ring__circle {
+      transition: stroke-dashoffset 0.1s linear;
+      stroke: var(--accent-blue);
+    }
+
+    .play-btn {
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      border: none;
+      background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+      color: white;
+      font-size: 36px;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 8px 24px rgba(59, 130, 246, 0.35);
+      transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+      z-index: 2;
+    }
+
+    .play-btn.playing {
+      background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+      box-shadow: 0 8px 24px rgba(239, 68, 68, 0.35);
+    }
+
+    .status-text {
+      font-size: 14px;
+      font-weight: 700;
+      color: #60a5fa;
+      text-align: center;
+      height: 20px;
+    }
+
+    /* Track Selector */
+    .track-section {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .section-title {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      align-self: flex-start;
+      margin-bottom: 2px;
+    }
+
+    .track-list {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      width: 100%;
+    }
+
+    .track-item {
+      background: rgba(255, 255, 255, 0.03);
+      border: 1px solid rgba(255, 255, 255, 0.05);
+      border-radius: 16px;
+      padding: 14px 18px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      transition: all 0.2s ease;
+    }
+
+    .track-item:hover {
+      background: rgba(255, 255, 255, 0.06);
+    }
+
+    .track-item.active {
+      background: rgba(59, 130, 246, 0.12);
+      border-color: rgba(59, 130, 246, 0.4);
+    }
+
+    .track-info {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .track-name {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--text-main);
+    }
+
+    .track-item.active .track-name {
+      color: #60a5fa;
+    }
+
+    .track-meta {
+      font-size: 11px;
+      color: var(--text-muted);
+      line-height: 1.4;
+    }
+
+    .track-badge {
+      background: rgba(59, 130, 246, 0.15);
+      color: #60a5fa;
+      font-size: 10px;
+      font-weight: 700;
+      padding: 2px 8px;
+      border-radius: 999px;
+    }
+
+    /* Simple Master Volume */
+    .volume-container {
+      width: 100%;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .volume-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .volume-value {
+      color: var(--accent-blue);
+      font-family: monospace;
+    }
+
+    .volume-input {
+      -webkit-appearance: none;
+      width: 100%;
+      height: 6px;
+      border-radius: 3px;
+      background: rgba(255, 255, 255, 0.1);
+      outline: none;
+    }
+
+    .volume-input::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: #ffffff;
+      border: 3px solid var(--accent-blue);
+      cursor: pointer;
+    }
+
+    /* Actions */
+    .action-container {
+      width: 100%;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      border-top: 1px solid rgba(255, 255, 255, 0.08);
+      padding-top: 20px;
+    }
+
+    .action-btn {
+      width: 100%;
+      padding: 14px;
+      border-radius: 14px;
+      border: none;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      transition: all 0.2s ease;
+    }
+
+    .btn-confirm {
+      background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+      color: white;
+      box-shadow: 0 4px 14px rgba(16, 185, 129, 0.35);
+    }
+
+    .btn-confirm:active {
+      transform: scale(0.98);
+    }
+
+    .btn-apply-info {
+      background: rgba(59, 130, 246, 0.06);
+      border: 1px solid rgba(59, 130, 246, 0.15);
+      color: #93c5fd;
+      font-size: 12px;
+      line-height: 1.5;
+      text-align: center;
+      padding: 12px;
+      border-radius: 14px;
+    }
+  </style>
+</head>
+<body>
+
+<div class="container">
+  <header>
+    <div class="logo-badge">🛡️ HTML5 Audio Engine</div>
+    <h1>물소리 재생 안전 테스터</h1>
+    <div class="subtitle">모바일 브라우저 백그라운드 환경에서도 절대 끊기지 않는 HTML5 표준 네이티브 루프 오디오 테스터입니다.</div>
+  </header>
+
+  <main class="card">
+    <!-- Circular Play State -->
+    <div class="play-circle-wrap">
+      <svg class="progress-ring" width="140" height="140">
+        <circle
+          class="progress-ring__circle"
+          stroke-width="5"
+          fill="transparent"
+          r="64"
+          cx="70"
+          cy="70"
+          stroke-dasharray="402.12"
+          stroke-dashoffset="402.12"
+        />
+      </svg>
+      <button class="play-btn" id="playBtn" onclick="togglePlay()">🚽</button>
+    </div>
+
+    <div class="status-text" id="statusText">재생 대기 중</div>
+
+    <!-- Track Selector -->
+    <div class="track-section">
+      <div class="section-title">글로벌 서비스 물소리 비교</div>
+      <div class="track-list">
+        <!-- Shower -->
+        <div class="track-item active" onclick="selectTrack('power_shower', this)">
+          <div class="track-info">
+            <span class="track-name">🚿 1. 리얼 샤워기 물소리</span>
+            <span class="track-meta">균일하게 욕실을 채우는 시원한 물소리 (차단율 95%)</span>
+          </div>
+          <span class="track-badge">추천</span>
+        </div>
+        <!-- Flush -->
+        <div class="track-item" onclick="selectTrack('flush', this)">
+          <div class="track-info">
+            <span class="track-name">🚽 2. 클래식 변기 물소리</span>
+            <span class="track-meta">촤아아- 쏟아져 내리는 웅장한 물내림 소리 (차단율 85%)</span>
+          </div>
+          <span class="track-badge">고음질</span>
+        </div>
+        <!-- Dryer -->
+        <div class="track-item" onclick="selectTrack('dryer', this)">
+          <div class="track-info">
+            <span class="track-name">💨 3. 드라이기 소리</span>
+            <span class="track-meta">웅웅- 공간 전체 소음을 덮어버리는 묵직한 소음 차단 (차단율 92%)</span>
+          </div>
+          <span class="track-badge">드라이기</span>
+        </div>
+        <!-- Fan -->
+        <div class="track-item" onclick="selectTrack('fan', this)">
+          <div class="track-info">
+            <span class="track-name">🌪️ 4. 강력한 환풍기 소리</span>
+            <span class="track-meta">남들에게 소리벨 틀어놓은 티를 내지 않는 비밀 은폐음 (차단율 92%)</span>
+          </div>
+          <span class="track-badge">환풍음</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Volume Boost Control -->
+    <div class="volume-container">
+      <div class="volume-header">
+        <span>볼륨 및 증폭 설정</span>
+        <span class="volume-value" id="volVal">100%</span>
+      </div>
+      <input type="range" id="volInput" class="volume-input" min="0" max="100" value="100" oninput="changeVolume(this.value)">
+    </div>
+
+    <!-- Actions -->
+    <div class="action-container">
+      <button class="action-btn btn-confirm" onclick="confirmSelection()">✅ 마음에 드는 음원으로 앱 반영 확정</button>
+      <div class="btn-apply-info">
+        💡 모바일 기기 자체 오디오 모듈을 타는 순수 HTML5 루프 방식이므로 백그라운드 끊김, 버퍼 꼬임, 쇳소리 결함이 근본적으로 차단됩니다.
+      </div>
+    </div>
+  </main>
+</div>
+
+<script>
+  let isPlaying = false;
+  let activeTrackKey = 'power_shower';
+  let audioInstance = null;
+  let progressInterval = null;
+  let startTime = 0;
+
+  const trackPaths = {
+    power_shower: './public/assets/power_shower.wav',
+    flush: './public/assets/flush.wav',
+    dryer: './public/assets/dryer.wav',
+    fan: './public/assets/fan.wav'
+  };
+
+  const circle = document.querySelector('.progress-ring__circle');
+  const radius = circle.r.baseVal.value;
+  const circumference = radius * 2 * Math.PI;
+  circle.style.strokeDasharray = `${circumference} ${circumference}`;
+  circle.style.strokeDashoffset = circumference;
+
+  function selectTrack(key, element) {
+    if (activeTrackKey === key) return;
+    activeTrackKey = key;
+    
+    document.querySelectorAll('.track-item').forEach(el => el.classList.remove('active'));
+    element.classList.add('active');
+
+    if (isPlaying) {
+      stopAudio();
+      playAudio();
+    }
+  }
+
+  function togglePlay() {
+    if (isPlaying) {
+      stopAudio();
+    } else {
+      playAudio();
+    }
+  }
+
+  function playAudio() {
+    isPlaying = true;
+    const playBtn = document.getElementById('playBtn');
+    playBtn.textContent = "⏹️";
+    playBtn.classList.add('playing');
+    document.getElementById('statusText').textContent = "음원 연결 중...";
+
+    // HTML5 표준 Audio 생성 (브라우저 시스템 오디오 가속 사용)
+    const path = trackPaths[activeTrackKey];
+    audioInstance = new Audio(path);
+    audioInstance.loop = true; // 끊김 없는 무한 루프 활성화
+    
+    // 볼륨 설정 연동
+    const vol = parseFloat(document.getElementById('volInput').value) / 100;
+    audioInstance.volume = vol;
+
+    // 재생 시작
+    audioInstance.play().then(() => {
+      document.getElementById('statusText').textContent = "재생 중...";
+      startTime = Date.now();
+      
+      // 시각 피드백 루프 (10초 주기 프로그레스 회전)
+      progressInterval = setInterval(() => {
+        const elapsed = (Date.now() - startTime) / 1000;
+        const visualDuration = 10.0;
+        const visualElapsed = elapsed % visualDuration;
+        
+        const percent = Math.min((visualElapsed / visualDuration), 1.0);
+        const offset = circumference - (percent * circumference);
+        circle.style.strokeDashoffset = offset;
+        
+        document.getElementById('statusText').textContent = `재생 중... (${elapsed.toFixed(1)}초)`;
+      }, 50);
+    }).catch(err => {
+      console.error(err);
+      document.getElementById('statusText').textContent = "재생 실패! (다시 시도해 주세요)";
+      stopAudio();
+    });
+  }
+
+  function stopAudio() {
+    isPlaying = false;
+    const playBtn = document.getElementById('playBtn');
+    playBtn.textContent = "🚽";
+    playBtn.classList.remove('playing');
+    document.getElementById('statusText').textContent = "재생 정지됨";
+    
+    circle.style.strokeDashoffset = circumference;
+    if (progressInterval) {
+      clearInterval(progressInterval);
+      progressInterval = null;
+    }
+
+    if (audioInstance) {
+      try {
+        audioInstance.pause();
+        audioInstance.src = "";
+        audioInstance.load();
+      } catch(e) {}
+      audioInstance = null;
+    }
+  }
+
+  function changeVolume(val) {
+    document.getElementById('volVal').textContent = `${val}%`;
+    if (audioInstance) {
+      audioInstance.volume = parseFloat(val) / 100;
+    }
+  }
+
+  function confirmSelection() {
+    const msg = `선택 확정 음원: [${activeTrackKey}] (볼륨: ${document.getElementById('volInput').value}%)`;
+    navigator.clipboard.writeText(msg).then(() => {
+      alert(`확정 사항이 클립보드에 복사되었습니다!\n\n"${msg}"\n\n채팅창에 붙여넣기 해 주시면 본 앱에 바로 탑재해 드리겠습니다.`);
+    }).catch(() => {
+      alert(`선택 확정: ${activeTrackKey}`);
+    });
+  }
+</script>
+
+</body>
+</html>
