@@ -1,4 +1,4 @@
-const CACHE_NAME = 'soundcover-v3027-toilet-shower-dryer';
+const CACHE_NAME = 'soundcover-v4000-ocean-teal';
 
 self.addEventListener('install', (e) => {
   self.skipWaiting();

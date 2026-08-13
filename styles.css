@@ -790,9 +790,9 @@ body::after {
 /* Affiliate Banner */
 .affiliate-banner {
   display: block;
-  background: linear-gradient(135deg, #059669 0%, #10b981 40%, #34d399 100%);
+  background: linear-gradient(135deg, #0c4a6e 0%, #0e7490 50%, #06b6d4 100%);
   border: none;
-  box-shadow: 0 6px 24px rgba(5, 150, 105, 0.3);
+  box-shadow: 0 6px 24px rgba(14, 116, 144, 0.35);
   border-radius: var(--radius-md);
   padding: 14px 16px;
   transition: all 0.2s ease;
