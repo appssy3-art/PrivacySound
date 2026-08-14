@@ -1010,6 +1010,7 @@ body::after {
   color: var(--text-sub);
   margin-bottom: 12px;
   line-height: 1.4;
+  word-break: keep-all;
 }
 
 /* Payment Switcher Tabs */
@@ -1210,6 +1211,7 @@ body::after {
   color: #64748b;
   line-height: 1.45;
   margin-top: 12px;
+  word-break: keep-all;
   padding-top: 10px;
   border-top: 1px dashed #e2e8f0;
 }
