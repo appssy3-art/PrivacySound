@@ -1020,19 +1020,31 @@ body::after {
   padding: 3px;
   border-radius: var(--radius-full);
   margin-bottom: 14px;
+  overflow-x: auto;
+  scrollbar-width: none; /* Hide scrollbar for Firefox */
+  -ms-overflow-style: none; /* Hide scrollbar for IE/Edge */
+}
+
+.payment-tabs::-webkit-scrollbar {
+  display: none; /* Hide scrollbar for Chrome, Safari and Opera */
 }
 
 .pay-tab {
-  flex: 1;
+  flex: 0 0 auto; /* Prevent tabs from shrinking */
+  white-space: nowrap; /* Prevent flag and text wrapping */
   border: none;
   background: transparent;
-  padding: 7px 8px;
+  padding: 7px 12px;
   border-radius: var(--radius-full);
   font-size: 11px;
   font-weight: 800;
   color: #64748b;
   cursor: pointer;
   transition: all 0.2s ease;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
 }
 
 .pay-tab.active {
