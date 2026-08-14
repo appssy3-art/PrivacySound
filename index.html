@@ -304,7 +304,7 @@
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js?v=v10006').then((reg) => {
+        navigator.serviceWorker.register('./sw.js?v=v10007').then((reg) => {
           reg.update();
           reg.addEventListener('updatefound', () => {
             const installingWorker = reg.installing;
@@ -329,6 +329,6 @@
     }
   </script>
   <!-- App JS -->
-  <script src="app.js?v=RED_ARROW_V1"></script>
+  <script src="app.js?v=RED_ARROW_V2"></script>
 </body>
 </html>
