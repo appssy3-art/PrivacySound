@@ -49,7 +49,7 @@
     <!-- Header -->
     <header class="app-header">
       <div class="logo">
-        <img src="./public/assets/profile_avatar.png" class="brand-logo-img" alt="SoundCover Logo" />
+        <img src="./public/assets/profile_avatar.png?v=2" class="brand-logo-img" alt="SoundCover Logo" />
         <span class="logo-text">SoundCover</span>
       </div>
       <button id="btnHeaderQr" class="btn-header-qr" aria-label="Show QR Code">
@@ -247,7 +247,7 @@
       <button id="closePwaModal" class="btn-close-modal">✕</button>
       
       <div class="modal-mascot pwa-app-icon">
-        <img src="./public/assets/icon-192.png" alt="SoundCover Icon" style="width:64px; height:64px; border-radius:16px;" />
+        <img src="./public/assets/icon-192.png?v=2" alt="SoundCover Icon" style="width:64px; height:64px; border-radius:16px;" />
       </div>
       
       <p style="font-size: 1.05rem; font-weight: 800; color: #1e293b; margin-top: 12px; line-height: 1.5;">앱스토어 로그인 필요없이<br>바탕화면에 즉시 아이콘 생성</p>
@@ -304,7 +304,7 @@
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js?v=v10004').then((reg) => {
+        navigator.serviceWorker.register('./sw.js?v=v10005').then((reg) => {
           reg.update();
           reg.addEventListener('updatefound', () => {
             const installingWorker = reg.installing;
