@@ -1216,6 +1216,10 @@ body::after {
   border-top: 1px dashed #e2e8f0;
 }
 
+.modal-footer p {
+  word-break: keep-all;
+}
+
 /* PWA Install Banner */
 .install-banner {
   position: fixed;
