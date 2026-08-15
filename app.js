@@ -486,7 +486,7 @@ function createSynthSoundNode(soundType) {
     if (soundType === 'dryer') {
       const t = i / audioCtx.sampleRate;
       const motorHum = 0.39 * Math.sin(2 * Math.PI * 120 * t); // balanced motorHum (was 0.25 * 1.57)
-      signal = pink * 0.17 + motorHum; // balanced dryer (was 0.11 * 1.57)
+      signal = (pink * 0.17 + motorHum) * 2.3; // Boosted to match WAV gain levels
     } else if (soundType === 'birds') {
       const t = i / audioCtx.sampleRate;
       // 1.5초마다 우는 새 A
@@ -1203,7 +1203,7 @@ async function startSound() {
     const balanceGainNode = audioCtx.createGain();
     let balanceGain = 1.0;
     if (currentSoundName === 'dryer') {
-      balanceGain = 1.57; // +3.93 dB
+      balanceGain = 3.6; // Boosted to compensate for phone speaker low-frequency roll-off
     } else if (currentSoundName === 'rain') {
       balanceGain = 2.61; // +8.35 dB
     }
