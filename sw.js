@@ -1,4 +1,4 @@
-const CACHE_NAME = 'soundcover-v10007-red-arrow';
+const CACHE_NAME = 'soundcover-v10018-red-arrow';
 
 self.addEventListener('install', (e) => {
   self.skipWaiting();

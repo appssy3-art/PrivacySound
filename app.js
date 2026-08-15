@@ -20,10 +20,10 @@ const I18N = {
     soundDryer: "드라이기",
     soundBirds: "새소리",
     soundHeavyDownpour: "샤워기",
-    soundFlush: "변기 물소리",
+    soundFlush: "변기",
     selectTimer: "타이머 설정",
     setTimer: "타이머 설정",
-    volumeControl: "볼륨 설정 (소리 증폭)",
+    volumeControl: "음량 증폭 (볼륨 부스터)",
     buyCoffee: "💖 \"덕분에 민망함 해결했어요!\" 응원하기",
     adsenseLabel: "광고 영역",
     donationTitle: "❤️ \"덕분에 민망함 해결했어요!\" 응원하기",
@@ -43,10 +43,10 @@ const I18N = {
     wakeLockActive: "✨ 100% Noise Masking",
     wakeLockInactive: "🔒 Privately Protecting Your Etiquette",
     selectSound: "Select Sound",
-    soundDryer: "Hair Dryer",
+    soundDryer: "Dryer",
     soundBirds: "Bird Song",
     soundHeavyDownpour: "Shower",
-    soundFlush: "Toilet Flush",
+    soundFlush: "Toilet",
     selectTimer: "Timer Setting",
     setTimer: "Timer Setting",
     volumeControl: "Volume Boost & Level",
@@ -69,10 +69,10 @@ const I18N = {
     wakeLockActive: "✨ 100% 騒音遮단中",
     wakeLockInactive: "🔒 プライベートを守るエチケット",
     selectSound: "サウンド選択",
-    soundDryer: "ヘアドライヤー",
+    soundDryer: "ドライヤー",
     soundBirds: "鳥のさえずり",
     soundHeavyDownpour: "シャワー",
-    soundFlush: "トイレの音",
+    soundFlush: "トイレ",
     selectTimer: "タイマー設定",
     setTimer: "タイマー設定",
     volumeControl: "音量ブースト設定",
@@ -98,7 +98,7 @@ const I18N = {
     soundDryer: "吹风机",
     soundBirds: "鸟鸣声",
     soundHeavyDownpour: "淋浴",
-    soundFlush: "洗手间水声",
+    soundFlush: "马桶",
     selectTimer: "定时设置",
     setTimer: "定时设置",
     volumeControl: "音量增强设置",
@@ -482,11 +482,11 @@ function createSynthSoundNode(soundType) {
     const pink = b0 + b1 + b2 + b3 + b4 + b5 + b6 + white * 0.5362;
     b6 = white * 0.115926;
     
-    let signal = pink * 0.11;
+    let signal = pink * 0.28; // balanced rain (was 0.11 * 2.61)
     if (soundType === 'dryer') {
       const t = i / audioCtx.sampleRate;
-      const motorHum = 0.25 * Math.sin(2 * Math.PI * 120 * t);
-      signal = pink * 0.11 + motorHum;
+      const motorHum = 0.39 * Math.sin(2 * Math.PI * 120 * t); // balanced motorHum (was 0.25 * 1.57)
+      signal = pink * 0.17 + motorHum; // balanced dryer (was 0.11 * 1.57)
     } else if (soundType === 'birds') {
       const t = i / audioCtx.sampleRate;
       // 1.5초마다 우는 새 A
@@ -519,9 +519,8 @@ function createSynthSoundNode(soundType) {
 
   const filter = audioCtx.createBiquadFilter();
   if (soundType === 'dryer') {
-    filter.type = 'bandpass';
-    filter.frequency.setValueAtTime(900, audioCtx.currentTime);
-    filter.Q.setValueAtTime(0.6, audioCtx.currentTime);
+    filter.type = 'lowpass';
+    filter.frequency.setValueAtTime(1100, audioCtx.currentTime);
   } else if (soundType === 'birds') {
     filter.type = 'highpass';
     filter.frequency.setValueAtTime(600, audioCtx.currentTime);
@@ -602,6 +601,49 @@ const affiliateLink = document.getElementById('affiliateLink');
 const bannerText = document.getElementById('bannerText');
 
 // Initial Setup
+function parseSharedParameters() {
+  const urlParams = new URLSearchParams(window.location.search);
+  const sharedSound = urlParams.get('sound');
+  const sharedTimer = urlParams.get('timer');
+  
+  if (sharedSound && ['flush', 'rain', 'dryer'].includes(sharedSound)) {
+    currentSoundName = sharedSound;
+    soundBtns.forEach(btn => {
+      if (btn.dataset.sound === sharedSound) {
+        btn.classList.add('active');
+      } else {
+        btn.classList.remove('active');
+      }
+    });
+  }
+  
+  if (sharedTimer) {
+    let timerVal = sharedTimer;
+    if (sharedTimer !== 'infinite') {
+      const parsed = parseInt(sharedTimer, 10);
+      if (!isNaN(parsed)) {
+        timerVal = parsed;
+      }
+    }
+    
+    if (timerVal === 120 || timerVal === 180 || timerVal === 300 || timerVal === 'infinite') {
+      chosenTimer = timerVal;
+      timeLeft = timerVal === 'infinite' ? 0 : timerVal;
+      
+      timerBtns.forEach(btn => {
+        const btnTime = btn.dataset.time;
+        const compareVal = btnTime === 'infinite' ? 'infinite' : parseInt(btnTime, 10);
+        if (compareVal === timerVal) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+      updateTimerDisplay();
+    }
+  }
+}
+
 async function initApp() {
   detectLanguage();
   setupEventListeners();
@@ -614,6 +656,7 @@ async function initApp() {
   updateVolumeUI();
   
   loadAudioBuffers();
+  parseSharedParameters();
   executeAutoDownload();
 }
 
@@ -705,8 +748,11 @@ function updateVolumeUI() {
   currentVolumeBoost = val;
   
   if (val > 100) {
-    volumeBadge.textContent = `${val}% BOOST`;
+    volumeBadge.textContent = `${val}% (증폭됨)`;
     volumeBadge.style.color = 'var(--accent-purple)';
+  } else if (val === 100) {
+    volumeBadge.textContent = '100% (기본)';
+    volumeBadge.style.color = 'var(--text-sub)';
   } else {
     volumeBadge.textContent = `${val}%`;
     volumeBadge.style.color = 'var(--text-sub)';
@@ -817,6 +863,56 @@ function setupEventListeners() {
   if (supportBtn) {
     supportBtn.addEventListener('click', () => {
       if (supportModal) supportModal.classList.remove('hidden');
+    });
+  }
+
+  // Support Modal Share & Copy Link Handlers
+  const btnShareApp = document.getElementById('btnShareApp');
+  const btnCopyLink = document.getElementById('btnCopyLink');
+
+  if (btnShareApp) {
+    btnShareApp.addEventListener('click', async () => {
+      const shareUrl = `https://soundcover.shop/?sound=${currentSoundName}&timer=${chosenTimer}`;
+      if (navigator.share) {
+        try {
+          await navigator.share({
+            title: '사운드커버 (SoundCover)',
+            text: '🔒 민망함 해결! 프라이빗 화장실 소리 에티켓 매너벨 서비스',
+            url: shareUrl
+          });
+        } catch (err) {
+          console.log('Share canceled or failed:', err);
+        }
+      } else {
+        copyLinkToClipboard(shareUrl);
+      }
+    });
+  }
+
+  if (btnCopyLink) {
+    btnCopyLink.addEventListener('click', () => {
+      const shareUrl = `https://soundcover.shop/?sound=${currentSoundName}&timer=${chosenTimer}`;
+      copyLinkToClipboard(shareUrl);
+    });
+  }
+
+  function copyLinkToClipboard(url) {
+    const targetUrl = url || `https://soundcover.shop/?sound=${currentSoundName}&timer=${chosenTimer}`;
+    navigator.clipboard.writeText(targetUrl).then(() => {
+      showToast('🔗 링크가 복사되었습니다! 카카오톡이나 SNS에 공유해 보세요.');
+    }).catch((err) => {
+      console.error('Failed to copy text:', err);
+      showToast('복사에 실패했습니다. 주소창의 링크를 직접 복사해 주세요.');
+    });
+  }
+
+  // QR Modal Copy Link Handler
+  const btnCopyLinkQr = document.getElementById('btnCopyLinkQr');
+
+  if (btnCopyLinkQr) {
+    btnCopyLinkQr.addEventListener('click', () => {
+      const shareUrl = `https://soundcover.shop/?sound=${currentSoundName}&timer=${chosenTimer}`;
+      copyLinkToClipboard(shareUrl);
     });
   }
 
@@ -1102,7 +1198,20 @@ async function startSound() {
     currentBufferSource = audioCtx.createBufferSource();
     currentBufferSource.buffer = buffer;
     currentBufferSource.loop = true;
-    currentBufferSource.connect(masterCompressor);
+    
+    // Create an individual gain node to balance the volumes to the flush level!
+    const balanceGainNode = audioCtx.createGain();
+    let balanceGain = 1.0;
+    if (currentSoundName === 'dryer') {
+      balanceGain = 1.57; // +3.93 dB
+    } else if (currentSoundName === 'rain') {
+      balanceGain = 2.61; // +8.35 dB
+    }
+    balanceGainNode.gain.setValueAtTime(balanceGain, audioCtx.currentTime);
+    
+    currentBufferSource.connect(balanceGainNode);
+    balanceGainNode.connect(masterCompressor);
+    
     currentBufferSource.start(0);
   } else {
     startSynthSound(currentSoundName);
