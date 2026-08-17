@@ -149,12 +149,12 @@ body::after {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 24px 0 16px 0;
+  margin: 10px 0 8px 0;
 }
 
 .main-play-btn {
-  width: 120px;
-  height: 120px;
+  width: 110px;
+  height: 110px;
   border-radius: 50%;
   background: #ffffff;
   border: 6px solid #4f46e5;
@@ -178,9 +178,9 @@ body::after {
 }
 
 .play-icon-shape {
-  font-size: 40px;
+  font-size: 36px;
   color: #7c3aed;
-  margin-left: 6px;
+  margin-left: 5px;
   transition: transform 0.2s ease, color 0.2s ease;
 }
 
@@ -195,12 +195,12 @@ body::after {
   align-items: center;
   justify-content: center;
   background: #ffffff;
-  padding: 8px 20px;
+  padding: 6px 16px;
   border-radius: 9999px;
   box-shadow: 0 4px 16px rgba(124, 58, 237, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.9);
-  margin: 10px auto 14px auto;
-  font-size: 13.5px;
+  margin: 4px auto 6px auto;
+  font-size: 12.5px;
   font-weight: 600;
   color: #1e293b;
   white-space: nowrap;
@@ -213,27 +213,28 @@ body::after {
   display: inline-flex;
   justify-content: center;
   align-items: center;
-  gap: 12px;
+  gap: 10px;
   background: #ffffff;
-  padding: 8px 24px;
+  padding: 6px 20px;
   border-radius: 9999px;
   box-shadow: 0 6px 20px rgba(124, 58, 237, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.9);
-  margin: 14px auto 18px auto;
+  margin: 6px auto 8px auto;
   text-align: center;
 }
 
 .app-container {
   width: 100%;
   max-width: 440px;
+  height: 100%;
   height: 100dvh;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
-  padding-top: max(32px, env(safe-area-inset-top));
-  padding-bottom: max(12px, env(safe-area-inset-bottom));
-  padding-left: max(14px, env(safe-area-inset-left));
-  padding-right: max(14px, env(safe-area-inset-right));
+  padding-top: max(8px, env(safe-area-inset-top));
+  padding-bottom: max(6px, env(safe-area-inset-bottom));
+  padding-left: max(12px, env(safe-area-inset-left));
+  padding-right: max(12px, env(safe-area-inset-right));
   position: relative;
   z-index: 1;
   overflow-y: auto;
@@ -643,13 +644,13 @@ body::after {
   width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 5px;
   background: var(--glass-card-bg);
   border: 1px solid var(--glass-card-border);
   box-shadow: var(--glass-card-shadow);
   backdrop-filter: var(--glass-blur);
   border-radius: var(--radius-lg);
-  padding: 12px 14px;
+  padding: 8px 10px;
 }
 
 .control-group {
@@ -735,18 +736,20 @@ body::after {
   50% { opacity: 1; }
 }
 
-.sound-btn[data-sound="flush"]:hover .sound-svg-icon path:nth-child(n+3),
-.sound-btn[data-sound="flush"].active .sound-svg-icon path:nth-child(n+3) {
+.sound-btn[data-sound="flush"]:hover .sound-svg-icon path:nth-of-type(5),
+.sound-btn[data-sound="flush"].active .sound-svg-icon path:nth-of-type(5),
+.sound-btn[data-sound="flush"]:hover .sound-svg-icon path:nth-of-type(6),
+.sound-btn[data-sound="flush"].active .sound-svg-icon path:nth-of-type(6) {
   animation: flush-wave 1.2s infinite ease-in-out;
 }
 
-.sound-btn[data-sound="flush"]:hover .sound-svg-icon path:nth-child(3),
-.sound-btn[data-sound="flush"].active .sound-svg-icon path:nth-child(3) {
+.sound-btn[data-sound="flush"]:hover .sound-svg-icon path:nth-of-type(5),
+.sound-btn[data-sound="flush"].active .sound-svg-icon path:nth-of-type(5) {
   animation-delay: 0s;
 }
 
-.sound-btn[data-sound="flush"]:hover .sound-svg-icon path:nth-child(4),
-.sound-btn[data-sound="flush"].active .sound-svg-icon path:nth-child(4) {
+.sound-btn[data-sound="flush"]:hover .sound-svg-icon path:nth-of-type(6),
+.sound-btn[data-sound="flush"].active .sound-svg-icon path:nth-of-type(6) {
   animation-delay: 0.2s;
 }
 
@@ -822,10 +825,10 @@ body::after {
 .volume-slider-box {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 8px;
   background: #ffffff;
   border: 1px solid rgba(0, 0, 0, 0.06);
-  padding: 8px 12px;
+  padding: 4px 10px;
   border-radius: var(--radius-md);
 }
 
@@ -898,7 +901,7 @@ body::after {
   border: 1px solid #a5f3fc;
   box-shadow: 0 4px 14px rgba(13, 148, 136, 0.12);
   border-radius: var(--radius-md);
-  padding: 8px 14px;
+  padding: 6px 12px;
   transition: all 0.2s ease;
   position: relative;
   overflow: hidden;

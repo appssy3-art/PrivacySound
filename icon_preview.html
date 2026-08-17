@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>App Icon Preview</title>
+<style>
+* { margin:0; padding:0; box-sizing:border-box; }
+body { background:#1a1a2e; display:flex; justify-content:center; align-items:center; min-height:100vh; font-family:-apple-system,sans-serif; }
+.phone { width:375px; height:812px; background:linear-gradient(135deg,#667eea,#764ba2); border-radius:40px; padding:60px 20px 30px; position:relative; box-shadow:0 20px 60px rgba(0,0,0,.5); }
+.phone::before { content:''; position:absolute; top:15px; left:50%; transform:translateX(-50%); width:120px; height:25px; background:#1a1a2e; border-radius:15px; }
+.status { color:white; display:flex; justify-content:space-between; font-size:12px; padding:0 5px 15px; }
+.grid { display:grid; grid-template-columns:repeat(4,1fr); gap:20px 10px; padding:20px 10px; }
+.app { text-align:center; }
+.app img { width:60px; height:60px; border-radius:14px; display:block; margin:0 auto 4px; }
+.app .placeholder { width:60px; height:60px; border-radius:14px; margin:0 auto 4px; opacity:.3; }
+.app span { color:white; font-size:10px; }
+.dock { position:absolute; bottom:30px; left:20px; right:20px; background:rgba(255,255,255,.15); border-radius:25px; padding:10px 20px; display:flex; justify-content:space-around; }
+.dock .app img { width:50px; height:50px; border-radius:12px; }
+h2 { color:white; text-align:center; margin-bottom:20px; font-size:14px; }
+
+/* 비교 레이아웃 */
+.container { display:flex; gap:40px; align-items:flex-start; }
+.label { color:#aaa; text-align:center; margin-top:10px; font-size:13px; }
+.sizes { color:white; margin-left:40px; display:flex; flex-direction:column; gap:20px; align-items:center; }
+.sizes img { border-radius:14px; }
+.sizes .s1 { width:120px; height:120px; }
+.sizes .s2 { width:60px; height:60px; }
+.sizes .s3 { width:40px; height:40px; }
+</style>
+</head>
+<body>
+<div class="container">
+  <div>
+    <div class="phone">
+      <div class="status"><span>14:48</span><span>5G 📶 🔋</span></div>
+      <div class="grid">
+        <div class="app"><img src="icon-512-new.png"><span>SoundCover</span></div>
+        <div class="app"><div class="placeholder" style="background:#25D366"></div><span>WhatsApp</span></div>
+        <div class="app"><div class="placeholder" style="background:#FFE812"></div><span>카카오톡</span></div>
+        <div class="app"><div class="placeholder" style="background:#1EC800"></div><span>네이버</span></div>
+        <div class="app"><div class="placeholder" style="background:#0084FF"></div><span>메신저</span></div>
+        <div class="app"><div class="placeholder" style="background:#FF4500"></div><span>YouTube</span></div>
+        <div class="app"><div class="placeholder" style="background:#333"></div><span>설정</span></div>
+        <div class="app"><div class="placeholder" style="background:#007AFF"></div><span>Safari</span></div>
+      </div>
+      <div class="dock">
+        <div class="app"><div class="placeholder" style="background:#34C759;width:50px;height:50px;border-radius:12px"></div></div>
+        <div class="app"><img src="icon-192-new.png" style="width:50px;height:50px;border-radius:12px"></div>
+        <div class="app"><div class="placeholder" style="background:#5AC8FA;width:50px;height:50px;border-radius:12px"></div></div>
+        <div class="app"><div class="placeholder" style="background:#FF9500;width:50px;height:50px;border-radius:12px"></div></div>
+      </div>
+    </div>
+    <div class="label">📱 홈화면 미리보기</div>
+  </div>
+  <div class="sizes">
+    <div><img class="s1" src="icon-512-new.png"><div class="label">512x512 (스토어용)</div></div>
+    <div><img class="s2" src="icon-512-new.png"><div class="label">60x60 (홈화면)</div></div>
+    <div><img class="s3" src="icon-512-new.png"><div class="label">40x40 (설정)</div></div>
+  </div>
+</div>
+</body>
+</html>
