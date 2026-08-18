@@ -736,20 +736,18 @@ body::after {
   50% { opacity: 1; }
 }
 
-.sound-btn[data-sound="flush"]:hover .sound-svg-icon path:nth-of-type(5),
-.sound-btn[data-sound="flush"].active .sound-svg-icon path:nth-of-type(5),
-.sound-btn[data-sound="flush"]:hover .sound-svg-icon path:nth-of-type(6),
-.sound-btn[data-sound="flush"].active .sound-svg-icon path:nth-of-type(6) {
+.sound-btn[data-sound="flush"]:hover .sound-svg-icon .flush-wave-line,
+.sound-btn[data-sound="flush"].active .sound-svg-icon .flush-wave-line {
   animation: flush-wave 1.2s infinite ease-in-out;
 }
 
-.sound-btn[data-sound="flush"]:hover .sound-svg-icon path:nth-of-type(5),
-.sound-btn[data-sound="flush"].active .sound-svg-icon path:nth-of-type(5) {
+.sound-btn[data-sound="flush"]:hover .sound-svg-icon .flush-wave-line.wave-1,
+.sound-btn[data-sound="flush"].active .sound-svg-icon .flush-wave-line.wave-1 {
   animation-delay: 0s;
 }
 
-.sound-btn[data-sound="flush"]:hover .sound-svg-icon path:nth-of-type(6),
-.sound-btn[data-sound="flush"].active .sound-svg-icon path:nth-of-type(6) {
+.sound-btn[data-sound="flush"]:hover .sound-svg-icon .flush-wave-line.wave-2,
+.sound-btn[data-sound="flush"].active .sound-svg-icon .flush-wave-line.wave-2 {
   animation-delay: 0.2s;
 }
 
@@ -1030,6 +1028,31 @@ body::after {
 
 .btn-action-install:active {
   transform: scale(0.97);
+}
+
+/* Hide install buttons in Standalone PWA or native app mode */
+@media all and (display-mode: standalone) {
+  .btn-action-install,
+  .install-banner,
+  .header-install-pill {
+    display: none !important;
+  }
+
+  .btn-action-support {
+    width: 100% !important;
+    flex: 1 1 100% !important;
+  }
+}
+
+body.is-standalone .btn-action-install,
+body.is-standalone .install-banner,
+body.is-standalone .header-install-pill {
+  display: none !important;
+}
+
+body.is-standalone .btn-action-support {
+  width: 100% !important;
+  flex: 1 1 100% !important;
 }
 
 .coffee-icon {

@@ -601,6 +601,7 @@ const affiliateLink = document.getElementById('affiliateLink');
 const bannerText = document.getElementById('bannerText');
 
 // Initial Setup
+checkStandaloneMode();
 function parseSharedParameters() {
   const urlParams = new URLSearchParams(window.location.search);
   const sharedSound = urlParams.get('sound');
@@ -1326,8 +1327,17 @@ document.addEventListener('visibilitychange', async () => {
   }
 });
 
+// Detect Standalone / Installed App Mode
+function checkStandaloneMode() {
+  const isStandalone = window.matchMedia('(display-mode: standalone)').matches || window.navigator.standalone || document.referrer.includes('android-app://');
+  if (isStandalone) {
+    document.body.classList.add('is-standalone');
+  }
+}
+
 // Auto Download Flow from QR Scan (?autoDownload=true)
 function executeAutoDownload() {
+  checkStandaloneMode();
   const urlParams = new URLSearchParams(window.location.search);
   if (urlParams.get('autoDownload') === 'true') {
     var ua = navigator.userAgent.toLowerCase();
