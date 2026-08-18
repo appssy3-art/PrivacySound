@@ -42,7 +42,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Outfit:wght@400;600;800&family=Space+Mono:wght@700&display=swap" rel="stylesheet">
   
   <!-- Stylesheet -->
-  <link rel="stylesheet" href="styles.css?v=RED_ARROW_V11">
+  <link rel="stylesheet" href="styles.css?v=V20260818_NO_INSTALL">
 </head>
 <body>
   <div class="app-container">
@@ -393,7 +393,7 @@
   <script>
     if ('serviceWorker' in navigator) {
       window.addEventListener('load', () => {
-        navigator.serviceWorker.register('./sw.js?v=v10019').then((reg) => {
+        navigator.serviceWorker.register('./sw.js?v=V20260818_NO_INSTALL').then((reg) => {
           reg.update();
           reg.addEventListener('updatefound', () => {
             const installingWorker = reg.installing;

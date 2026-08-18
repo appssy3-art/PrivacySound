@@ -1,4 +1,4 @@
-const CACHE_NAME = 'soundcover-v10021-flush-fix';
+const CACHE_NAME = 'soundcover-v10022-no-install-btn';
 
 self.addEventListener('install', (e) => {
   self.skipWaiting();
