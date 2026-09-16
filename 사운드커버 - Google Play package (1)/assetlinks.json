@@ -3,6 +3,6 @@
       "target": {
         "namespace": "android_app",
         "package_name": "shop.soundcover.twa",
-        "sha256_cert_fingerprints": ["FC:1B:ED:3E:22:2C:FE:EB:88:3E:BC:5A:1A:AE:2B:C7:04:AC:9F:9C:8D:D7:06:99:94:79:1F:B3:BB:E4:8D:11"]
+        "sha256_cert_fingerprints": ["E5:B8:08:68:4A:33:17:93:59:F5:CF:F4:87:92:11:E9:3D:6D:DA:1C:1D:FA:0E:7E:64:67:BD:3B:ED:9D:12:E6"]
       }
     }]

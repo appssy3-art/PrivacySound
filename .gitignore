@@ -1,3 +1,9 @@
 node_modules/
 package-lock.json
 resize_icon_script.js
+build_aab_locally.js
+build_final.js
+build_now.js
+run_bubblewrap_build.js
+sign_aab.js
+scratch/
