@@ -10,16 +10,22 @@
   "theme_color": "#ffffff",
   "icons": [
     {
-      "src": "/icon-192.png?v=20260916_v2",
+      "src": "/icon-192.png?v=20260916_v3",
       "type": "image/png",
       "sizes": "192x192",
-      "purpose": "any maskable"
+      "purpose": "any"
     },
     {
-      "src": "/icon-512.png?v=20260916_v2",
+      "src": "/icon-512.png?v=20260916_v3",
       "type": "image/png",
       "sizes": "512x512",
-      "purpose": "any maskable"
+      "purpose": "any"
+    },
+    {
+      "src": "/icon-512.png?v=20260916_v3",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable"
     }
   ],
   "screenshots": [
@@ -29,6 +35,13 @@
       "type": "image/png",
       "form_factor": "narrow",
       "label": "SoundCover Mobile View"
+    },
+    {
+      "src": "/screenshot1.png",
+      "sizes": "1080x1920",
+      "type": "image/png",
+      "form_factor": "wide",
+      "label": "SoundCover Desktop View"
     }
   ]
 }
