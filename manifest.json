@@ -1,8 +1,8 @@
 {
   "id": "/",
-  "short_name": "S.Cover",
-  "name": "SoundCover - Restroom Etiquette Sound",
-  "description": "SoundCover is a mobile-optimized PWA Restroom Etiquette Sound App for 100% Noise Masking.",
+  "short_name": "사운드커버",
+  "name": "사운드커버 - 프라이빗 화장실 소리 에티켓",
+  "description": "사운드커버(SoundCover)는 모바일 최적화 화장실 에티켓 소리벨 앱입니다. 100% 소음 차단 및 화면 꺼짐 방지를 제공합니다.",
   "start_url": "/",
   "display": "standalone",
   "orientation": "portrait",
@@ -10,13 +10,13 @@
   "theme_color": "#ffffff",
   "icons": [
     {
-      "src": "/icon-192.png",
+      "src": "/icon-192.png?v=20260916_v2",
       "type": "image/png",
       "sizes": "192x192",
       "purpose": "any maskable"
     },
     {
-      "src": "/icon-512.png",
+      "src": "/icon-512.png?v=20260916_v2",
       "type": "image/png",
       "sizes": "512x512",
       "purpose": "any maskable"

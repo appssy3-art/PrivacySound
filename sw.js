@@ -1,4 +1,4 @@
-const CACHE_NAME = 'soundcover-v10022-no-install-btn';
+const CACHE_NAME = 'soundcover-v10023-korean-name-margin-icon';
 
 self.addEventListener('install', (e) => {
   self.skipWaiting();
