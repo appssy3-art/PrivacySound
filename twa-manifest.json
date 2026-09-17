@@ -12,10 +12,10 @@
   "backgroundColor": "#FFFFFF",
   "enableNotifications": true,
   "startUrl": "/",
-  "iconUrl": "https://soundcover.shop/icon-512.png?v=20260916_v3",
-  "maskableIconUrl": "https://soundcover.shop/icon-512.png?v=20260916_v3",
-  "appVersionName": "1.0.7",
-  "appVersionCode": 7,
+  "iconUrl": "https://soundcover.shop/icon-512.png?v=20260917_fixed",
+  "maskableIconUrl": "https://soundcover.shop/icon-512.png?v=20260917_fixed",
+  "appVersionName": "1.0.9",
+  "appVersionCode": 9,
   "signingKey": {
     "path": "E:\\ai랩\\PrivacySound\\signing.keystore",
     "alias": "my-key-alias"
