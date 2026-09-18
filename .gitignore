@@ -7,3 +7,5 @@ build_now.js
 run_bubblewrap_build.js
 sign_aab.js
 scratch/
+.gradle/
+build/
